@@ -18,7 +18,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -81,6 +81,8 @@ return [
     'route_complete_match'   => false,
     // 是否强制使用路由
     'url_route_must'         => false,
+    // 开启路由延迟解析
+    'url_lazy_route'	=> true,
     // 使用注解路由
     'route_annotation'       => false,
     // 域名部署

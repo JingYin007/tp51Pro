@@ -1,0 +1,27 @@
+.div-body-show{
+    margin: 5px 5px;
+}
+.form-opNavMenu{
+    padding: 10px 0px;
+    background-color: #eeeeee;
+}
+.form-opNavMenu .img-upload-view{
+    width: 80px;
+    margin: -25px 0px 2px 150px;
+}
+.form-opNavMenu .div-form-op,.form-opTodayWords .div-form-op{
+    margin-right: 10px;
+    float: right;
+}
+.layui-inline .btn-search-navMenu{
+    width:30px;
+    height:30px;
+    border-radius:30px
+}
+.layui-inline .btn-search-navMenu:hover{
+    background-color: #00aa00;
+}
+.form-opTodayWords .img-upload-view{
+    width: 100px;
+    margin: -25px 0px 2px 150px;
+}
