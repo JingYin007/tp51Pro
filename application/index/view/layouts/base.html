@@ -18,7 +18,7 @@
         <div class="banner_head_top">
             <div class="logo">
                 <h1>
-                    <a href="{{url('/')}}">Hi~
+                    <a href="/">Hi~
                         <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
                         <span>moTzxx</span>
                     </a>
@@ -40,22 +40,22 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="
-                                @php
-                                    echo url()->current()=='http://lar5pro.com'? 'active':'';
-                                @endphp
+                                <?php
+                                    echo request()->module() =='index'? 'active':'';
+                                ?>
                                         ">
-                                    <a href="{{url('/')}}">首页</a>
+                                    <a href="{url('/')}">首页</a>
                                 </li>
                                 <li class="
-                                @php
-                                    echo (strpos(url()->current(),'review')||strpos(url()->current(),'article'))? 'active':'';
-                                @endphp
-                                "><a href="{{url('review')}}">文章</a></li>
+                                <?php
+                                    echo (strpos(request()->action(),'review')||strpos(request()->action(),'article'))? 'active':'';
+                                ?>
+                                "><a href="{url('review')}">文章</a></li>
                                 <li class="
-                                @php
-                                    echo strpos(url()->current(),'contact')? 'active':'';
-                                @endphp
-                                        "><a href="{{url('contact')}}">联系</a></li>
+                                <php
+                                    echo strpos(request()->action(),'contact')? 'active':'';
+                                ?>
+                                        "><a href="{url('contact')}">联系</a></li>
                             </ul>
                         </div>
                         <!--/navbar collapse-->
