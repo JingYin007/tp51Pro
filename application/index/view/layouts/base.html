@@ -39,23 +39,15 @@
                         <!--/navbar header-->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li class="
-                                <?php
-                                    echo request()->module() =='index'? 'active':'';
-                                ?>
-                                        ">
-                                    <a href="{url('/')}">首页</a>
+                                <li class="{$Request.action == 'index'?'active':''}">
+                                    <a href="{:url('/')}">首页 </a>
                                 </li>
-                                <li class="
-                                <?php
-                                    echo (strpos(request()->action(),'review')||strpos(request()->action(),'article'))? 'active':'';
-                                ?>
-                                "><a href="{url('review')}">文章</a></li>
-                                <li class="
-                                <php
-                                    echo strpos(request()->action(),'contact')? 'active':'';
-                                ?>
-                                        "><a href="{url('contact')}">联系</a></li>
+                                <li class="{$Request.action == 'article'||$Request.action == 'review'?'active':''}">
+                                    <a href="{:url('index/review')}">文章</a>
+                                </li>
+                                <li class="{$Request.action == 'contact'?'active':''}">
+                                    <a href="{:url('contact')}">联系</a>
+                                </li>
                             </ul>
                         </div>
                         <!--/navbar collapse-->

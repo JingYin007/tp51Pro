@@ -1,0 +1,33 @@
+
+{extend name="layouts/base" /}
+{block name="content"}
+<div class="container">
+    <div class="single">
+        <div class="blog-to">
+            <div class="blog-top">
+                <div class="blog-left">
+                    <b>{$article['created_at']|date='d'}</b>
+                    <span>{$article['created_at']|date='M'}</span>
+                </div>
+                <div class="top-blog">
+                    <a class="fast" href="#">{$article['title']} </a>
+                    <p>Posted by
+                        <a href="#">{$article['user_name']}</a>  |
+                        <span class="created_time">{$article['created_at']}</span>
+                    </p>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="blog-content">
+            <?php
+            echo htmlspecialchars_decode($article['content']);
+            ?>
+        </div>
+        <!---->
+    </div>
+</div>
+
+{/block}

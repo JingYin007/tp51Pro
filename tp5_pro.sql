@@ -10,33 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-01-11 18:41:30
+Date: 2018-01-15 18:49:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for lar5_users
--- ----------------------------
-DROP TABLE IF EXISTS `lar5_users`;
-CREATE TABLE `lar5_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User 主键',
-  `user_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '登录密码',
-  `head_portrait` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
-  `age` tinyint(4) NOT NULL DEFAULT '0' COMMENT '年龄',
-  `signature` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '个性签名',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of lar5_users
--- ----------------------------
-INSERT INTO `lar5_users` VALUES ('1', 'MoTzxx', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img1.jpg', '24', '你若盛开，清风自来', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
-INSERT INTO `lar5_users` VALUES ('2', '百里守约', 'c33367701511b4f6020ec61ded352059', 'home/images/user_img2.jpg', '24', '放心，我一直都在！', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
-INSERT INTO `lar5_users` VALUES ('3', '牧云骑星', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img3.jpg', '23', '天上的每一颗星星，都是一个值得还念的故人！', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
 
 -- ----------------------------
 -- Table structure for tp5_articles
@@ -177,3 +154,26 @@ INSERT INTO `tp5_today_words` VALUES ('4', '人老了的好处，就是可失去
 INSERT INTO `tp5_today_words` VALUES ('5', '到底要怎么才能证明自己成长了 那种事情我也不知道啊 但是只要那一抹笑容尚存 我便心无旁骛 ', '声之形', '/index/images/ps5.png', '1', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
 INSERT INTO `tp5_today_words` VALUES ('6', '你觉得被圈养的鸟儿为什么无法自由地翱翔天际？是因为鸟笼不是属于它的东西', '东京食尸鬼', '/index/images/ps6.png', '1', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
 INSERT INTO `tp5_today_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/index/images/ps7.png', '1', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
+
+-- ----------------------------
+-- Table structure for tp5_users
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_users`;
+CREATE TABLE `tp5_users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User 主键',
+  `user_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '登录密码',
+  `head_portrait` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
+  `age` tinyint(4) NOT NULL DEFAULT '0' COMMENT '年龄',
+  `signature` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '个性签名',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of tp5_users
+-- ----------------------------
+INSERT INTO `tp5_users` VALUES ('1', 'MoTzxx', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img1.jpg', '24', '你若盛开，清风自来', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
+INSERT INTO `tp5_users` VALUES ('2', '百里守约', 'c33367701511b4f6020ec61ded352059', 'home/images/user_img2.jpg', '24', '放心，我一直都在！', '2018-01-11 03:04:25', '2018-01-11 03:04:25');
+INSERT INTO `tp5_users` VALUES ('3', '牧云骑星', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img3.jpg', '23', '天上的每一颗星星，都是一个值得还念的故人！', '2018-01-11 03:04:25', '2018-01-11 03:04:25');

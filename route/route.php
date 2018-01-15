@@ -11,3 +11,6 @@
 
 Route::get('/','index');
 Route::get('test','index/index/test');
+Route::get('article/:id','index/index/article');
+Route::get('/index/review','index/index/review');
+Route::get('/index/contact','index/index/contact');

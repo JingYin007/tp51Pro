@@ -13,6 +13,10 @@ class Articles extends Model
 {
     // 设置当前模型对应的完整数据表名称
     //protected $table = 'lar5_articles';
+    /**
+     * 获取所有的文章
+     * @return array
+     */
     public function getArticleList(){
         $data = $this
             ->alias('a')//给主表取别名
@@ -22,6 +26,11 @@ class Articles extends Model
             ->toArray();
         return $data;
     }
+
+    /**
+     * 获取所要推荐的文章
+     * @return array
+     */
     public function getRecommendList(){
         $res = $this
             ->field('a.title,a.id')
@@ -33,6 +42,11 @@ class Articles extends Model
             ->toArray();
         return $res;
     }
+
+    /**
+     * 获取所有的文章首页图片
+     * @return array
+     */
     public function getPhotos(){
         $res = $this
             ->field('ap.picture')
@@ -43,5 +57,24 @@ class Articles extends Model
             ->select()
             ->toArray();
         return $res;
+    }
+
+    /**
+     * 根据文章ID 获取文章详情
+     * @param $id
+     * @return array
+     */
+    public function getInfoByID($id)
+    {
+        $res = $this
+            ->alias('a')
+            ->join('tp5_users u','u.id = a.user_id')
+            ->join('tp5_article_points ap','ap.article_id = a.id')
+            ->field('a.*,u.user_name')
+            ->where('a.id = '.$id)
+            ->find()
+            ->toArray();
+        return $res;
+
     }
 }
