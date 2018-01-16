@@ -42,8 +42,6 @@ class Index
      */
     public function test()
     {
-        $article = new Articles();
-
         $data = [
             'name'=>'MoTzxx',
             'todayWord'=>[],
