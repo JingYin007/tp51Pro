@@ -1,8 +1,8 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\Articles;
-use app\index\model\TodayWords;
+use app\common\model\Articles;
+use app\common\model\TodayWords;
 
 class Index
 {
