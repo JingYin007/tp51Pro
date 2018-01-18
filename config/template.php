@@ -35,5 +35,6 @@ return [
         '__LAYUI__'=>'/layui',
         '__INDEX__' => '/index',
         '__CMS__' => '/cms',
+        '__ERRORS__' => '/errors',
     ]
 ];

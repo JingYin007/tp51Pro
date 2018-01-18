@@ -16,7 +16,7 @@
 return [
 
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true★,
     // 应用Trace
     'app_trace'              => true,
     // 应用模式状态
@@ -110,11 +110,11 @@ return [
 
     // 异常页面的模板文件
     'exception_tmpl'         => Env::get('think_path') . 'tpl/think_exception.tpl',
+    // 自定义异常请求码的页面配置
     'http_exception_template'    =>
         [
-            404 =>  __DIR__.'404.html',
-            403 =>  __DIR__.'403.html',
-            500 =>  __DIR__.'404.html',
+            404 =>  Env::get('app_path') . 'index/view/exception_html/404.html',
+            500 =>  Env::get('app_path') . 'index/view/exception_html/500.html',
         ],
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
