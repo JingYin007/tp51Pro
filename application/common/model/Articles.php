@@ -66,14 +66,17 @@ class Articles extends Model
      */
     public function getInfoByID($id)
     {
-        $res = $this
-            ->alias('a')
-            ->join('tp5_users u','u.id = a.user_id')
-            ->join('tp5_article_points ap','ap.article_id = a.id')
-            ->field('a.*,u.user_name')
-            ->where('a.id = '.$id)
-            ->find()
-            ->toArray();
+        $res = [];
+        if(is_numeric($id)){
+            $res = $this
+                ->alias('a')
+                ->join('tp5_users u','u.id = a.user_id')
+                ->join('tp5_article_points ap','ap.article_id = a.id')
+                ->field('a.*,u.user_name')
+                ->where('a.id = '.$id)
+                ->find()
+                ->toArray();
+        }
         return $res;
 
     }
