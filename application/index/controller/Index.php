@@ -21,6 +21,7 @@ class Index
      */
     public function index()
     {
+        what?;
         $todayWordsData = $this->todayWordModel->getTodayWord();
         $articleList = $this->articleModel->getArticleList();
         $recommendList = $this->articleModel->getRecommendList();

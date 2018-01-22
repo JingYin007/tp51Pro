@@ -17,11 +17,11 @@
 #errorpage .tfans_error .errortans div button{font-size: 17px; padding: 3px 42px 5px; border-radius: 3px; }
 
 #errorpage .logo{display: inline-block;float: left;height:303px; width:256px;background: url(../images/tfans.jpg);}
-#errorpage .logo-500{display: inline-block;float: left;height:303px; width:256px;background: url(../images/tfans-500.jpg);}
+#errorpage .logo-500{display: inline-block;float: left;height:303px; width:256px;background: url(../images/tfans-501.jpg);}
 
 #errorpage .info{display: inline-block;float: left;position: relative;}
 #errorpage .e404{display: inline-block;position:absolute;top: -60px;left: 145px;;height:164px; width:150px;background: url(../images/404.jpg);}
-#errorpage .e500{display: inline-block;position:absolute;top: -60px;left: 145px;;height:164px; width:150px;background: url(../images/500.jpg);}
+#errorpage .e500{display: inline-block;position:absolute;top: -60px;left: 145px;;height:164px; width:150px;background: url(../images/501.jpg);}
 
 
 

@@ -16,7 +16,7 @@
 return [
 
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => true,
     // 应用模式状态
@@ -108,14 +108,17 @@ return [
     'dispatch_success_tmpl'  => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
     'dispatch_error_tmpl'    => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
 
-    // 异常页面的模板文件
+    //TODO 异常页面的模板文件,主要作为500或程序报错的处理页面
+    //此为生产模式下（线下）的配置操作，便于代码排错
     'exception_tmpl'         => Env::get('think_path') . 'tpl/think_exception.tpl',
+    //此为线上模式下的配置操作，便于隐藏内部错误数据，人性化显示
     //'exception_tmpl'         => Env::get('think_path') . 'tpl/self_exception.html',
-    // 自定义异常请求码的页面配置
+
+    //TODO 自定义异常请求码的页面配置 建议只做非500错误页面
     'http_exception_template'    =>
         [
             404 =>  Env::get('app_path') . 'index/view/exception_html/404.html',
-            500 =>  Env::get('app_path') . 'index/view/exception_html/500.html',
+            501 =>  Env::get('app_path') . 'index/view/exception_html/501.html',
         ],
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
