@@ -74,9 +74,9 @@ class Articles extends Model
                 ->join('tp5_article_points ap','ap.article_id = a.id')
                 ->field('a.*,u.user_name')
                 ->where('a.id = '.$id)
-                ->find()
-                ->toArray();
+                ->find();
         }
+        isset($res)?$res->toArray():[];
         return $res;
 
     }

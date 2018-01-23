@@ -117,6 +117,7 @@ return [
     //TODO 自定义异常请求码的页面配置 建议只做非500错误页面
     'http_exception_template'    =>
         [
+            403 =>  Env::get('app_path') . 'index/view/exception_html/403.html',
             404 =>  Env::get('app_path') . 'index/view/exception_html/404.html',
             501 =>  Env::get('app_path') . 'index/view/exception_html/501.html',
         ],

@@ -72,7 +72,7 @@ class Index
      */
     public function article($id)
     {
-        $articleInfo = $this->articleModel->getInfoByID($id);
+        $articleInfo = $this->articleModel->getInfoByID(intval($id));
         $data = [
             'name'=>'MoTzxx',
             'article'=>$articleInfo,

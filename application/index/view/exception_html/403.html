@@ -1,0 +1,17 @@
+{extend name="layouts/base" /}
+{block name="content"}
+
+<link rel="stylesheet" href="__ERRORS__/css/style.css"/>
+
+<div id="errorpage">
+    <div class="tfans_error">
+        <div class="logo"></div>
+        <div class="errortans clearfix">
+            <div class="e404"></div>
+            <p><b>出错啦！</b></p>
+            <p>您访问的页面不存在</p>
+            <div class="bt" ><a href="{:url('/')}">返回首页</a></div>
+        </div>
+    </div>
+</div>
+{/block}

@@ -1,3 +1,88 @@
+.layui-side-scroll .user-info {
+    width: 200px;
+    height: auto;
+    padding: 0px;
+    padding-top: 15px;
+    padding-bottom: 8px;
+}
+.layui-side-scroll .user-info .photo-view {
+    display: block;
+    width: 76px;
+    height: 76px;
+    margin-left: 50px;
+    padding: 0px;
+}
+.layui-side-scroll .user-info .photo-view img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 4px solid #44576B;
+}
+.layui-side-scroll .user-info p {
+    display: block;
+    width: 100%;
+    height: 25px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    margin-top: 15px;
+}
+.layui-header .menu-switch{
+    display: block;
+    width: 27px;
+    height: 30px;
+    margin-left: -20px;
+    background: url(../images/icon/menu.png) center center no-repeat;
+    background-color: #ffffff;
+    background-size: 100%;
+    cursor: pointer;
+}
+.layui-tab-title{
+    border-bottom: 3px solid #009688;
+    width: 100%;
+    margin: -1px -1px;
+}
+
+.iframe-body{
+    width:100%;
+    height: 93%;
+    frameborder:0;
+    scrolling:no;
+}
+.layui-tab-title .title-selected{
+    background-color: #009688;
+    color: white;
+    font-weight: 600;
+}
+.layui-nav-item .img-FullScreen{
+    width: 28px;
+    height: 28px;
+}
+.layui-logo span{
+    color:white ;
+}
+
+.table-body th,.table-body td{
+    text-align:center;
+}
+.div-menu-search{
+    float: left;
+}
+.div-menu-search .layui-icon{
+    float: right;
+}
+.layui-nav-child .mul-to-Url{
+    margin-left: 10px;
+}
+.layui-icon img{
+    width: 22px;
+    margin-right: 3px;
+}
+
+
 .div-body-show{
     margin: 5px 5px;
 }
@@ -9,7 +94,9 @@
     width: 80px;
     margin: -25px 0px 2px 150px;
 }
-.form-opNavMenu .div-form-op,.form-opTodayWords .div-form-op{
+.form-opNavMenu .div-form-op,
+.form-opTodayWords .div-form-op,
+.form-opArticle .div-form-op{
     margin-right: 10px;
     float: right;
 }
@@ -24,4 +111,37 @@
 .form-opTodayWords .img-upload-view{
     width: 100px;
     margin: -25px 0px 2px 150px;
+}
+.form-opArticle .article-title{
+    width: 500px;
+}
+.form-opArticle .img-upload-view{
+    width: 300px;
+}
+.form-opArticle .div-article-content{
+    width: 100%;
+}
+.tbody-articles .p-article-abstract{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.td-todayWord img,.td-article img{
+    cursor: pointer;
+    transition: all 0.6s;
+    width: 50px;
+}
+.td-todayWord img:hover,.td-article img:hover{
+    transform: scale(5);
+    /*position:relative;
+    z-index:100;*/
+}
+.td-article img:hover{
+    z-index:5;
+    transform: scale(5);
+}
+.td-article img:hover{
+    position:relative;
+    z-index:100;
 }

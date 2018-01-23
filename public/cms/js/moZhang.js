@@ -108,3 +108,81 @@ function exitFullScreen() {
         docE.webkitCancelFullScreen();
     }
 }
+
+// 除去页面所显示的记录 传递 div
+function ToRemoveDiv(tag) {
+    $(tag).remove();
+}
+
+/**
+ * 导航菜单处理函数 包括 "添加"、"修改"
+ * @param op_url URL 地址
+ * @param tag 操作标识：add / edit
+ * @param title
+ * @constructor
+ */
+function ToOpenPopups(op_url,title) {
+    layer.open({
+        type: 2,
+        moveOut: true,
+        title: title,
+        maxmin: true, //开启最大化最小化按钮
+        area: ['70%', '65%'],
+        content: op_url, //可以出现滚动条
+        //content: [op_url, 'no'], //如果你不想让iframe出现滚动条
+    });
+}
+/**
+ * 对导航菜单的 ajax请求处理
+ * @param toUrl
+ * @param postData
+ * @constructor
+ */
+function ToPostPopupsDeal(toUrl,postData) {
+    $.post(
+        toUrl,
+        postData,
+        function (result) {
+            dialog.tip(result.message);
+            if(result.status == 1){
+                setTimeout(function(){
+                    window.parent.location.reload();
+                    //parent.layer.close(index);
+                },2000);
+            }else{
+                //失败
+                layer.msg(result.message);
+            }
+        },"JSON");
+}
+/**
+ * 删除记录
+ * @param id 记录ID
+ * @param toUrl 请求 URL
+ * @constructor
+ */
+function ToDelItem(id,toUrl,remove_class) {
+    var tag_token = $(".tag_token").val();
+    var postData = {'id':id,'tag':'del','_token':tag_token};
+    layer.msg('确定要删除此条记录吗？', {
+        time: 0 //不自动关闭
+        ,btn: ['确定', '离开']
+        ,yes: function(index){
+            afterDelItem(toUrl,postData,remove_class);
+        }
+    });
+}
+function afterDelItem(toUrl,postData,remove_class) {
+    $.post(
+        toUrl,
+        postData,
+        function (result) {
+            dialog.tip(result.message);
+            if(result.status == 1){
+                ToRemoveDiv(remove_class);
+            }else{
+                //失败
+                layer.msg(result.message);
+            }
+        },"JSON");
+}
