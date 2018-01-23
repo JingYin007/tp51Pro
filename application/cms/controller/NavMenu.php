@@ -6,7 +6,7 @@
  * Time: 17:53
  */
 
-class NavMenus
+class NavMenu
 {
 
 }

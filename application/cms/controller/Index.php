@@ -1,5 +1,7 @@
 <?php
 namespace app\cms\controller;
+use app\common\model\NavMenus;
+
 /**
  * Created by PhpStorm.
  * User: moTzxx
@@ -7,8 +9,10 @@ namespace app\cms\controller;
  * Time: 15:54
  */
 class Index{
+    private $menuModel;
     public function __construct()
     {
+        $this->menuModel = new NavMenus();
     }
 
     /**
@@ -16,8 +20,9 @@ class Index{
      * @return \think\response\View
      */
     public function index(){
+        $menuList = $this->menuModel->getNavMenusShow();
         $data = [
-            'menus' => [],
+            'menus' => $menuList,
         ];
         return view('index',$data);
     }

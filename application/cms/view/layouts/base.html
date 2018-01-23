@@ -84,10 +84,37 @@
                        action="{:url('cms/index/home')}">
                         <i class="layui-icon">
                             <img src="__CMS__/images/icon/home.png"/>
-                        </i>
-                        后台首页
+                        </i>后台首页
                     </a>
                 </li>
+                {volist name='menus' id='menu'}
+                <li class="layui-nav-item">
+                    {if($menu['child'])}
+                    <a href="javascript:;">
+                        <i class="layui-icon"><img src="{$menu['icon']}"/></i>
+                        {$menu['name']}</a>
+                    <dl class="layui-nav-child">
+                        {volist name= 'menu.child' id='vo'}
+                        <dd>
+                            <a class="a-to-Url mul-to-Url" href="javascript:;"
+                               action="{:url($vo['action'])}">
+                                <i class="layui-icon">
+                                    <img src="{$vo['icon']}"/>
+                                </i>
+                                {$vo['name']}
+                            </a>
+                        </dd>
+                        {/volist}
+                    </dl>
+                    {else}
+                    <a class="a-to-Url single-to-Url" href="javascript:;"
+                       action="{:url($menu['action'])}">
+                        <i class="layui-icon"><img src="{$menu['icon']}"/></i>
+                        {$menu['name']}
+                    </a>
+                    {/if}
+                </li>
+                {/volist}
                 <!---->
             </ul>
         </div>
