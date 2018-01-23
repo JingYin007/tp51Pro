@@ -1,17 +1,14 @@
-@extends('cms.layouts.cms')
-
-@section('body-content')
-
+{extend name="layouts/cms" /}
+{block name="body-content"}
     <button class="layui-btn layui-btn-normal"
             onclick="addTodayWords()">
         <i class="layui-icon" >&#xe608;</i> 添加赠言
     </button>
     <div class="layui-inline">
         <div class="layui-input-inline">
-            <form class="form-search" action="{{url('cms/todayWords')}}" method="post">
-                <input type="hidden" name="_token" class="tag_token" value="<?php echo csrf_token(); ?>">
+            <form class="form-search" action="{:url('cms/todayWord')}" method="post">
                 <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
-                <input type="hidden" name="page_limit" class="page_limit" value="{{$page_limit}}">
+                <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
                 <input type="hidden" name="curr_page" class="curr_page" value="1">
             </form>
         </div>
@@ -39,47 +36,44 @@
         </tr>
         </thead>
         <tbody class="tbody-todayWords">
-        @foreach($menus as $vo)
+        {volist name="menus" id="vo"}
             <tr class="tr-menu-{{$vo['id']}}">
-                <td>{{$vo['id']}}</td>
-                <td>《{{$vo['from']}}》</td>
+                <td>{$vo['id']}</td>
+                <td>《{$vo['from']}》</td>
                 <td class="td-todayWord">
-                        <img src="{{$vo['picture']}}" class="layui-circle">
+                        <img src="{$vo['picture']}" class="layui-circle">
                 </td>
-                <td>{{$vo['word']}}</td>
-                <td>{{$vo['created_at']}}</td>
+                <td>{$vo['word']}</td>
+                <td>{$vo['created_at']}</td>
                 <td>
-                    @if($vo['status'] == 1)
+                    {if($vo['status'] == 1)}
                         <span class="layui-badge layui-bg-blue">正常</span>
-                    @else
+                    {else}
                         <span class="layui-badge layui-bg-cyan">删除</span>
-                    @endif
+                    {/if}
                 </td>
                 <td>
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm"
-                                onclick="editTodayWord('{{$vo['id']}}')">
+                                onclick="editTodayWord('{$vo['id']}')">
                             <i class="layui-icon"></i>
                         </button>
                         <button class="layui-btn layui-btn-sm"
-                                onclick="delTodayWord('{{$vo['id']}}')">
+                                onclick="delTodayWord('{$vo['id']}')">
                             <i class="layui-icon"></i>
                         </button>
                     </div>
                 </td>
             </tr>
-        @endforeach
+        {/volist}
         </tbody>
     </table>
-
-
     <div id="demo2-1"></div>
+{/block}
 
-@endsection
-
-@section('single-content')
-    <script src="{{asset('cms/js/nav_menu.js')}}"></script>
-    <script src="{{asset('cms/js/moZhang.js')}}"></script>
+{block name = 'single-content'}
+    <script src="__CMS__/js/nav_menu.js'"></script>
+    <script src="__CMS__/js/moZhang.js'"></script>
     <script>
         layui.use(['laypage', 'layer'], function() {
             var laypage = layui.laypage;
@@ -130,6 +124,4 @@
         }
     </script>
 
-
-
-@endsection
+{/block}

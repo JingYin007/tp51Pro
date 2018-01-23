@@ -94,7 +94,7 @@
                         <i class="layui-icon"><img src="{$menu['icon']}"/></i>
                         {$menu['name']}</a>
                     <dl class="layui-nav-child">
-                        {volist name= 'menu.child' id='vo'}
+                        {volist name= "menu['child']" id='vo'}
                         <dd>
                             <a class="a-to-Url mul-to-Url" href="javascript:;"
                                action="{:url($vo['action'])}">

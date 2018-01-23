@@ -23,7 +23,7 @@ Route::get('/index/contact','index/index/contact');
  */
 Route::get('cms/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
-
+Route::get('cms/todayWord','cms/todayWord/index');
 
 
 
