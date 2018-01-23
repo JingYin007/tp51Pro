@@ -4,13 +4,13 @@
  * @param postData
  * @constructor
  */
-function ToAjaxOpForPage(toUrl,postData) {
+function ToAjaxOpForPageTodayWords(toUrl,postData) {
     $.post(
         toUrl,
         postData,
         function (result) {
             if(result.status == 1){
-                var str_html = '';
+                var str_html = 'FFFFFF';
                 $.each(result.data,function (i,e) {
                     str_html +=
                         "<tr class=\"tr-menu-"+e.id+"\">\n" +
@@ -34,7 +34,7 @@ function ToAjaxOpForPage(toUrl,postData) {
                         "                </td>\n" +
                         "            </tr>";
                 });
-                $(".tbody-navMenus").html(str_html);
+                $(".tbody-todayWords").html(str_html);
             }else{
                 //失败
                 layer.msg(result.message);

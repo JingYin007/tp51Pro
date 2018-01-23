@@ -1,7 +1,6 @@
-@extends('cms.layouts.cms')
-@section('body-content')
+{extend name='layouts/cms'}
+{block name="body-content"}
     <form class="layui-form form-opTodayWords layui-form-pane">
-        <input type="hidden" name="_token" class="tag_token" value="<?php echo csrf_token(); ?>">
         <div class="layui-form-item">
             <label class="layui-form-label">赠言出处：</label>
             <div class="layui-input-inline">
@@ -19,7 +18,7 @@
                     <i class="layui-icon">&#xe67c;</i>上传图片
                 </button>
                 <img class="layui-upload-img img-upload-view layui-circle"
-                     src="{{asset('cms/images/icon/nav_default.png')}}">
+                     src="__CMS__/images/icon/nav_default.png">
             </div>
         </div>
 
@@ -51,11 +50,11 @@
         </div>
     </form>
 
-@endsection
+{/block}
 
-@section('single-content')
-    <script src="{{asset('cms/js/today_words.js')}}"></script>
-    <script src="{{asset('cms/js/moZhang.js')}}"></script>
+{block name="single-content"}
+    <script src="__CMS__/js/today_words.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
     <script>
 
         function addNewTodayWord() {
@@ -76,7 +75,6 @@
                 //,auto:false //选择图片后是否直接上传
                 //,accept:'images' //上传文件类型
                 ,url: '/api/upload/img_file'
-                ,data:{'_token':tag_token}
                 ,before: function(obj){
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
@@ -97,7 +95,7 @@
             });
         });
     </script>
-@endsection
+{/block}
 
 
 

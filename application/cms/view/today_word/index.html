@@ -55,11 +55,11 @@
                 <td>
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm"
-                                onclick="editTodayWord('{$vo['id']}')">
+                                onclick="editTodayWord('{$vo.id}')">
                             <i class="layui-icon"></i>
                         </button>
                         <button class="layui-btn layui-btn-sm"
-                                onclick="delTodayWord('{$vo['id']}')">
+                                onclick="delTodayWord('{$vo.id}')">
                             <i class="layui-icon"></i>
                         </button>
                     </div>
@@ -71,9 +71,9 @@
     <div id="demo2-1"></div>
 {/block}
 
-{block name = 'single-content'}
-    <script src="__CMS__/js/nav_menu.js'"></script>
-    <script src="__CMS__/js/moZhang.js'"></script>
+{block name='single-content'}
+    <script src="__CMS__/js/today_words.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
     <script>
         layui.use(['laypage', 'layer'], function() {
             var laypage = layui.laypage;
@@ -98,7 +98,7 @@
     <script>
         //根据菜单ID 删除菜单记录
         function delTodayWord(id) {
-            var toUrl = "{{url('cms/todayWords/edit/0')}}";
+            var toUrl = "{:url('cms/todayWord/edit/0')}";
             ToDelItem(id,toUrl,'.tr-menu-'+id);
         }
         $(".btn-search-navMenu").on('click',function () {
@@ -107,19 +107,19 @@
         });
         //通过ajax 获取分页数据
         function ajaxOpForPage(curr_page) {
-            var toUrl = "{{url('cms/todayWords/ajaxOpForPage')}}";
+            var toUrl = "{:url('cms/todayWord/ajaxOpForPage')}";
             $(".curr_page").val(curr_page);
             var postData = $(".form-search").serialize();
-            ToAjaxOpForPage(toUrl,postData);
+            ToAjaxOpForPageTodayWords(toUrl,postData);
         }
         //添加导航菜单
         function addTodayWords() {
-            var toUrl = "{{url('cms/todayWords/add')}}";
+            var toUrl = "{:url('cms/todayWord/add')}";
             ToOpenPopups(toUrl,'添加今日赠言');
         }
         //根据菜单ID修改菜单信息
         function editTodayWord(id) {
-            var toUrl = "{{url('cms/todayWords/edit/0')}}"+id;
+            var toUrl = "{:url('cms/todayWord/edit/0')}"+id;
             ToOpenPopups(toUrl,'今日赠言修改');
         }
     </script>

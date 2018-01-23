@@ -23,10 +23,16 @@ Route::get('/index/contact','index/index/contact');
  */
 Route::get('cms/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
-Route::get('cms/todayWord','cms/todayWord/index');
+Route::get('cms/todayWord/index','cms/todayWord/index');
+Route::get('cms/todayWord/add','cms/todayWord/add');
+Route::post('cms/todayWord/ajaxOpForPage','cms/todayWord/ajaxOpForPage');
 
 
 
+/**
+ * 工具类
+ */
+Route::post('api/upload/img_file','api/upload/img_file');
 
 
 

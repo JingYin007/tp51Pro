@@ -41,8 +41,7 @@ class TodayWords extends Model
         $res = $this
             ->field('*')
             ->order('id desc')
-            //->offset($limit*($curr_page - 1))
-            ->limit($limit)
+            ->limit($limit*($curr_page - 1),$limit)
             ->select()
             ->toArray();
         foreach ($res as $key => $v){
