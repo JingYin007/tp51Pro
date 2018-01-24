@@ -40,7 +40,7 @@ class TodayWord
     public function add(Request $request){
         $Tag = $request->Method();
         if ($Tag == 'POST'){
-            $input = $request;
+            $input = $request->param();
             $this->model->addTodayWord($input);
             return showMsg(1,'添加成功');
         }else{
@@ -55,6 +55,7 @@ class TodayWord
      */
     public function edit(Request $request,$id){
         $Tag = $request->Method();
+        if($id == 0) $id=$request->param('id');
         $todayWordData = $this->model->getTodayWord($id);
         if ($Tag == 'POST'){
             //TODO 修改对应的菜单
@@ -63,7 +64,7 @@ class TodayWord
             $tag = $this->model->editTodayWord($opID,$input);
             return showMsg($tag,'修改成功');
         }else{
-            return view('cms.todayWords.edit',[
+            return view('edit',[
                 'todayWordData' => $todayWordData
             ]);
         }

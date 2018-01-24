@@ -37,7 +37,7 @@
         </thead>
         <tbody class="tbody-todayWords">
         {volist name="menus" id="vo"}
-            <tr class="tr-menu-{{$vo['id']}}">
+            <tr class="tr-menu-{$vo['id']}">
                 <td>{$vo['id']}</td>
                 <td>《{$vo['from']}》</td>
                 <td class="td-todayWord">
@@ -98,7 +98,8 @@
     <script>
         //根据菜单ID 删除菜单记录
         function delTodayWord(id) {
-            var toUrl = "{:url('cms/todayWord/edit/0')}";
+            var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
+            toUrl = toUrl.replace("TWID", id);
             ToDelItem(id,toUrl,'.tr-menu-'+id);
         }
         $(".btn-search-navMenu").on('click',function () {
@@ -119,7 +120,8 @@
         }
         //根据菜单ID修改菜单信息
         function editTodayWord(id) {
-            var toUrl = "{:url('cms/todayWord/edit/0')}"+id;
+            var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
+            toUrl = toUrl.replace("TWID", id);
             ToOpenPopups(toUrl,'今日赠言修改');
         }
     </script>

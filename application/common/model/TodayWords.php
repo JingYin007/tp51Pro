@@ -12,8 +12,9 @@ use \think\Model;
 class TodayWords extends Model
 {
 
-    public function getTodayWord(){
+    public function getTodayWord($id = 0){
         $random = rand(1,7);
+        if ($id) $random = $id;
         $res = $this
             //->select('*')
             ->where('id',$random)

@@ -23,7 +23,7 @@
         </div>
 
         <input type="hidden" name="picture" class="menu-icon"
-               value="{{asset('cms/images/icon/nav_default.png')}}">
+               value="__CMS__/images/icon/nav_default.png">
 
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
@@ -58,7 +58,7 @@
 
         function addNewTodayWord() {
             var postData = $(".form-opTodayWords").serialize();
-            var toUrl = "{{url('cms/todayWords/add')}}";
+            var toUrl = "{:url('cms/todayWord/add')}";
             ToPostPopupsDeal(toUrl,postData);
         }
 
