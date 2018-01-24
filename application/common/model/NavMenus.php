@@ -42,11 +42,11 @@ class NavMenus extends Model
      */
     public function getNavMenuByID($id = null){
         $res = $this
-            ->select('nav_menus.*','nm2.name as parent_name')
-            ->join('nav_menus as nm2', 'nav_menus.parent_id', '=', 'nm2.id')
-            ->where('nav_menus.id',$id)
-            ->first();
-
+            ->alias('nm')
+            ->field('nm.*,nm2.name parent_name')
+            ->join('nav_menus nm2','nm.parent_id = nm2.id')
+            ->where('nm.id',$id)
+            ->find();
         return $res->toArray();
     }
 
@@ -54,40 +54,32 @@ class NavMenus extends Model
         if ($search){
             //如果有查询限制
             $res = $this
-                ->select('*')
-                ->where(
-                    [
-                        ['id','>',0],
-                        ['name','like','%'.$search.'%'],
-                    ])
+                ->field('*')
+                ->where('id','>','0')
+                ->whereLike('namez','%'.$search.'%')
                 //->orWhere('action','like','%'.$search.'%')
-                ->orderBy('list_order','desc')
-                ->orderBy('created_at','desc')
+                ->order('list_order','desc')
+                ->order('created_at','desc')
                 ->count();
         }else{
             $res = $this
-                ->select('*')
-                ->where('id','>',0)
-                ->orderBy('list_order','desc')
-                ->orderBy('created_at','desc')
+                ->field('*')
+                ->where('id > 0')
+                ->order('list_order','desc')
+                ->order('created_at','desc')
                 ->count();
         }
         return $res;
     }
     public function getNavMenusForPage($curr_page,$limit,$search = null){
         $res = $this
-            ->select('*')
-            ->where(
-                [
-                    ['id','>',0],
-                    ['name','like','%'.$search.'%'],
-                ])
-            //->orWhere('action','like','%'.$search.'%')
-            ->orderBy('list_order','desc')
-            ->orderBy('created_at','desc')
-            ->offset($limit*($curr_page - 1))
-            ->limit($limit)
-            ->get()
+            ->field('*')
+            ->where('id > 0')
+            ->whereLike('namez','%'.$search.'%')
+            ->order('list_order','desc')
+            ->order('created_at','desc')
+            ->limit($limit*($curr_page - 1),$limit)
+            ->select()
             ->toArray();
         foreach ($res as $key => $v){
             if ($v['status'] == 1){
@@ -100,7 +92,7 @@ class NavMenus extends Model
     }
 
     public function addNavMenu($data){
-        $this->name = $data['name'];
+        $this->namez = $data['namez'];
         $this->parent_id = $data['parent_id'];
         $this->action = $data['action']?$data['action']:'';
         $this->icon = $data['icon']?$data['icon']:'';

@@ -3,6 +3,7 @@
 namespace app\cms\Controller;
 
 use app\common\model\NavMenus;
+use think\Request;
 
 class NavMenu
 {
@@ -20,10 +21,10 @@ class NavMenu
      */
     public function index(Request $request){
 
-        $search = $request->input('str_search');
+        $search = $request->param('str_search');
         $record_num = $this->menuModel->getNavMenusCount($search);
         $list = $this->menuModel->getNavMenusForPage(1,$this->page_limit,$search);
-        return view('cms.menu.index',
+        return view('index',
             [
                 'menus' => $list,
                 'search' => $search,
@@ -37,7 +38,7 @@ class NavMenu
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->input('curr_page',1);
+        $curr_page = $request->param('curr_page',1);
         $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit);
         return showMsg(1,'**',$list);
     }
@@ -48,14 +49,14 @@ class NavMenu
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function add(Request $request){
-        $Tag = $request->getMethod();
+        $Tag = $request->Method();
         $rootMenus = $this->menuModel->getNavMenusShow();
         if ($Tag == 'POST'){
-            $input = $request->except('_token');
+            $input = $request->param();
             $this->menuModel->addNavMenu($input);
             return showMsg(1,'添加成功');
         }else{
-            return view('cms.menu.add',[
+            return view('add',[
                 'rootMenus'=>$rootMenus,
             ]);
         }
@@ -68,17 +69,18 @@ class NavMenu
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function edit(Request $request,$id){
-        $Tag = $request->getMethod();
+        $Tag = $request->Method();
         $rootMenus = $this->menuModel->getNavMenusShow();
+        if($id == 0) $id=$request->param('id');
         $menuData = $this->menuModel->getNavMenuByID($id);
         if ($Tag == 'POST'){
             //TODO 修改对应的菜单
-            $input = $request->except('_token');
+            $input = $request->param();
             $opID = $input['id'];
             $tag = $this->menuModel->editNavMenu($opID,$input);
             return showMsg($tag,'修改成功');
         }else{
-            return view('cms.menu.edit',[
+            return view('edit',[
                 'rootMenus' => $rootMenus,
                 'menuData' => $menuData
             ]);

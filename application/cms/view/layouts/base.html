@@ -92,7 +92,7 @@
                     {if($menu['child'])}
                     <a href="javascript:;">
                         <i class="layui-icon"><img src="{$menu['icon']}"/></i>
-                        {$menu['name']}</a>
+                        {$menu['namez']}</a>
                     <dl class="layui-nav-child">
                         {volist name= "menu['child']" id='vo'}
                         <dd>
@@ -101,7 +101,7 @@
                                 <i class="layui-icon">
                                     <img src="{$vo['icon']}"/>
                                 </i>
-                                {$vo['name']}
+                                {$vo['namez']}
                             </a>
                         </dd>
                         {/volist}
@@ -110,7 +110,7 @@
                     <a class="a-to-Url single-to-Url" href="javascript:;"
                        action="{:url($menu['action'])}">
                         <i class="layui-icon"><img src="{$menu['icon']}"/></i>
-                        {$menu['name']}
+                        {$menu['namez']}
                     </a>
                     {/if}
                 </li>

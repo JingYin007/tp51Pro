@@ -23,6 +23,13 @@ Route::get('/index/contact','index/index/contact');
  */
 Route::get('cms/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
+
+Route::get('cms/menu/index','cms/navMenu/index');
+Route::any('cms/menu/add','cms/navMenu/add');
+Route::any('cms/menu/edit/:id','cms/navMenu/edit');
+Route::post('cms/menu/ajaxOpForPage','cms/navMenu/ajaxOpForPage');
+
+
 Route::get('cms/todayWord/index','cms/todayWord/index');
 Route::any('cms/todayWord/add','cms/todayWord/add');
 Route::any('cms/todayWord/edit/:id','cms/todayWord/edit');
