@@ -20,11 +20,7 @@
                 <img class="layui-upload-img img-upload-view layui-circle" src="{$todayWordData['picture']}">
             </div>
         </div>
-
-        <input type="hidden" class="post-url" value="{:url('cms/todayWord/edit',['id'=>$todayWordData['id']])}">
-        <input type="hidden" name="id" value="{$todayWordData['id']}">
         <input type="hidden" name="picture" class="menu-icon" value="{$todayWordData['picture']}">
-
         <div class="layui-form-item">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-block">
@@ -52,7 +48,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block div-form-op">
-                <button class="layui-btn" type="button" onclick="editNavMenu()"
+                <button class="layui-btn" type="button" onclick="editNavMenu({$todayWordData['id']})"
                         lay-submit lay-filter="formDemo">提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
             </div>
@@ -66,9 +62,10 @@
     <script src="__CMS__/js/moZhang.js"></script>
     <script>
         //菜单修改按钮的点击事件
-        function editNavMenu() {
+        function editNavMenu(id) {
             var postData = $(".form-opTodayWords").serialize();
-            var toUrl = $(".post-url").val();
+            var toUrl = "{:url('cms/todayWord/edit',['id'=>'NMID'])}";
+            toUrl = toUrl.replace('NMID',id)
             ToPostPopupsDeal(toUrl,postData);
         }
 
