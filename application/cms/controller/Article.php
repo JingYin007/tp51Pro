@@ -42,8 +42,13 @@ class Article
     public function edit(Request $request,$id){
         $method = $request->method();
         if ($method == 'POST'){
-            $this->model->updateCmsArticleData( $request->param());
-            return showMsg(1,'文章更新成功');
+            $tag = $this->model->updateCmsArticleData( $request->param());
+            if ($tag){
+                $content = '文章更新成功';
+            }else{
+                $content = 'Sorry,文章更新失败';
+            }
+            return showMsg($tag,$content);
         }else{
             $article = $this->model->getCmsArticleByID($id);
             $comments = [];

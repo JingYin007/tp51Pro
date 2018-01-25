@@ -36,8 +36,9 @@ class Articles extends Model
         $res = $this
             ->field('a.title,a.id')
             ->alias('a')
-            ->join('tp5_article_points ap','ap.article_id = a.id')
+            ->join('article_points ap','ap.article_id = a.id')
             ->order('ap.view desc')
+            ->where('ap.status',1)
             ->limit(6)
             ->select()
             ->toArray();
@@ -106,11 +107,10 @@ class Articles extends Model
         $id = $input['id'];
         $opTag = isset($input['tag']) ? $input['tag']:'edit';
         if($opTag == 'del'){
-            Db::name('article_points')
+            $tag = Db::name('article_points')
                 ->where('article_id',$id)
                 ->update(['status' => -1]);
         }else{
-
             $this
                 ->where('id',$id)
                 ->update([
@@ -119,7 +119,7 @@ class Articles extends Model
                     'content' => $input['content'],
                     'updated_at'=> time()
                 ]);
-            Db::name('article_points')
+            $tag = Db::name('article_points')
                 ->where('article_id',$id)
                 ->update([
                     'picture' => $input['picture']?$input['picture']:'',
@@ -127,6 +127,7 @@ class Articles extends Model
                     'status' => $input['status'],
                 ]);
         }
+        return $tag;
     }
 
     /**
