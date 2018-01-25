@@ -1,8 +1,7 @@
-@extends('cms.layouts.cms')
-@section('body-content')
+{extend name="layouts/cms"}
+{block name='body-content'}
     <form class="layui-form form-opArticle layui-form-pane" >
-        <input type="hidden" name="_token" class="tag_token" value="<?php echo csrf_token(); ?>">
-        <div class="layui-form-item">
+       <div class="layui-form-item">
             <label class="layui-form-label">文章标题：</label>
             <div class="layui-input-inline">
                 <input type="text" name="title" required lay-verify="required"
@@ -65,16 +64,16 @@
         </div>
     </form>
 
-@endsection
+{/block}
 
-@section('single-content')
-    <script src="{{asset('cms/js/today_words.js')}}"></script>
-    <script src="{{asset('cms/js/moZhang.js')}}"></script>
-    @include('home.layouts.ueditor-js')
+{block name='single-content'}
+    <script src="__CMS__/js/today_words.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
+    {include file='layouts/ueditor-js'/}
     <script>
         //修改按钮的点击事件
         function addArticle() {
-            var toUrl = "{{url('cms/article/add')}}";
+            var toUrl = "{:url('cms/article/add')}";
             var postData = $(".form-opArticle").serialize();
             ToPostPopupsDeal(toUrl,postData);
         }
@@ -111,4 +110,4 @@
             });
         });
     </script>
-@endsection
+{/block}

@@ -78,6 +78,76 @@ class Articles extends Model
         }
         isset($res)?$res->toArray():[];
         return $res;
+    }
+    public function getCmsArticleList(){
+        $res = $this
+            ->alias('a')
+            ->field('a.id,title,a.created_at,status,picture,abstract')
+            ->join('article_points ap','ap.article_id = a.id')
+            ->order('a.list_order desc')
+            ->order('a.id desc')
+            ->select();
+        return $res->toArray();
+    }
 
+    public function getCmsArticleByID($id){
+        $res = $this
+            ->alias('a')
+            ->field('a.*,u.user_name,title,status,picture,abstract')
+            ->join('users u', 'u.id = a.user_id')
+            ->join('article_points ap','ap.article_id = a.id')
+            ->where('a.id',$id)
+            ->find()
+            ->toArray();
+        return $res;
+    }
+    public function updateCmsArticleData($input){
+        $id = $input['id'];
+        $opTag = isset($input['tag']) ? $input['tag']:'edit';
+        if($opTag == 'del'){
+            Db::name('article_points')
+                ->where('article_id',$id)
+                ->update(['status' => -1]);
+        }else{
+
+            $this
+                ->where('id',$id)
+                ->update([
+                    'title' => $input['title'],
+                    'list_order' => $input['list_order'],
+                    'content' => $input['content'],
+                    'updated_at'=> time()
+                ]);
+            Db::name('article_points')
+                ->where('article_id',$id)
+                ->update([
+                    'picture' => $input['picture']?$input['picture']:'',
+                    'abstract' => $input['abstract'],
+                    'status' => $input['status'],
+                ]);
+        }
+    }
+
+    /**
+     * 进行新文章的添加操作
+     * @param $data
+     */
+    public function addArticle($data){
+        $this->title = $data['title'];
+        $this->list_order = $data['list_order'];
+        $this->content = $data['content'];
+        $this->user_id = 1;
+        $this->created_at = time();
+        $this->updated_at = time();
+        $this->save();
+
+        Db::name('article_points')
+            ->data([
+                'picture' => $data['picture'],
+                'abstract' => $data['abstract'],
+                'status' => $data['status'],
+                'article_id' => $this->getLastInsID(),
+            ])
+            ->insert();
     }
 }

@@ -40,10 +40,10 @@ class NavMenus extends Model
      * @param null $id 导航菜单 ID 标识
      * @return mixed
      */
-    public function getNavMenuByID($id = null){
+    public function getNavMenuByID($id = 0){
         $res = $this
             ->alias('nm')
-            ->field('nm.*,nm2.name parent_name')
+            ->field('nm.*,nm2.namez parent_name')
             ->join('nav_menus nm2','nm.parent_id = nm2.id')
             ->where('nm.id',$id)
             ->find();
@@ -114,7 +114,7 @@ class NavMenus extends Model
                 ->where('id',$id)
                 ->update(
                     [
-                        'name' => $data['name'],
+                        'namez' => $data['namez'],
                         'icon' => $data['icon'],
                         'list_order' => $data['list_order'],
                         'parent_id' => $data['parent_id'],

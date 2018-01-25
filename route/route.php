@@ -35,7 +35,10 @@ Route::any('cms/todayWord/add','cms/todayWord/add');
 Route::any('cms/todayWord/edit/:id','cms/todayWord/edit');
 Route::post('cms/todayWord/ajaxOpForPage','cms/todayWord/ajaxOpForPage');
 
-
+Route::get('cms/article/index','cms/article/index');
+Route::any('cms/article/add','cms/article/add');
+Route::any('cms/article/edit/:id','cms/article/edit');
+Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
 
 /**
  * 工具类
