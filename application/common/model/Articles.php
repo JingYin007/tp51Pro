@@ -20,8 +20,9 @@ class Articles extends Model
     public function getArticleList(){
         $data = $this
             ->alias('a')//给主表取别名
-            ->join('tp5_article_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
+            ->join('article_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
             ->where('a.id','>',0)
+            ->where('ap.status',1)
             ->select()
             ->toArray();
         return $data;
