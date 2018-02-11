@@ -22,4 +22,5 @@ composer install
 ## 功能
 - 后台管理
 - 权限登录
-Thanks
+> 后台登录数据
+> [用户名]:moTzxx@admin [密码]:admin 
