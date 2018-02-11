@@ -47,7 +47,7 @@ class NavMenus extends Model
             ->join('nav_menus nm2','nm.parent_id = nm2.id')
             ->where('nm.id',$id)
             ->find();
-        return $res->toArray();
+        return $res?$res->toArray():[];
     }
 
     public function getNavMenusCount($search = null){

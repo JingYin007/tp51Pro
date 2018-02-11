@@ -128,5 +128,5 @@ return [
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
 
-    'CMS_PAGE_SIZE' => 2,
+    'CMS_PAGE_SIZE' => 7,
 ];

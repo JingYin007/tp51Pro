@@ -1,6 +1,7 @@
 <?php
 namespace app\cms\controller;
 use app\common\model\NavMenus;
+use think\facade\Session;
 
 /**
  * Created by PhpStorm.
@@ -20,6 +21,12 @@ class Index{
      * @return \think\response\View
      */
     public function index(){
+        Session::set('name','hahhaha');
+        $test = Session::get('name');
+
+        var_dump($test);
+
+
         $menuList = $this->menuModel->getNavMenusShow();
         $data = [
             'menus' => $menuList,
