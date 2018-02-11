@@ -40,6 +40,19 @@ Route::any('cms/article/add','cms/article/add');
 Route::any('cms/article/edit/:id','cms/article/edit');
 Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
 
+
+Route::any('cms/admin/index','cms/admin/index');
+Route::any('cms/admin/add','cms/admin/add');
+Route::any('cms/admin/edit/{id?}', 'cms/admin/edit');
+Route::post('cms/admin/ajaxOpForPage', 'cms/admin/ajaxOpForPage');
+
+Route::any('cms/admin/role','cms/admin/role');
+Route::any('cms/admin/addRole','cms/admin/addRole');
+Route::any('cms/admin/editRole/{id?}', 'cms/admin/editRole');
+
+Route::get('cms/login/index','cms/login/index');
+Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
+Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
 /**
  * 工具类
  */

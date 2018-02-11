@@ -1,5 +1,6 @@
 <?php
 namespace app\cms\controller;
+use app\common\model\Admins;
 use app\common\model\NavMenus;
 use think\facade\Session;
 
@@ -11,9 +12,11 @@ use think\facade\Session;
  */
 class Index{
     private $menuModel;
+    private $adminModel;
     public function __construct()
     {
         $this->menuModel = new NavMenus();
+        $this->adminModel = new Admins();
     }
 
     /**
@@ -21,15 +24,16 @@ class Index{
      * @return \think\response\View
      */
     public function index(){
-        Session::set('name','hahhaha');
-        $test = Session::get('name');
-
-        var_dump($test);
-
-
+        $cmsAID = Session::get('cmsAID');
+        $cmsAID = 1;
+        if (!$cmsAID){
+            header('Location:http://tp5pro.com/cms/login/index');die;
+        }
         $menuList = $this->menuModel->getNavMenusShow();
+        $adminInfo = $this->adminModel->getAdminData($cmsAID);
         $data = [
             'menus' => $menuList,
+            'admin' => $adminInfo,
         ];
         return view('index',$data);
     }
