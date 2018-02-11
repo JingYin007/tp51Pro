@@ -21,7 +21,7 @@ Route::get('/index/contact','index/index/contact');
 /**
  * 后台 CMS配置
  */
-Route::get('cms/index','cms/index/index');
+Route::any('cms/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
 
 Route::get('cms/menu/index','cms/navMenu/index');
@@ -43,12 +43,12 @@ Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
 
 Route::any('cms/admin/index','cms/admin/index');
 Route::any('cms/admin/add','cms/admin/add');
-Route::any('cms/admin/edit/{id?}', 'cms/admin/edit');
+Route::any('cms/admin/edit/:id', 'cms/admin/edit');
 Route::post('cms/admin/ajaxOpForPage', 'cms/admin/ajaxOpForPage');
 
 Route::any('cms/admin/role','cms/admin/role');
 Route::any('cms/admin/addRole','cms/admin/addRole');
-Route::any('cms/admin/editRole/{id?}', 'cms/admin/editRole');
+Route::any('cms/admin/editRole/:id', 'cms/admin/editRole');
 
 Route::get('cms/login/index','cms/login/index');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');

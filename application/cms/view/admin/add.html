@@ -49,7 +49,7 @@
             <div class="layui-input-block">
                 <select name="role_id" lay-verify="required">
                     {volist name="adminRoles" id="vo"}
-                        <option value="{{$vo['id']}}">{$vo['user_name']}</option>
+                        <option value="{$vo['id']}">{$vo['user_name']}</option>
                     {/volist}
                 </select>
             </div>

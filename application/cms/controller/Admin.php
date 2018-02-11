@@ -51,7 +51,7 @@ class Admin
         $method = $request->Method();
         $adminRoles = $this->ar_model->getNormalRoles();
         if ($method == 'POST'){
-            $input = $request->input();
+            $input = $request->param();
             $tag = $this->model->addAdmin($input);
             if (is_numeric($tag) && $tag > 0){
                 return showMsg(1,'新用户添加成功');
@@ -102,9 +102,8 @@ class Admin
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function role(Request $request){
-        $method = $request->Method();
         $adminRoles = $this->ar_model->getAllRoles();
-        return view('cms.admin.role',[
+        return view('role',[
             'roles' => $adminRoles
         ]);
 
@@ -118,7 +117,7 @@ class Admin
     public function addRole(Request $request){
         $method = $request->Method();
         if ($method == 'POST'){
-            $input = $request->input();
+            $input = $request->param();
             $tag = $this->ar_model->addRole($input);
             if ($tag){
                 return showMsg(1,'新角色添加成功');
@@ -138,7 +137,7 @@ class Admin
         $method = $request->Method();
         $roleData = $this->ar_model->getRoleData($id);
         if ($method == 'POST'){
-            $input = $request->input();
+            $input = $request->param();
             $tag = $this->ar_model->editRole($id,$input);
             return showMsg($tag,'角色信息修改成功');
         }else{

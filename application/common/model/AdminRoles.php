@@ -21,9 +21,9 @@ class AdminRoles extends Model
     public function getAllRoles(){
         $res = $this
             ->where('status','<>',0)
-            ->orderBy('status','desc')
-            ->orderBy('created_at','desc')
-            ->get()->toArray();
+            ->order('status','desc')
+            ->order('created_at','desc')
+            ->select()->toArray();
         foreach ($res as $key => $v){
             if ($v['status'] == 1){
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
@@ -84,18 +84,18 @@ class AdminRoles extends Model
      */
     public function chkSameUserName($user_name,$id = 0){
         $tag = $this
-            ->select('user_name')
+            ->field('user_name')
             ->where('user_name',$user_name)
             ->where('id','<>',$id)
-            ->first();
+            ->find();
         return $tag;
     }
 
     public function getRoleData($id){
         $res = $this
-            ->select('*')
+            ->field('*')
             ->where('id',$id)
-            ->first()->toArray();
+            ->find()->toArray();
         return $res;
     }
 

@@ -60,7 +60,7 @@ class Admins extends Model
             $this->status = $input['status'];
             $this->content = $input['content'];
             $this->save();
-            return $this->id;
+            return 1;
         }
     }
 
@@ -102,28 +102,29 @@ class Admins extends Model
      */
     public function chkSameUserName($user_name,$id = 0){
         $tag = $this
-            ->select('user_name')
+            ->field('user_name')
             ->where('user_name',$user_name)
             ->where('id','<>',$id)
-            ->first();
+            ->find();
         return $tag;
     }
     public function getAdminNavMenus($id = 1){
         $res = $this
-            ->select('ar.nav_menu_ids')
-            ->join('admin_roles as ar','ar.id','admins.role_id')
-            ->where('admins.id',$id)
-            ->first();
+            ->alias('a')
+            ->field('ar.nav_menu_ids')
+            ->join('admin_roles ar','ar.id = a.role_id')
+            ->where('a.id',$id)
+            ->find();
         return $res->nav_menu_ids;
     }
     public function adminLogin($input){
         $userName = $input['user_name'];
         $pwd = $input['password'];
         $res = $this
-            ->select('password','id')
+            ->field('password,id')
             ->where('user_name',$userName)
             ->where('status',1)
-            ->first();
+            ->find();
         if ($res){
             if ($res->password == md5(base64_encode($pwd))){
                 return $res->id;

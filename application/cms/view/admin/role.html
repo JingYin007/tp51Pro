@@ -96,7 +96,7 @@
         }
         //根据菜单ID修改菜单信息
         function editRole(id) {
-            var toUrl = "{{url('cms/admin/editRole',['id'=>'RoleID'])}}";
+            var toUrl = "{:url('cms/admin/editRole',['id'=>'RoleID'])}";
             toUrl = toUrl.replace('RoleID',id);
             ToOpenPopups(toUrl,'角色信息修改');
         }

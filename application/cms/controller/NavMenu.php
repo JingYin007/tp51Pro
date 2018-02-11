@@ -50,7 +50,7 @@ class NavMenu
      */
     public function add(Request $request){
         $Tag = $request->Method();
-        $rootMenus = $this->menuModel->getNavMenusShow();
+        $rootMenus = $this->menuModel->getNavMenus();
         if ($Tag == 'POST'){
             $input = $request->param();
             $this->menuModel->addNavMenu($input);
@@ -70,7 +70,7 @@ class NavMenu
      */
     public function edit(Request $request,$id){
         $Tag = $request->Method();
-        $rootMenus = $this->menuModel->getNavMenusShow();
+        $rootMenus = $this->menuModel->getNavMenus();
         if($id == 0) $id=$request->param('id');
         $menuData = $this->menuModel->getNavMenuByID($id);
         if ($Tag == 'POST'){

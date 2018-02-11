@@ -25,11 +25,10 @@ class Index{
      */
     public function index(){
         $cmsAID = Session::get('cmsAID');
-        $cmsAID = 1;
         if (!$cmsAID){
-            header('Location:http://tp5pro.com/cms/login/index');die;
+            header('Location:http://tp51pro.com/cms/login/index');die;
         }
-        $menuList = $this->menuModel->getNavMenusShow();
+        $menuList = $this->menuModel->getNavMenusShow($cmsAID);
         $adminInfo = $this->adminModel->getAdminData($cmsAID);
         $data = [
             'menus' => $menuList,

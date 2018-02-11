@@ -39,14 +39,14 @@
         </thead>
         <tbody class="tbody-admins">
         {volist name="admins" id="vo"}
-            <tr class="tr-admin-{{$vo['id']}}">
+            <tr class="tr-admin-{$vo['id']}">
                 <td>{$vo['id']}</td>
                 <td>{$vo['user_name']}</td>
                 <td class="td-admin">
                     <img src="{$vo['picture']}" class="layui-circle">
                 </td>
                 <td><span class="layui-badge-dot
-                    @php
+                    {php}
                         $tag = intval($vo['role_id'])%5;
                         $bgStr = "layui-bg-";
                         if($tag == 1){
@@ -59,7 +59,7 @@
                         $bgStr2 = "blue";
                         }
                     echo $bgStr.$bgStr2;
-                    @endphp
+                    {/php}
                             "></span>
                     &nbsp;&nbsp;{$vo['role_name']}</td>
                 <td>{$vo['created_at']}</td>
