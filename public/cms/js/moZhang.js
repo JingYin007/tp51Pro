@@ -33,13 +33,14 @@ $(document).ready(function () {
 
     $(".layui-side-scroll .a-to-Url").click(function () {
         var action = $(this).attr('action');
+        var nav_menu_id = $(this).attr('nav_menu_id');
         //TODO 此处进行判断当前用户是否有权限进入
         var checkUrl = $("#check_login").attr('url');
         var loginUrl = $("#check_login").attr('login');
         var tag_token = $("#check_login").attr('tag_token');
         $.post(
             checkUrl,
-            {'_token':tag_token},
+            {'_token':tag_token,'nav_menu_id':nav_menu_id},
             function (result) {
                 if(result.status == 1){
                     $(".layui-body .iframe-body").attr('src',action);

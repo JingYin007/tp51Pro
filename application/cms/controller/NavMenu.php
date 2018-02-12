@@ -2,16 +2,19 @@
 
 namespace app\cms\Controller;
 
+use app\common\controller\Base;
 use app\common\model\NavMenus;
+use think\facade\Session;
 use think\Request;
 
-class NavMenu
+class NavMenu extends Base
 {
     private $menuModel;
     //定义每页的记录数
     private $page_limit;
     public function __construct()
     {
+        parent::__construct();
         $this->menuModel = new NavMenus();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
@@ -46,7 +49,7 @@ class NavMenu
     /**
      * 增加新导航标题 功能
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return \think\response\View|void
      */
     public function add(Request $request){
         $Tag = $request->Method();
@@ -66,7 +69,6 @@ class NavMenu
      * 编辑导航菜单数据
      * @param Request $request
      * @param $id 菜单 ID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function edit(Request $request,$id){
         $Tag = $request->Method();

@@ -2,16 +2,18 @@
 
 namespace app\cms\Controller;
 
+use app\common\controller\Base;
 use app\common\model\Articles;
 use think\Request;
 
-class Article
+class Article extends Base
 {
     //
     private $model ;
     private $page_limit;
     public function __construct()
     {
+        parent::__construct();
         $this->model = new Articles();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }

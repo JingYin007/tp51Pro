@@ -38,22 +38,34 @@ class NavMenus extends Model
         }
         return $res;
     }
+
+    /**
+     * 检查当前的菜单是否在 该管理员的权限内
+     * @param int $nav_id 菜单ID
+     * @param int $cmsAID 管理员用户ID
+     * @return bool
+     */
+    public function checkNavMenuMan($nav_id = 0 ,$cmsAID = 0){
+        $str = $this->getAdminNavMenus($cmsAID);
+        $navMenus = explode('|',$str);
+        $tag = in_array($nav_id,$navMenus);
+        return $tag;
+
+    }
     /**
      * 获取当前管理员权限下的 导航菜单
      * @param int $cmsAID
      * @return mixed
      */
     public function getNavMenusShow($cmsAID = 0){
-
         if (!$cmsAID){
-            header('Location:http://tp51pro.com/cms/login/index');
-            die;
+            return null;
         }else{
             $str = $this->getAdminNavMenus($cmsAID);
             $arr = explode('|',$str);
             $res1 = $this->allNavMenus();
             $res = $this->deal($res1,$arr);
-            return $res;
+            return $res?$res->toArray():null;
         }
     }
     public function getAdminNavMenus($id = 1){

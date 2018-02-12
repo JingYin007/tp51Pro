@@ -2,16 +2,18 @@
 
 namespace app\cms\Controller;
 
+use app\common\controller\Base;
 use app\common\model\TodayWords;
 use think\Request;
 
-class TodayWord
+class TodayWord extends Base
 {
     //
     private $model;
     private $page_limit;
     public function __construct()
     {
+        parent::__construct();
         $this->model = new TodayWords();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }

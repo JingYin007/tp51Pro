@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Cms;
 
-use Illuminate\Http\Request;
+use app\common\controller\Base;
 use App\Http\Controllers\Controller;
 
-class AdminRoleController extends Controller
+class AdminRoleController extends Base
 {
     //
 }

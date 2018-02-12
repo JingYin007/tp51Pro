@@ -1,5 +1,6 @@
 <?php
 namespace app\cms\controller;
+use app\common\controller\Base;
 use app\common\model\Admins;
 use app\common\model\NavMenus;
 use think\facade\Session;
@@ -10,11 +11,12 @@ use think\facade\Session;
  * Date: 2018/1/23
  * Time: 15:54
  */
-class Index{
+class Index extends Base{
     private $menuModel;
     private $adminModel;
     public function __construct()
     {
+        parent::__construct();
         $this->menuModel = new NavMenus();
         $this->adminModel = new Admins();
     }
@@ -25,16 +27,18 @@ class Index{
      */
     public function index(){
         $cmsAID = Session::get('cmsAID');
-        if (!$cmsAID){
-            header('Location:http://tp51pro.com/cms/login/index');die;
-        }
         $menuList = $this->menuModel->getNavMenusShow($cmsAID);
-        $adminInfo = $this->adminModel->getAdminData($cmsAID);
-        $data = [
-            'menus' => $menuList,
-            'admin' => $adminInfo,
-        ];
-        return view('index',$data);
+        if (!$cmsAID || !$menuList){
+            //TODO 页面跳转至登录页
+            return redirect('cms/article/index',302);
+        }else{
+            $adminInfo = $this->adminModel->getAdminData($cmsAID);
+            $data = [
+                'menus' => $menuList,
+                'admin' => $adminInfo,
+            ];
+            return view('index',$data);
+        }
     }
     public function home(){
         return view('home');

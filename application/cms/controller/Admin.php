@@ -2,12 +2,13 @@
 
 namespace app\cms\Controller;
 
+use app\common\controller\Base;
 use app\common\model\AdminRoles;
 use app\common\model\Admins;
 use app\common\model\NavMenus;
 use think\Request;
 
-class Admin
+class Admin extends Base
 {
     //
     private $model;
@@ -16,6 +17,7 @@ class Admin
     private $page_limit;
     public function __construct()
     {
+        parent::__construct();
         $this->model = new Admins();
         $this->ar_model = new AdminRoles();
         $this->menuModel = new NavMenus();
@@ -45,7 +47,6 @@ class Admin
     /**
      * 添加新用户
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function add(Request $request){
         $method = $request->Method();
@@ -67,7 +68,6 @@ class Admin
     /**
      * @param Request $request
      * @param $id 标识ID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Request $request,$id){
         $method = $request->Method();
@@ -99,7 +99,6 @@ class Admin
     /**
      * 读取角色列表
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function role(Request $request){
         $adminRoles = $this->ar_model->getAllRoles();
@@ -112,7 +111,6 @@ class Admin
     /**
      * 角色添加功能
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function addRole(Request $request){
         $method = $request->Method();
