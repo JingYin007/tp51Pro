@@ -23,7 +23,6 @@ class NavMenu extends Base
      * 菜单导航列表页
      */
     public function index(Request $request){
-
         $search = $request->param('str_search');
         $record_num = $this->menuModel->getNavMenusCount($search);
         $list = $this->menuModel->getNavMenusForPage(1,$this->page_limit,$search);

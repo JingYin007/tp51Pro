@@ -42,4 +42,8 @@ class Index{
     public function home(){
         return view('home');
     }
+
+    public function toLogin(){
+        return redirect('cms/login/index',302);
+    }
 }
