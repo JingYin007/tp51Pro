@@ -11,12 +11,11 @@ use think\facade\Session;
  * Date: 2018/1/23
  * Time: 15:54
  */
-class Index extends Base{
+class Index{
     private $menuModel;
     private $adminModel;
     public function __construct()
     {
-        parent::__construct();
         $this->menuModel = new NavMenus();
         $this->adminModel = new Admins();
     }
@@ -30,7 +29,7 @@ class Index extends Base{
         $menuList = $this->menuModel->getNavMenusShow($cmsAID);
         if (!$cmsAID || !$menuList){
             //TODO 页面跳转至登录页
-            return redirect('cms/article/index',302);
+            return redirect('cms/login/index',302);
         }else{
             $adminInfo = $this->adminModel->getAdminData($cmsAID);
             $data = [
