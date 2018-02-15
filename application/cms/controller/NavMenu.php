@@ -26,6 +26,7 @@ class NavMenu extends Base
         $search = $request->param('str_search');
         $record_num = $this->menuModel->getNavMenusCount($search);
         $list = $this->menuModel->getNavMenusForPage(1,$this->page_limit,$search);
+
         return view('index',
             [
                 'menus' => $list,
