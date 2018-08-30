@@ -1,0 +1,132 @@
+{extend name='layouts/cms'}
+{block name='body-content'}
+    <form class="layui-form form-opAdmins layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理昵称：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="user_name" required lay-verify="required"
+                       placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">请十个字以内</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">个性头像：</label>
+            <div class="layui-upload layui-input-inline">
+                <button type="button" name="img_upload" class="layui-btn btn_upload_img">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <img class="layui-upload-img img-upload-view layui-circle"
+                     src="__CMS__/images/user.png">
+            </div>
+        </div>
+        <input type="hidden" name="picture" class="menu-icon"
+               value="__CMS__/images/user.png">
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设置密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required"
+                       placeholder="请输入密码" autocomplete="off" class="layui-input input-pwd">
+            </div>
+            <div class="layui-form-mid layui-word-aux">尽量字母、数字拼套</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" required lay-verify="required"
+                       placeholder="请确认密码" autocomplete="off" class="layui-input input-pwd-re">
+            </div>
+            <span class="layui-badge-dot span-dot"></span>
+            <div class="div-tip layui-form-mid">
+                <span class="layui-badge tip-pwd span-dot">此处还要确认密码呦！</span>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色选择：</label>
+            <div class="layui-input-block">
+                <select name="role_id" lay-verify="required">
+                    {volist name="adminRoles" id="vo"}
+                        <option value="{$vo['id']}">{$vo['user_name']}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="正常" checked>
+                <input type="radio" name="status" value="-1" disabled="" title="无效">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注信息：</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="content" required
+                          lay-verify="required" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block div-form-op">
+                <button class="layui-btn" type="button" onclick="addNewAdmin()"
+                        lay-submit lay-filter="formDemo">添加</button>
+                <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+{/block}
+
+{block name='single-content'}
+    <script src="__CMS__/js/admins.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
+    <script>
+
+        function addNewAdmin() {
+            var postData = $(".form-opAdmins").serialize();
+            var toUrl = "{:url('cms/admin/add')}";
+            ToPostPopupsDeal(toUrl,postData);
+        }
+
+
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            var tag_token = $(".tag_token").val();
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '.btn_upload_img'
+                ,type : 'images'
+                ,exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
+                //,auto:false //选择图片后是否直接上传
+                //,accept:'images' //上传文件类型
+                ,url: '/api/upload/img_file'
+                ,data:{'_token':tag_token}
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        $('.img-upload-view').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    dialog.tip(res.message);
+                    //如果上传成功
+                    if(res.status ==1){
+                        $('.menu-icon').val(res.data.url);
+                    }
+                }
+                ,error: function(){
+                    //演示失败状态，并实现重传
+                    return layer.msg('上传失败,请重新上传');
+                }
+            });
+        });
+    </script>
+{/block}
+
+
+
+

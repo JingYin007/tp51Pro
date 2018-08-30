@@ -1,0 +1,81 @@
+{extend name='layouts/cms'}
+{block name='body-content'}
+    <form class="layui-form form-opRoles layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色称呼：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="user_name" required lay-verify="required"
+                       placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">请十个字以内</div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="正常" checked>
+                <input type="radio" name="status" value="-1" disabled="" title="无效">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">权限分配：</label>
+            <input type="hidden" name="nav_menu_ids" class="nav_menu_ids" value="">
+            <div class="layui-input-block">
+                <table class="layui-table table-nav-menus">
+                    <colgroup>
+                        <col width="12%">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    {volist name="menus" id="vo"}
+                        <tr>
+                            <td class="td-menu-parent td-nav-menu">
+                                {$vo['namez']}
+                                <input type="checkbox" class="cb-nav-menu" value="{$vo['id']}"
+                                       lay-skin="switch" lay-text="ON|OFF" checked>
+                            </td>
+                            <td class="td-menu-child td-nav-menu">
+                                {volist name="vo.child" id="voi"}
+                                    <input type="checkbox" class="cb-nav-menu" value="{$voi['id']}"
+                                           title="{$voi['namez']}" checked>
+                                {/volist}
+                            </td>
+                        </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block div-form-op">
+                <button class="layui-btn" type="button" onclick="addNewRole()"
+                        lay-submit lay-filter="formDemo">添加</button>
+                <button type="reset"  class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+{/block}
+
+{block name='single-content'}
+    <script src="__CMS__/js/roles.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
+    <script>
+        /**
+         * 添加新角色
+         */
+        function addNewRole() {
+            dealSelNavMenuIDs();
+            var postData = $(".form-opRoles").serialize();
+            var toUrl = "{:url('cms/admin/addRole')}";
+            ToPostPopupsDeal(toUrl,postData);
+        }
+    </script>
+{/block}
+
+
+
+

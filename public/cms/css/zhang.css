@@ -57,10 +57,57 @@
     color: white;
     font-weight: 600;
 }
-.layui-nav-item .img-FullScreen{
-    width: 28px;
-    height: 28px;
+
+.layui-nav-item .nav-icon{
+    width: 25px;
+    height: 25px;
 }
+.layui-nav-item .layui-nav-child .nav-icon{
+    width: 20px;
+    height: 20px;
+}
+.admin-header-lock {
+    width: 320px;
+    height: 170px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+.admin-header-lock-input {
+    width: 170px;
+    color: #fff;
+    background-color: #009688;
+    float: left;
+    margin: 0 10px 0 40px;
+    border: none;
+}
+.admin-header-lock-img {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+}
+.admin-header-lock-img img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+.admin-header-lock-name {
+    color: #009688;
+    margin: 8px 0 15px 0;
+}
+.input_btn {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+#unlock {
+    float: left;
+}
+#lock-box p {
+    color: #e60000;
+}
+
+
+
 .layui-logo span{
     color:white ;
 }
@@ -96,6 +143,8 @@
 }
 .form-opNavMenu .div-form-op,
 .form-opTodayWords .div-form-op,
+.form-opAdmins .div-form-op,
+.form-opRoles .div-form-op,
 .form-opArticle .div-form-op{
     margin-right: 10px;
     float: right;
@@ -108,7 +157,7 @@
 .layui-inline .btn-search-navMenu:hover{
     background-color: #00aa00;
 }
-.form-opTodayWords .img-upload-view{
+.form-opTodayWords .img-upload-view,.form-opAdmins .img-upload-view{
     width: 100px;
     height: 100px;
     margin: -25px 0px 2px 150px;
@@ -128,13 +177,21 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-.td-todayWord img,.td-article img{
+.td-todayWord img,
+.td-admin img{
     cursor: pointer;
     transition: all 0.6s;
-    width: 50px;
-    height: 50px;
+    width: 66px;
+    height: 66px;
 }
-.td-todayWord img:hover,.td-article img:hover{
+.td-article img{
+    cursor: pointer;
+    transition: all 0.6s;
+    width: 100px;
+}
+.td-todayWord img:hover,
+.td-admin img:hover,
+.td-article img:hover{
     transform: scale(5);
     /*position:relative;
     z-index:100;*/
@@ -146,4 +203,64 @@
 .td-article img:hover{
     position:relative;
     z-index:100;
+}
+.tbody-navMenus .td-menu img{
+
+    width: 50px;
+}
+.table-nav-menus .td-menu-parent{
+    text-align: center;
+    vertical-align:middle;
+}
+.td-menu-parent .layui-form-switch{
+    margin-left: 0px;
+}
+.nav_weather{
+    margin-right: 20px;
+}
+
+#body-login .video-player {
+    background-color: transparent;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#body-login  .video_mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 90;
+    background-color: rgba(0,0,0,0.5);
+}
+#body-login .div-login{
+    padding: 35px 0 0 0;
+    width: 450px;
+    border: 2px solid #00a7d0;
+    border-radius: 20px;
+    height: 180px;
+
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+}
+#body-login .div-login .layui-form-item{
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#body-login .div-login .div-form-op{
+    float: right;
+}
+#body-login .div-login .layui-form-label{
+    width: 80px;
 }

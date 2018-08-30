@@ -1,0 +1,106 @@
+{extend name='layouts/cms'}
+
+{block name='body-content'}
+
+    <button class="layui-btn layui-btn-normal"
+            onclick="addRoles()">
+        <i class="layui-icon" >&#xe608;</i> 添加角色
+    </button>
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <form class="form-search">
+                <input type="hidden" name="curr_page" class="curr_page" value="1">
+            </form>
+        </div>
+    </div>
+
+    <table class="layui-table table-body" lay-even="" lay-skin="row">
+        <colgroup>
+            <col width="5%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="15%">
+            <col width="15%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>角色</th>
+            <th>注册时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="tbody-roles">
+        {volist name="roles" id="vo"}
+            <tr class="tr-role-{$vo['id']}">
+                <td>{$vo['id']}</td>
+                <td><span class="layui-badge-dot
+                    {php}
+                        $tag = intval($vo['id'])%5;
+                        $bgStr = "layui-bg-";
+                        if($tag == 1){
+                        $bgStr2 = "orange";
+                        }elseif ($tag == 2){
+                        $bgStr2 = "green";
+                        }elseif ($tag == 3){
+                        $bgStr2 = "cyan";
+                        }else{
+                        $bgStr2 = "blue";
+                        }
+                    echo $bgStr.$bgStr2;
+                    {/php}
+                            "></span>
+                    &nbsp;&nbsp;{$vo['user_name']}</td>
+                <td>{$vo['created_at']}</td>
+                <td>
+                    {if($vo['status'] == 1)}
+                        <span class="layui-badge layui-bg-blue">正常</span>
+                    {else}
+                        <span class="layui-badge layui-bg-cyan">删除</span>
+                    {/if}
+                </td>
+                <td>
+                    <div class="layui-btn-group">
+                        <button class="layui-btn layui-btn-sm"
+                                onclick="editRole('{$vo['id']}')">
+                            <i class="layui-icon"></i>
+                        </button>
+                        <button class="layui-btn layui-btn-sm"
+                                onclick="delRole('{$vo['id']}')">
+                            <i class="layui-icon"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        {/volist}
+        </tbody>
+    </table>
+{/block}
+
+{block name='single-content'}
+    <script src="__CMS__/js/roles.js"></script>
+    <script src="__CMS__/js/moZhang.js"></script>
+    <script>
+        //根据菜单ID 删除菜单记录
+        function delRole(id) {
+            var toUrl = "{:url('cms/admin/editRole',['id'=>'RoleID'])}";
+            toUrl = toUrl.replace('RoleID',id);
+            ToDelItem(id,toUrl,'.tr-role-'+id);
+        }
+        //添加导航菜单
+        function addRoles() {
+            var toUrl = "{:url('cms/admin/addRole')}";
+            ToOpenPopups(toUrl,'添加新角色');
+        }
+        //根据菜单ID修改菜单信息
+        function editRole(id) {
+            var toUrl = "{:url('cms/admin/editRole',['id'=>'RoleID'])}";
+            toUrl = toUrl.replace('RoleID',id);
+            ToOpenPopups(toUrl,'角色信息修改');
+        }
+    </script>
+
+
+{/block}

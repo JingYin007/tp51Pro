@@ -33,8 +33,51 @@ $(document).ready(function () {
 
     $(".layui-side-scroll .a-to-Url").click(function () {
         var action = $(this).attr('action');
-        $(".layui-body .iframe-body").attr('src',action);
+        var nav_menu_id = $(this).attr('nav_menu_id');
+        //TODO 此处进行判断当前用户是否有权限进入
+        var checkUrl = $("#check_login").attr('url');
+        var loginUrl = $("#check_login").attr('login');
+        var tag_token = $("#check_login").attr('tag_token');
+        $.post(
+            checkUrl,
+            {'_token':tag_token,'nav_menu_id':nav_menu_id},
+            function (result) {
+                if(result.status == 1){
+                    $(".layui-body .iframe-body").attr('src',action);
+                }else{
+                    //失败
+                    window.location.href = loginUrl;
+                }
+            },"JSON");
+    });
+    /**
+     * 锁屏点击事件
+     */
+    $("#LockScreen").on("click",function(){
+        window.sessionStorage.setItem("lockCMS",true);
+        lockPage();
+    });
 
+    // 解锁
+    $("body").on("click","#unlock",function(){
+        if($(this).siblings(".admin-header-lock-input").val() == ''){
+            layer.msg("请输入解锁密码！");
+            $(this).siblings(".admin-header-lock-input").focus();
+        }else{
+            if($(this).siblings(".admin-header-lock-input").val() == "123456"){
+                window.sessionStorage.setItem("lockCMS",false);
+                $(this).siblings(".admin-header-lock-input").val('');
+                layer.closeAll("page");
+            }else{
+                layer.msg("密码错误，请重新输入！");
+                $(this).siblings(".admin-header-lock-input").val('').focus();
+            }
+        }
+    });
+    $(document).on('keydown', function() {
+        if(event.keyCode == 13) {
+            $("#unlock").click();
+        }
     });
 
     // 全屏切换
@@ -66,11 +109,48 @@ $(document).ready(function () {
     });
 
 
-
-
+    $(".form-opAdmins .input-pwd-re").blur(function () {
+        var pwd = $(".form-opAdmins .input-pwd").val();
+        var pwd_re = $(".form-opAdmins .input-pwd-re").val();
+        var tip = '';
+        if ( pwd!='' && (pwd == pwd_re)){
+            $(".span-dot").addClass('layui-bg-orange');
+            tip = '两次密码输入一致！';
+        }else {
+            $(".span-dot").removeClass('layui-bg-green');
+            tip = '两次密码输入不一致！'
+        }
+        $(".form-opAdmins .tip-pwd").html(tip);
+    });
 
 });
-
+window.onload = function(){
+    //要初始化的东西 TODO 我就奇怪为啥有的代码在$(document).function()中就不行！！！
+    // 判断是否显示锁屏
+    if(window.sessionStorage.getItem("lockCMS") == "true"){
+        lockPage();
+    }
+};
+/*------------------------------------------------------------------------------------------------------*/
+//锁屏
+function lockPage(){
+    layer.open({
+        title : false,
+        type : 1,
+        content : '	<div class="admin-header-lock" id="lock-box">'+
+        '<div class="admin-header-lock-img"><img src="../cms/images/user.png"/></div>'+
+        '<div class="admin-header-lock-name" id="lockUserName">I am just a passenger</div>'+
+        '<div class="input_btn">'+
+        '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />'+
+        '<button class="layui-btn" id="unlock">解锁</button>'+
+        '</div>'+
+        '<p>请输入“123456”，否则不会解锁成功哦！！！</p>'+
+        '</div>',
+        closeBtn : 0,
+        shade : 0.9
+    })
+    $(".admin-header-lock-input").focus();
+}
 /**
  * 控制左侧导航栏 显示/隐藏
  * @param viewTag 对应标签
@@ -109,6 +189,9 @@ function exitFullScreen() {
     }
 }
 
+
+
+/*----------------------------------------------------------------------------------------------------*/
 // 除去页面所显示的记录 传递 div
 function ToRemoveDiv(tag) {
     $(tag).remove();

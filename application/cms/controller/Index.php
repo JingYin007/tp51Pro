@@ -1,6 +1,9 @@
 <?php
 namespace app\cms\controller;
+use app\common\controller\Base;
+use app\common\model\Admins;
 use app\common\model\NavMenus;
+use think\facade\Session;
 
 /**
  * Created by PhpStorm.
@@ -10,9 +13,11 @@ use app\common\model\NavMenus;
  */
 class Index{
     private $menuModel;
+    private $adminModel;
     public function __construct()
     {
         $this->menuModel = new NavMenus();
+        $this->adminModel = new Admins();
     }
 
     /**
@@ -20,13 +25,25 @@ class Index{
      * @return \think\response\View
      */
     public function index(){
-        $menuList = $this->menuModel->getNavMenusShow();
-        $data = [
-            'menus' => $menuList,
-        ];
-        return view('index',$data);
+        $cmsAID = Session::get('cmsAID');
+        $menuList = $this->menuModel->getNavMenusShow($cmsAID);
+        if (!$cmsAID || !$menuList){
+            //TODO 页面跳转至登录页
+            return redirect('cms/login/index',302);
+        }else{
+            $adminInfo = $this->adminModel->getAdminData($cmsAID);
+            $data = [
+                'menus' => $menuList,
+                'admin' => $adminInfo,
+            ];
+            return view('index',$data);
+        }
     }
     public function home(){
         return view('home');
+    }
+
+    public function toLogin(){
+        return redirect('cms/login/index',302);
     }
 }

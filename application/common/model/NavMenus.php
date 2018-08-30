@@ -11,29 +11,112 @@ use \think\Model;
 
 class NavMenus extends Model
 {
+    private $adminModel;
+    /*public function __construct()
+    {
+        $this->adminModel = new Admins();
+    }*/
+
     /**
-     * 获取当前管理员权限下的 导航菜单
+     * 获取所有正常状态的菜单列表
      * @return mixed
      */
-    public function getNavMenusShow(){
+    public function getNavMenus(){
         $res = $this
             ->field('*')
             ->where('id > 0 and parent_id = 0 and status = 1')
             ->order('list_order desc')
-            ->select()
-            ->toArray();
+            ->select();
         foreach ($res as $key => $value){
             $parent_id = $value['id'];
             $childRes = $this
                 ->where('parent_id = '.$parent_id)
                 ->where('status = 1')
                 ->order('list_order desc')
-                ->select()
-                ->toArray();
+                ->select();
             $res[$key]['child'] = $childRes;
         }
         return $res;
     }
+
+    /**
+     * 检查当前的菜单是否在 该管理员的权限内
+     * @param int $nav_id 菜单ID
+     * @param int $cmsAID 管理员用户ID
+     * @return bool
+     */
+    public function checkNavMenuMan($nav_id = 0 ,$cmsAID = 0){
+        $str = $this->getAdminNavMenus($cmsAID);
+        $navMenus = explode('|',$str);
+        $tag = in_array($nav_id,$navMenus);
+        return $tag;
+
+    }
+    /**
+     * 获取当前管理员权限下的 导航菜单
+     * @param int $cmsAID
+     * @return mixed
+     */
+    public function getNavMenusShow($cmsAID = 0){
+        if (!$cmsAID){
+            return null;
+        }else{
+            $str = $this->getAdminNavMenus($cmsAID);
+            $arr = explode('|',$str);
+            $res1 = $this->allNavMenus();
+            $res = $this->deal($res1,$arr);
+            return $res?$res->toArray():null;
+        }
+    }
+    public function getAdminNavMenus($id = 1){
+        $res = Db('admins')
+            ->alias('a')
+            ->field('ar.nav_menu_ids')
+            ->join('admin_roles ar','ar.id = a.role_id')
+            ->where('a.id',$id)
+            ->find();
+        return $res['nav_menu_ids'];
+    }
+    public function allNavMenus(){
+        $res = $this
+            ->field('*')
+            ->where('id','>',0)
+            ->where('parent_id',0)
+            ->where('status',1)
+            ->order('list_order','desc')
+            ->select();
+        return $res;
+    }
+    public function deal($res,$arr){
+        foreach ($res as $key => $value){
+            $parent_id = $value['id'];
+            if (!in_array($parent_id,$arr)){
+                unset($res[$key]);
+            }else{
+                $childRes = $this
+                    ->where('parent_id',$parent_id)
+                    ->where('status',1)
+                    ->order('list_order','desc')
+                    ->select();
+                $childRes = $this->deal2($childRes,$arr);
+                $res[$key]['child'] = $childRes;
+            }
+        }
+        return $res;
+    }
+
+    public function deal2($res,$arr){
+        foreach ($res as $key => $value){
+            $parent_id = $value['id'];
+            if (!in_array($parent_id,$arr)){
+                unset($res[$key]);
+            }
+        }
+        return $res;
+    }
+
+
+
 
     /**
      * 获取全部可修改状态的 导航菜单数据
@@ -47,7 +130,7 @@ class NavMenus extends Model
             ->join('nav_menus nm2','nm.parent_id = nm2.id')
             ->where('nm.id',$id)
             ->find();
-        return $res->toArray();
+        return $res?$res:[];
     }
 
     public function getNavMenusCount($search = null){
@@ -79,8 +162,7 @@ class NavMenus extends Model
             ->order('list_order','desc')
             ->order('created_at','desc')
             ->limit($limit*($curr_page - 1),$limit)
-            ->select()
-            ->toArray();
+            ->select();
         foreach ($res as $key => $v){
             if ($v['status'] == 1){
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
