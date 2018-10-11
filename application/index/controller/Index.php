@@ -54,6 +54,7 @@ class Index
      * @return \think\response\View
      */
     public function review(){
+
         $articleList = $this->articleModel->getArticleList();
         $data = [
             'name'=>'MoTzxx',
