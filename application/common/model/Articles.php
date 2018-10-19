@@ -53,7 +53,7 @@ class Articles extends Model
         $res = $this
             ->field('ap.picture')
             ->alias('a')
-            ->join('tp5_article_points ap','ap.article_id = a.id')
+            ->join('article_points ap','ap.article_id = a.id')
             ->order('ap.view desc')
             ->limit(9)
             ->select()
@@ -72,8 +72,8 @@ class Articles extends Model
         if(is_numeric($id)){
             $res = $this
                 ->alias('a')
-                ->join('tp5_users u','u.id = a.user_id')
-                ->join('tp5_article_points ap','ap.article_id = a.id')
+                ->join('users u','u.id = a.user_id')
+                ->join('article_points ap','ap.article_id = a.id')
                 ->field('a.*,u.user_name')
                 ->where('a.id = '.$id)
                 ->find();
