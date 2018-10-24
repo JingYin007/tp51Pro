@@ -234,7 +234,7 @@ function ToPostPopupsDeal(toUrl,postData) {
                 },2000);
             }else{
                 //失败
-                layer.msg(result.message);
+                //layer.msg(result.message);
             }
         },"JSON");
 }
