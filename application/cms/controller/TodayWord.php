@@ -15,7 +15,7 @@ class TodayWord extends Base
     {
         parent::__construct();
         $this->model = new TodayWords();
-        $this->page_limit = config('app.CMS_PAGE_SIZE');
+        $this->page_limit = 5;//config('app.CMS_PAGE_SIZE');
     }
 
     /**
