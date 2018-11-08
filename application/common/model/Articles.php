@@ -140,7 +140,7 @@ class Articles extends BaseModel
             $saveData = [
                 'title' => $input['title'],
                 'list_order' => $input['list_order'],
-                'content' => $input['content'],
+                'content' => isset($input['content'])?$input['content']:'',
                 'updated_at' => date('Y-m-d H:m:s', time())
             ];
             $validateRes = $this->validate($this->validate, $saveData);

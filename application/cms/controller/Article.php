@@ -37,6 +37,12 @@ class Article extends Base
         ];
         return view('index',$data);
     }
+
+    /**
+     * 添加文章
+     * @param Request $request
+     * @return \think\response\View|void
+     */
     public function add(Request $request){
         $method = $request->method();
         if($method == 'POST'){
@@ -47,6 +53,13 @@ class Article extends Base
             return view('add');
         }
     }
+
+    /**
+     * 更新文章数据
+     * @param Request $request
+     * @param $id
+     * @return \think\response\View|void
+     */
     public function edit(Request $request,$id){
         $method = $request->method();
         if ($method == 'POST'){
