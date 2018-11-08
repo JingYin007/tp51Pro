@@ -18,7 +18,13 @@ class Article extends Base
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 
+    /**
+     * 获取文章列表数据
+     * @param Request $request
+     * @return \think\response\View
+     */
     public function index(Request $request){
+
         $articles = $this->model->getCmsArticleList();
         $search = $request->param('str_search');
         $record_num = count($articles);

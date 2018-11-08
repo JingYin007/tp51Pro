@@ -12,7 +12,7 @@ use \think\Model;
 class Articles extends Model
 {
     // 设置当前模型对应的完整数据表名称
-    //protected $table = 'lar5_articles';
+    protected $autoWriteTimestamp = 'datetime';
     /**
      * 获取所有的文章
      * @return array
