@@ -41,8 +41,8 @@ class Article extends Base
         $method = $request->method();
         if($method == 'POST'){
             $input = $request->param();
-            $this->model->addArticle($input);
-            return showMsg(1,'文章添加成功');
+            $opRes = $this->model->addArticle($input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('add');
         }
@@ -50,13 +50,8 @@ class Article extends Base
     public function edit(Request $request,$id){
         $method = $request->method();
         if ($method == 'POST'){
-            $tag = $this->model->updateCmsArticleData( $request->param());
-            if ($tag){
-                $content = '文章更新成功';
-            }else{
-                $content = 'Sorry,文章更新失败';
-            }
-            return showMsg($tag,$content);
+            $opRes = $this->model->updateCmsArticleData( $request->param());
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             $article = $this->model->getCmsArticleByID($id);
             $comments = [];
