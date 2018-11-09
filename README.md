@@ -20,15 +20,16 @@ composer install
 ## ③. 数据库
 
 - 按理说，运用数据库迁移的方式才显得高大上，有时间我会后期进行添加
-- 暂时，可以运行项目目录`/database`下的 `tp5_pro.sql` 文件
+- 暂时，可以运行项目目录 `/database`下的 `tp5_pro.sql` 文件
 
 > 但项目使用时可是要配置好自己的数据库连接信息
 
 ## ④. 功能
 - 后台管理
 - 权限登录
-> 后台登录数据
-> [用户名]:moTzxx@admin [密码]:admin 
+> 登录页面 —— http://xxxx.com/cms/index
+
+> 登录信息 —— [用户名]:moTzxx@admin [密码]:admin 
 
 ## 附录
 
