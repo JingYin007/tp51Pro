@@ -47,13 +47,7 @@
                 </td>
                 <td>{php} echo $vo['role_tip']{/php}</td>
                 <td>{$vo['created_at']}</td>
-                <td>
-                    {if($vo['status'] == 1)}
-                        <span class="layui-badge layui-bg-blue">正常</span>
-                    {else}
-                        <span class="layui-badge layui-bg-cyan">删除</span>
-                    {/if}
-                </td>
+                <td>{php} echo $vo['status_tip']{/php}</td>
                 <td>
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm"

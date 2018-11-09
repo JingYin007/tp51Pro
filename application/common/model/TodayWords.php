@@ -46,11 +46,14 @@ class TodayWords extends Model
             ->select()
             ->toArray();
         foreach ($res as $key => $v){
-            if ($v['status'] == 1){
-                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
-            }else{
-                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-cyan\">删除</span>";
+            if ($v['status'] == 1) {
+                $statusTip = '正常';
+                $statusColor = 'blue';
+            } else {
+                $statusTip = '删除';
+                $statusColor = 'cyan';
             }
+            $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-$statusColor\">$statusTip</span>";
         }
         return $res;
     }
