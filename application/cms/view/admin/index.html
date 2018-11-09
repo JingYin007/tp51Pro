@@ -45,23 +45,7 @@
                 <td class="td-admin">
                     <img src="{$vo['picture']}" class="layui-circle">
                 </td>
-                <td><span class="layui-badge-dot
-                    {php}
-                        $tag = intval($vo['role_id'])%5;
-                        $bgStr = "layui-bg-";
-                        if($tag == 1){
-                        $bgStr2 = "orange";
-                        }elseif ($tag == 2){
-                        $bgStr2 = "green";
-                        }elseif ($tag == 3){
-                        $bgStr2 = "cyan";
-                        }else{
-                        $bgStr2 = "blue";
-                        }
-                    echo $bgStr.$bgStr2;
-                    {/php}
-                            "></span>
-                    &nbsp;&nbsp;{$vo['role_name']}</td>
+                <td>{php} echo $vo['role_tip']{/php}</td>
                 <td>{$vo['created_at']}</td>
                 <td>
                     {if($vo['status'] == 1)}

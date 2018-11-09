@@ -31,7 +31,7 @@ class Admin extends Base
      */
     public function index(Request $request){
         $list = $this->model
-            ->getadminsForPage(1,$this->page_limit);
+            ->getAdminsForPage(1,$this->page_limit);
         $search = $request->param('str_search');
         $record_num = $this->model->getAdminsCount();
 
@@ -90,8 +90,8 @@ class Admin extends Base
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->input('curr_page',1);
-        $list = $this->model->getadminsForPage($curr_page,$this->page_limit);
+        $curr_page = $request->param('curr_page',1);
+        $list = $this->model->getAdminsForPage($curr_page,$this->page_limit);
         return showMsg(1,'**',$list);
     }
 

@@ -5,8 +5,13 @@ use think\Model;
 
 class Admins extends Model
 {
-    //
-    public function getadminsForPage($curr_page,$limit){
+    /**
+     * 分页获取管理员数据
+     * @param $curr_page
+     * @param $limit
+     * @return array
+     */
+    public function getAdminsForPage($curr_page,$limit){
         $res = $this
             ->alias('a')
             ->field('a.*,ar.user_name role_name')
@@ -15,12 +20,33 @@ class Admins extends Model
             ->limit($limit*($curr_page - 1),$limit)
             ->select()
             ->toArray();
+
         foreach ($res as $key => $v){
-            if ($v['status'] == 1){
-                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
-            }else{
-                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-cyan\">删除</span>";
+            if ($v['status'] == 1) {
+                $statusTip = '正常';
+                $statusColor = 'blue';
+            } else {
+                $statusTip = '删除';
+                $statusColor = 'cyan';
             }
+            $roleTag = $v['role_id']%5;
+            $role_name = $v['role_name'];
+            switch ($roleTag){
+                case 0:
+                    $roleColor = 'orange';
+                    break;
+                case 1:
+                    $roleColor = 'green';
+                    break;
+                case 3:
+                    $roleColor = 'cyan';
+                    break;
+                default:
+                    $roleColor = 'blue';
+                    break;
+            }
+            $res[$key]['role_tip'] = "<span class=\"layui-badge-dot layui-bg-$roleColor\"></span>&nbsp;$role_name";
+            $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-$statusColor\">$statusTip</span>";
         }
         return $res;
     }

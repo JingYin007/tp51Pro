@@ -12,28 +12,13 @@ function ToAjaxOpForPageAdmins(toUrl,postData) {
             if(result.status == 1){
                 var str_html = '';
                 $.each(result.data,function (i,e) {
-                    var bgStr = 'layui-bg-';
-                    var bgStr2 = '';
-                    var tag = (e.role_id)%5;
-                    if(tag == 1){
-                        bgStr2 = "orange";
-                    }else if(tag == 2){
-                        bgStr2 = "green";
-                    }else if(tag == 3){
-                        bgStr2 = "cyan";
-                    }else {
-                        bgStr2 = "blue";
-                    }
-                    bgStr += bgStr2;
-
-
                     str_html +=
                         "<tr class=\"tr-admin-"+e.id+"\">\n" +
                         "                <td>"+e.id+"</td>\n" +
                         "                <td>"+e.user_name+"</td>\n" +
-                        "                <td><span class='layui-badge-dot " +bgStr+
-                        "'></span>&nbsp;&nbsp;"+e.role_name+"</td>\n"+
+                        "                <td class=\"td-admin\"><img class='layui-circle' src='"+e.picture+"'></td>\n" +
 
+                        "                <td>"+e.role_tip+"</td>\n"+
                         "                <td>"+e.created_at +"</td>\n" +
                         "                <td>" +e.status_tip +"</td>\n" +
                         "                <td>\n" +
