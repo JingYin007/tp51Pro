@@ -97,7 +97,7 @@ class Articles extends BaseModel
     public function getCmsArticleList(){
         $res = $this
             ->alias('a')
-            ->field('a.id,title,a.created_at,status,picture,abstract')
+            ->field('a.id,title,a.updated_at,status,picture,abstract')
             ->join('article_points ap','ap.article_id = a.id')
             ->order('a.list_order desc')
             ->order('a.id desc')

@@ -171,7 +171,7 @@ CREATE TABLE `tp5_nav_menus` (
 -- ----------------------------
 -- Records of tp5_nav_menus
 -- ----------------------------
-INSERT INTO `tp5_nav_menus` VALUES ('9', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_nav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('1', '菜单管理', '0', '', '/cms/images/icon/menu_icon.png', '1', '2', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('2', '菜单列表', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');

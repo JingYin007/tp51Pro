@@ -30,7 +30,7 @@
             <th>标题</th>
             <th>图片</th>
             <th>摘要</th>
-            <th>创建时间</th>
+            <th>更新时间</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
@@ -46,7 +46,7 @@
                 <td>
                     <p class="p-article-abstract">{$vo['abstract']}</p>
                 </td>
-                <td>{$vo['created_at']}</td>
+                <td>{$vo['updated_at']}</td>
                 <td>
                     {if($vo['status'] == 1)}
                         <span class="layui-badge layui-bg-blue">正常</span>
