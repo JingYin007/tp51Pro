@@ -62,9 +62,11 @@ class Admin extends Base
             ]);
         }
     }
+
     /**
      * @param Request $request
      * @param $id 标识ID
+     * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
         $method = $request->Method();
@@ -93,11 +95,12 @@ class Admin extends Base
     }
 
     /*TODO -------------------------------------角色管理------------------------------*/
+
     /**
      * 读取角色列表
-     * @param Request $request
+     * @return \think\response\View
      */
-    public function role(Request $request){
+    public function role(){
         $adminRoles = $this->ar_model->getAllRoles();
         return view('role',[
             'roles' => $adminRoles
@@ -108,17 +111,14 @@ class Admin extends Base
     /**
      * 角色添加功能
      * @param Request $request
+     * @return \think\response\View|void
      */
     public function addRole(Request $request){
         $method = $request->Method();
         if ($method == 'POST'){
-            $input = $request->param();
-            $tag = $this->ar_model->addRole($input);
-            if ($tag){
-                return showMsg(1,'新角色添加成功');
-            }else{
-                return showMsg(0,'新角色添加失败');
-            }
+            $input = $request->post();
+            $opRes = $this->ar_model->addRole($input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             //TODO 获取所有可以分配的权限菜单
             $viewMenus = $this->menuModel->getNavMenus();
@@ -128,6 +128,12 @@ class Admin extends Base
         }
     }
 
+    /**
+     * 更新 角色数据
+     * @param Request $request
+     * @param $id
+     * @return \think\response\View|void
+     */
     public function editRole(Request $request,$id){
         $method = $request->Method();
         $roleData = $this->ar_model->getRoleData($id);

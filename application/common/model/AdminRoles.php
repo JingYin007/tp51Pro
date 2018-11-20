@@ -1,10 +1,19 @@
 <?php
 namespace app\common\model;
 
+use app\common\controller\Base;
+use app\common\validate\AdminRole;
 use think\Model;
 
-class AdminRoles extends Model
+class AdminRoles extends BaseModel
 {
+    protected $validate;
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        $this->validate = new AdminRole();
+    }
+
     /**
      * 获取正常角色列表
      * @return mixed
@@ -20,11 +29,13 @@ class AdminRoles extends Model
      */
     public function getAllRoles(){
         $res = $this
-            ->where('status','<>',0)
+            ->where('status','<>',-1)
             ->order('status','desc')
-            ->order('created_at','desc')
+            ->order('updated_at','desc')
             ->select()->toArray();
         foreach ($res as $key => $v){
+            $role_name = $v['user_name'];
+            $res[$key]['role_tip'] = "$role_name";
             if ($v['status'] == 1){
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
             }else{
@@ -40,17 +51,26 @@ class AdminRoles extends Model
      * @return mixed
      */
     public function addRole($input){
-        $user_name = $input['user_name'];
+        $user_name = isset($input['user_name'])?$input['user_name']:'';
         $checkSameTag = $this->chkSameUserName($user_name);
         if ($checkSameTag){
-            return showMsg(0,'此昵称已被占用，请换一个！');
+            $validateRes['tag'] = 0;
+            $validateRes['message'] = '此昵称已被占用，请换一个！';
         }else{
-            $this->user_name = $input['user_name'];
-            $this->status = $input['status'];
-            $this->nav_menu_ids = $input['nav_menu_ids'];
-            $this->save();
-            return $this->id;
+            $addData = [
+                'user_name' => $user_name,
+                'nav_menu_ids'  => $input['nav_menu_ids']?$input['nav_menu_ids']:'',
+                'updated_at' => date("Y-m-d H:i:s",time()),
+                'status'    => intval($input['status']),
+            ];
+            $validateRes = $this->validate($this->validate, $addData);
+            if ($validateRes['tag']) {
+                $tag = $this->insert($addData);
+                $validateRes['tag'] = $tag;
+                $validateRes['message'] = $tag ? '角色添加成功' : '角色添加失败';
+            }
         }
+        return $validateRes;
     }
     public function editRole($id,$input){
         $opTag = isset($input['tag']) ? $input['tag']:'edit';
@@ -87,7 +107,7 @@ class AdminRoles extends Model
             ->field('user_name')
             ->where('user_name',$user_name)
             ->where('id','<>',$id)
-            ->find();
+            ->count();
         return $tag;
     }
 
