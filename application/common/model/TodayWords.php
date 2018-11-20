@@ -117,7 +117,6 @@ class TodayWords extends BaseModel
     {
 
         $opTag = isset($data['tag']) ? $data['tag'] : 'edit';
-
         if ($opTag == 'del') {
             $this
                 ->where('id', $id)

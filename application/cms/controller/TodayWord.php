@@ -29,7 +29,7 @@ class TodayWord extends Base
 
         return view('index',
             [
-                'menus' => $list,
+                'todayWords' => $list,
                 'search' => $search,
                 'record_num' => $record_num,
                 'page_limit' => $this->page_limit,

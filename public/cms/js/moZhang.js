@@ -204,13 +204,15 @@ function ToRemoveDiv(tag) {
  * @param title
  * @constructor
  */
-function ToOpenPopups(op_url,title) {
+function ToOpenPopups(op_url,title,width,height) {
+    var widthTag = width?width:'70%';
+    var heightTag = height?height:'65%';
     layer.open({
         type: 2,
         moveOut: true,
         title: title,
         maxmin: true, //开启最大化最小化按钮
-        area: ['70%', '65%'],
+        area: [widthTag, heightTag],
         content: op_url, //可以出现滚动条
         //content: [op_url, 'no'], //如果你不想让iframe出现滚动条
     });

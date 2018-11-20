@@ -1,7 +1,7 @@
 {extend name="layouts/cms" /}
 {block name="body-content"}
     <button class="layui-btn layui-btn-normal"
-            onclick="addTodayWords()">
+            onclick="addItem()">
         <i class="layui-icon" >&#xe608;</i> 添加赠言
     </button>
     <div class="layui-inline">
@@ -35,12 +35,12 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody class="tbody-todayWords">
-        {volist name="menus" id="vo"}
+        <tbody class="tbody-itmes">
+        {volist name="todayWords" id="vo"}
             <tr class="tr-menu-{$vo['id']}">
                 <td>{$vo['id']}</td>
                 <td>《{$vo['from']}》</td>
-                <td class="td-todayWord">
+                <td class="td-item">
                         <img src="{$vo['picture']}" class="layui-circle">
                 </td>
                 <td>{$vo['word']}</td>
@@ -49,11 +49,11 @@
                 <td>
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm"
-                                onclick="editTodayWord('{$vo.id}')">
+                                onclick="editItem('{$vo.id}')">
                             <i class="layui-icon"></i>
                         </button>
                         <button class="layui-btn layui-btn-sm"
-                                onclick="delTodayWord('{$vo.id}')">
+                                onclick="delItem('{$vo.id}')">
                             <i class="layui-icon"></i>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
     </script>
     <script>
         //根据菜单ID 删除菜单记录
-        function delTodayWord(id) {
+        function delItem(id) {
             var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
             toUrl = toUrl.replace("TWID", id);
             ToDelItem(id,toUrl,'.tr-menu-'+id);
@@ -108,12 +108,12 @@
             ToAjaxOpForPageTodayWords(toUrl,postData);
         }
         //添加导航菜单
-        function addTodayWords() {
+        function addItem() {
             var toUrl = "{:url('cms/todayWord/add')}";
             ToOpenPopups(toUrl,'添加今日赠言');
         }
         //根据菜单ID修改菜单信息
-        function editTodayWord(id) {
+        function editItem(id) {
             var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
             toUrl = toUrl.replace("TWID", id);
             ToOpenPopups(toUrl,'今日赠言修改');

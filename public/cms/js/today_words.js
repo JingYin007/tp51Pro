@@ -16,7 +16,7 @@ function ToAjaxOpForPageTodayWords(toUrl,postData) {
                         "<tr class=\"tr-menu-"+e.id+"\">\n" +
                         "                <td>"+e.id+"</td>\n" +
                         "                <td>《"+e.from+"》</td>\n" +
-                        "                <td class=\"td-todayWord\"><img class='layui-circle' src='"+e.picture+"'></td>\n" +
+                        "                <td class=\"td-item\"><img class='layui-circle' src='"+e.picture+"'></td>\n" +
                         "                <td>"+e.word+"</td>\n" +
                         "                <td>"+e.updated_at +"</td>\n" +
                         "                <td>" +e.status_tip +"</td>\n" +
@@ -34,7 +34,7 @@ function ToAjaxOpForPageTodayWords(toUrl,postData) {
                         "                </td>\n" +
                         "            </tr>";
                 });
-                $(".tbody-todayWords").html(str_html);
+                $(".tbody-itmes").html(str_html);
             }else{
                 //失败
                 layer.msg(result.message);

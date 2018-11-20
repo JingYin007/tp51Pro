@@ -37,12 +37,12 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody class="tbody-admins">
+        <tbody class="tbody-items">
         {volist name="admins" id="vo"}
-            <tr class="tr-admin-{$vo['id']}">
+            <tr class="tr-item-{$vo['id']}">
                 <td>{$vo['id']}</td>
                 <td>{$vo['user_name']}</td>
-                <td class="td-admin">
+                <td class="td-item">
                     <img src="{$vo['picture']}" class="layui-circle">
                 </td>
                 <td>{php} echo $vo['role_tip']{/php}</td>

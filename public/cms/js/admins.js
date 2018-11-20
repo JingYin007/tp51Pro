@@ -13,10 +13,10 @@ function ToAjaxOpForPageAdmins(toUrl,postData) {
                 var str_html = '';
                 $.each(result.data,function (i,e) {
                     str_html +=
-                        "<tr class=\"tr-admin-"+e.id+"\">\n" +
+                        "<tr class=\"tr-item-"+e.id+"\">\n" +
                         "                <td>"+e.id+"</td>\n" +
                         "                <td>"+e.user_name+"</td>\n" +
-                        "                <td class=\"td-admin\"><img class='layui-circle' src='"+e.picture+"'></td>\n" +
+                        "                <td class=\"td-item\"><img class='layui-circle' src='"+e.picture+"'></td>\n" +
 
                         "                <td>"+e.role_tip+"</td>\n"+
                         "                <td>"+e.created_at +"</td>\n" +
@@ -35,7 +35,7 @@ function ToAjaxOpForPageAdmins(toUrl,postData) {
                         "                </td>\n" +
                         "            </tr>";
                 });
-                $(".tbody-admins").html(str_html);
+                $(".tbody-items").html(str_html);
             }else{
                 //失败
                 layer.msg(result.message);
