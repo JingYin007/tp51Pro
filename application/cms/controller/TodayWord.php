@@ -43,8 +43,8 @@ class TodayWord extends Base
         $Tag = $request->Method();
         if ($Tag == 'POST'){
             $input = $request->param();
-            $this->model->addTodayWord($input);
-            return showMsg(1,'添加成功');
+            $opRes = $this->model->addTodayWord($input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('add');
         }
@@ -53,7 +53,8 @@ class TodayWord extends Base
     /**
      * 编辑新赠言
      * @param Request $request
-     * @param $id 赠言标识 ID
+     * @param $id
+     * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
         $Tag = $request->Method();
@@ -63,8 +64,8 @@ class TodayWord extends Base
             //TODO 修改对应的菜单
             $input = $request->param();
             $opID = $input['id'];
-            $tag = $this->model->editTodayWord($opID,$input);
-            return showMsg($tag,'修改成功');
+            $opRes = $this->model->editTodayWord($opID,$input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('edit',[
                 'todayWordData' => $todayWordData
