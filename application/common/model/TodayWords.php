@@ -23,9 +23,12 @@ class TodayWords extends BaseModel
     }
 
     /**
-     * 根据ID获取赠言数据
+     * 根据ID 获取赠言数据
      * @param int $id
      * @return array|null|\PDOStatement|string|Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getTodayWord($id = 0)
     {
@@ -36,8 +39,20 @@ class TodayWords extends BaseModel
                 ->find();
         }else{
             //此處 隨機取出一條數據
+            $allRes = $this
+                ->field("id")
+                ->where("status",1)
+                ->select()
+                ->toArray();
+            $arrIDs = [];
+            foreach ($allRes as $key => $value){
+                array_push($arrIDs,$value['id']);
+            }
+            $randID = array_rand($arrIDs,1);
             $res = $this
-                ->order('rand()')
+                //TODO 这个　rand() 有时候不好用
+                //->order("rand()")
+                ->where('id', $arrIDs[$randID])
                 ->find();
         }
         return $res;
