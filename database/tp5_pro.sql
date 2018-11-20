@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-02-12 05:10:59
+Date: 2018-11-20 21:15:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `tp5_admins`
+-- Table structure for tp5_admins
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_admins`;
 CREATE TABLE `tp5_admins` (
@@ -26,41 +26,39 @@ CREATE TABLE `tp5_admins` (
   `password` varchar(120) COLLATE utf8_unicode_ci NOT NULL DEFAULT '87d9bb400c0634691f0e3baaf1e2fd0d' COMMENT '管理员登录密码',
   `role_id` int(11) NOT NULL DEFAULT '0' COMMENT '角色ID',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
   `content` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '世界上没有两片完全相同的叶子！' COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_admins
 -- ----------------------------
-INSERT INTO `tp5_admins` VALUES ('1', '百里守约', '/cms/images/user.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
-INSERT INTO `tp5_admins` VALUES ('2', '百里玄策', '/cms/images/user.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '2', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
-INSERT INTO `tp5_admins` VALUES ('3', 'moTzxx@admin', '/cms/images/user.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
+INSERT INTO `tp5_admins` VALUES ('1', 'niuNeng@admin', '/cms/images/headshot/niuNeng.jpg', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
+INSERT INTO `tp5_admins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei2.jpg', '87d9bb400c0634691f0e3baaf1e2fd0d', '2', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
+INSERT INTO `tp5_admins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.jpg', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
 
 -- ----------------------------
--- Table structure for `tp5_admin_roles`
+-- Table structure for tp5_admin_roles
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_admin_roles`;
 CREATE TABLE `tp5_admin_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '角色称呼',
-  `nav_menu_ids` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '权限下的菜单ID',
-  `created_at` timestamp NULL DEFAULT NULL,
+  `nav_menu_ids` text COLLATE utf8_unicode_ci NOT NULL COMMENT '权限下的菜单ID',
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_admin_roles
 -- ----------------------------
-INSERT INTO `tp5_admin_roles` VALUES ('1', '终级管理员', '1|2|3|4|5|6|7|8', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '1');
-INSERT INTO `tp5_admin_roles` VALUES ('2', '初级管理员', '1|2|3|5', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '1');
+INSERT INTO `tp5_admin_roles` VALUES ('1', '终级管理员', '6|8|7|1|2|3|4|5|', '2018-02-11 21:02:43', '1');
+INSERT INTO `tp5_admin_roles` VALUES ('2', '初级管理员', '1|2|3|5', '2018-02-11 21:02:43', '1');
 
 -- ----------------------------
--- Table structure for `tp5_articles`
+-- Table structure for tp5_articles
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_articles`;
 CREATE TABLE `tp5_articles` (
@@ -72,17 +70,17 @@ CREATE TABLE `tp5_articles` (
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序标识 越大越靠前',
   `content` text COLLATE utf8_unicode_ci NOT NULL COMMENT '文章内容',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_articles
 -- ----------------------------
-INSERT INTO `tp5_articles` VALUES ('1', '讲个笑话：苹果为了“保护你” 让你手机变卡了', '1', '2018-02-11 21:02:42', '2018-02-11 21:02:42', '2', '曾长时间使用过苹果产品的人都会有一个感性的认识，产品用的久了就容易变卡，应用的使用不太顺畅，这种现象在如付费支付、户外定位等急切情况下会令人非常焦急。');
-INSERT INTO `tp5_articles` VALUES ('2', '放不下的是手机，感受不到的是生活', '2', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '3', '早晨醒来第一件事情便是解锁手机,瞄一眼朋友圈和工作群组的更新消息,手机电量少于30%就开始焦虑恐慌,偶尔和老友涮火锅,吃到一半抱着手机出去回电话,回桌发现涮好的肥牛早就凉了');
+INSERT INTO `tp5_articles` VALUES ('1', '讲个笑话：苹果为了“保护你” 让你手机变卡了', '1', '2018-02-11 21:02:42', '2018-11-08 17:11:57', '2', '<p>&nbsp;曾长时间使用过苹果产品的人都会有一个感性的认识，产品用的久了就容易变卡，应用的使用不太顺畅，这种现象在如付费支付、户外定位等急切情况下会令人非常焦急。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>');
+INSERT INTO `tp5_articles` VALUES ('2', '放不下的是手机，感受不到的是生活', '2', '2018-02-11 21:02:43', '2018-11-20 18:11:09', '3', '<p>早晨醒来第一件事情便是解锁手机,瞄一眼朋友圈和工作群组的更新消息,手机电量少于30%就开始焦虑恐慌,偶尔和老友涮火锅,吃到一半抱着手机出去回电话,回桌发现涮好的肥牛早就凉了 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>');
 INSERT INTO `tp5_articles` VALUES ('3', '魔术97-111不敌鹈鹕 惨遭七连败', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43', '6', '开场后，第32秒，佩顿在朗多投篮时犯规，送给鹈鹕2次罚球机会。第1分35秒，考辛斯妙传，朱-霍勒迪三分远投命中。第7分28秒，佩顿手滑丢球，被考辛斯抢断。鹈鹕对篮板发起疯狂进攻，本节共抢下16个篮板，包括6个前场篮板，其中戴维斯一人就贡献4个篮板球。');
 
 -- ----------------------------
--- Table structure for `tp5_article_points`
+-- Table structure for tp5_article_points
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_article_points`;
 CREATE TABLE `tp5_article_points` (
@@ -96,17 +94,19 @@ CREATE TABLE `tp5_article_points` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_article_points
 -- ----------------------------
 INSERT INTO `tp5_article_points` VALUES ('1', '1', '2', '', '/home/images/article_1.jpg', '曾长时间使用过苹果产品的人都会有一个感性的认识，产品用的久了就容易变卡，应用的使用不太顺畅，这种现象在如付费支付、户外定位等急切情况下会令人非常焦急。', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_article_points` VALUES ('2', '2', '12', '', '/home/images/article_2.jpg', '早晨醒来第一件事情便是解锁手机,瞄一眼朋友圈和工作群组的更新消息,手机电量少于30%就开始焦虑恐慌', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_article_points` VALUES ('3', '3', '2', '', '/home/images/article_3.jpg', '北京时间12月23日，NBA常规赛继续进行，新奥尔良鹈鹕客场挑战奥兰多魔术，魔术97-111不敌鹈鹕，惨遭七连败。', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_article_points` VALUES ('3', '3', '2', '', '/home/images/article_3.jpg', '北京时间12月23日，NBA常规赛继续进行，新奥尔良鹈鹕客场挑战奥兰多魔术，魔术97-111不敌鹈鹕，惨遭七连败。', '-1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_article_points` VALUES ('4', '4', '0', '', '', '', '-1', null, null);
+INSERT INTO `tp5_article_points` VALUES ('5', '6', '0', '', '', '                ', '1', null, null);
 
 -- ----------------------------
--- Table structure for `tp5_comments`
+-- Table structure for tp5_comments
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_comments`;
 CREATE TABLE `tp5_comments` (
@@ -128,7 +128,7 @@ INSERT INTO `tp5_comments` VALUES ('2', '1', '1', '1', '嗯，你说的对！', 
 INSERT INTO `tp5_comments` VALUES ('3', '2', '2', '0', '我们啊，其实都一样', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 
 -- ----------------------------
--- Table structure for `tp5_migrations`
+-- Table structure for tp5_migrations
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_migrations`;
 CREATE TABLE `tp5_migrations` (
@@ -152,7 +152,7 @@ INSERT INTO `tp5_migrations` VALUES ('8', '2018_01_28_081817_create_admins_table
 INSERT INTO `tp5_migrations` VALUES ('9', '2018_02_07_105721_create_sessions_table', '1');
 
 -- ----------------------------
--- Table structure for `tp5_nav_menus`
+-- Table structure for tp5_nav_menus
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_nav_menus`;
 CREATE TABLE `tp5_nav_menus` (
@@ -177,12 +177,12 @@ INSERT INTO `tp5_nav_menus` VALUES ('2', '菜单列表', '1', 'cms/menu/index', 
 INSERT INTO `tp5_nav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('6', '管理员', '0', '', '/cms/images/icon/manage.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_nav_menus` VALUES ('6', '管理员', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 INSERT INTO `tp5_nav_menus` VALUES ('7', '管理员列表', '6', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('8', '角色列表', '6', 'cms/admin/role', '/cms/images/icon/role.png', '1', '0', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_nav_menus` VALUES ('8', '角色列表', '6', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
 
 -- ----------------------------
--- Table structure for `tp5_today_words`
+-- Table structure for tp5_today_words
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_today_words`;
 CREATE TABLE `tp5_today_words` (
@@ -191,24 +191,24 @@ CREATE TABLE `tp5_today_words` (
   `from` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '出处',
   `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '插图',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_today_words
 -- ----------------------------
-INSERT INTO `tp5_today_words` VALUES ('1', '谁的青春不迷茫，其实我们都一样！', '谁的青春不迷茫', '/home/images/ps.jpg', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('2', '想和你重新认识一次 从你叫什么名字说起', '你的名字', '/home/images/ps2.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('3', '我是一只雁，你是南方云烟。但愿山河宽，相隔只一瞬间.', '秦时明月', '/home/images/ps3.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('4', '人老了的好处，就是可失去的东西越来越少了.', '哈尔的移动城堡', '/home/images/ps4.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('5', '到底要怎么才能证明自己成长了 那种事情我也不知道啊 但是只要那一抹笑容尚存 我便心无旁骛 ', '声之形', '/home/images/ps5.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('6', '你觉得被圈养的鸟儿为什么无法自由地翱翔天际？是因为鸟笼不是属于它的东西', '东京食尸鬼', '/home/images/ps6.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/home/images/ps7.png', '1', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
+INSERT INTO `tp5_today_words` VALUES ('1', '谁的青春不迷茫，其实我们都一样！', '谁的青春不迷茫', '/home/images/ps.png', '1', '2018-11-20 19:58:05');
+INSERT INTO `tp5_today_words` VALUES ('2', '想和你重新认识一次 从你叫什么名字说起', '你的名字', '/home/images/ps2.png', '1', '2018-02-11 21:02:43');
+INSERT INTO `tp5_today_words` VALUES ('3', '我是一只雁，你是南方云烟。但愿山河宽，相隔只一瞬间.                ', '秦时明月', '/home/images/ps3.png', '1', '2018-02-11 21:02:43');
+INSERT INTO `tp5_today_words` VALUES ('4', '人老了的好处，就是可失去的东西越来越少了.', '哈尔的移动城堡', '/home/images/ps4.png', '1', '2018-11-20 18:54:22');
+INSERT INTO `tp5_today_words` VALUES ('5', '到底要怎么才能证明自己成长了 那种事情我也不知道啊 但是只要那一抹笑容尚存 我便心无旁骛 ', '声之形', '/home/images/ps5.png', '1', '2018-11-20 18:49:48');
+INSERT INTO `tp5_today_words` VALUES ('6', '你觉得被圈养的鸟儿为什么无法自由地翱翔天际？是因为鸟笼不是属于它的东西', '东京食尸鬼', '/home/images/ps6.png', '1', '2018-02-11 21:02:43');
+INSERT INTO `tp5_today_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/home/images/ps7.png', '1', '2018-02-11 21:02:43');
+INSERT INTO `tp5_today_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福                ', '千与千寻', '/home/images/ps8.png', '1', '2018-11-20 21:14:30');
 
 -- ----------------------------
--- Table structure for `tp5_users`
+-- Table structure for tp5_users
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_users`;
 CREATE TABLE `tp5_users` (
