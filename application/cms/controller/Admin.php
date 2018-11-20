@@ -47,6 +47,7 @@ class Admin extends Base
     /**
      * 添加新用户
      * @param Request $request
+     * @return \think\response\View|void
      */
     public function add(Request $request){
         $method = $request->Method();
@@ -71,8 +72,8 @@ class Admin extends Base
         $adminData = $this->model->getAdminData($id);
         if ($method == 'POST'){
             $input = $request->param();
-            $tag = $this->model->editAdmin($id,$input);
-            return showMsg($tag,'用户信息修改成功');
+            $opRes = $this->model->editAdmin($id,$input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('edit',[
                 'admin' => $adminData,

@@ -25,6 +25,7 @@ class Admins extends BaseModel
             ->field('a.*,ar.user_name role_name')
             ->join('admin_roles ar','a.role_id = ar.id')
             ->order('a.id','desc')
+            ->where("a.status",1)
             ->limit($limit*($curr_page - 1),$limit)
             ->select()
             ->toArray();
@@ -66,6 +67,7 @@ class Admins extends BaseModel
     public function getAdminsCount(){
         $res = $this
             ->field('*')
+            ->where("status",1)
             ->count();
         return $res;
     }
@@ -113,21 +115,29 @@ class Admins extends BaseModel
                 $validateRes['message'] = $tag ? '管理员添加成功' : '添加失败';
             }
         }
-
         return $validateRes;
 
     }
 
+    /**
+     * 根据ID 修改管理员数据
+     * @param $id
+     * @param $input
+     * @return void|static
+     */
     public function editAdmin($id,$input){
         $opTag = isset($input['tag']) ? $input['tag']:'edit';
         if ($opTag == 'del'){
             $tag = $this
                 ->where('id',$id)
                 ->update(['status' => -1]);
+            $validateRes['tag'] = $tag;
+            $validateRes['message'] = $tag? '管理员删除成功':'Sorry,管理员删除失败！';
         }else{
             $sameTag = $this->chkSameUserName($input['user_name'],$id);
             if ($sameTag){
-                return showMsg(0,'此昵称已被占用，请换一个！');
+                $validateRes['tag'] = 0;
+                $validateRes['message'] = '此昵称已被占用，请换一个！';
             }else{
                 $saveData = [
                     'user_name' => $input['user_name'],
@@ -136,16 +146,20 @@ class Admins extends BaseModel
                     'status' => $input['status'],
                     'content' => $input['content'],
                 ];
-                //TODO 如果输入了新密码
-                if ($input['password']){
-                    $saveData['password'] = md5(base64_encode($input['password']));
+                $validateRes = $this->validate($this->validate, $saveData);
+                if ($validateRes['tag']){
+                    if ($input['password']){
+                        //TODO 如果输入了新密码
+                        $saveData['password'] = md5(base64_encode($input['password']));
+                    }
+                    $tag = $this
+                        ->where('id',$id)
+                        ->update($saveData);
+                    $validateRes['message'] = $tag ? '管理员修改成功' : '修改失败';
                 }
-                $tag = $this
-                    ->where('id',$id)
-                    ->update($saveData);
             }
         }
-        return $tag;
+        return $validateRes;
     }
 
     /**

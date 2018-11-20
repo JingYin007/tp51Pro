@@ -99,7 +99,7 @@
         function delAdmin(id) {
             var toUrl = "{:url('cms/admin/edit',['id'=>'AdminID'])}";
             toUrl = toUrl.replace('AdminID',id);
-            ToDelItem(id,toUrl,'.tr-admin-'+id);
+            ToDelItem(id,toUrl,'.tr-item-'+id);
         }
         $(".btn-search-navMenu").on('click',function () {
             //var str_search = $(".search_input").val();
