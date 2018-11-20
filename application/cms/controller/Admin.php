@@ -52,13 +52,9 @@ class Admin extends Base
         $method = $request->Method();
         $adminRoles = $this->ar_model->getNormalRoles();
         if ($method == 'POST'){
-            $input = $request->param();
-            $tag = $this->model->addAdmin($input);
-            if (is_numeric($tag) && $tag > 0){
-                return showMsg(1,'新用户添加成功');
-            }else{
-                return showMsg(0,'Sorry,新用户添加失败');
-            }
+            $input = $request->post();
+            $opRes = $tag = $this->model->addAdmin($input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('add',[
                 'adminRoles'=>$adminRoles

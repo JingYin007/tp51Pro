@@ -1,10 +1,18 @@
 <?php
 namespace app\common\model;
 
+use app\common\validate\Admin;
 use think\Model;
 
-class Admins extends Model
+class Admins extends BaseModel
 {
+    protected $validate;
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        $this->validate = new Admin();
+    }
+
     /**
      * 分页获取管理员数据
      * @param $curr_page
@@ -62,6 +70,11 @@ class Admins extends Model
         return $res;
     }
 
+    /**
+     * 根据ID 获取管理员数据
+     * @param $id
+     * @return array
+     */
     public function getAdminData($id){
         $res = $this
             ->alias('a')
@@ -72,22 +85,37 @@ class Admins extends Model
         return $res;
     }
 
+    /**
+     * 添加后台管理员
+     * @param $input
+     * @return int|void
+     */
     public function addAdmin($input){
-        $sameTag = $this->chkSameUserName($input['user_name']);
+        $user_name = isset($input['user_name'])?$input['user_name']:'';
+        $sameTag = $this->chkSameUserName($user_name);
         if ($sameTag){
-            return showMsg(0,'此昵称已被占用，请换一个！');
+            $validateRes['tag'] = 0;
+            $validateRes['message'] = '此昵称已被占用，请换一个！';
         }else{
-            $this->user_name = $input['user_name'];
-            $this->picture = $input['picture'];
-            $this->password = md5(base64_encode($input['password']));
-            $this->created_at = time();
-            $this->updated_at = time();
-            $this->role_id = $input['role_id'];
-            $this->status = $input['status'];
-            $this->content = $input['content'];
-            $this->save();
-            return 1;
+            $addData = [
+                'user_name' => $user_name,
+                'picture'   => isset($input['picture'])?$input['picture']:'',
+                'password'  => md5(base64_encode($input['password'])),
+                'created_at' => date("Y-m-d H:i:s",time()),
+                'role_id'   => intval($input['role_id']),
+                'status'    => intval($input['status']),
+                'content'   => $input['content'],
+            ];
+            $validateRes = $this->validate($this->validate, $addData);
+            if ($validateRes['tag']) {
+                $tag = $this->insert($addData);
+                $validateRes['tag'] = $tag;
+                $validateRes['message'] = $tag ? '管理员添加成功' : '添加失败';
+            }
         }
+
+        return $validateRes;
+
     }
 
     public function editAdmin($id,$input){
@@ -131,7 +159,7 @@ class Admins extends Model
             ->field('user_name')
             ->where('user_name',$user_name)
             ->where('id','<>',$id)
-            ->find();
+            ->count();
         return $tag;
     }
     public function getAdminNavMenus($id = 1){
