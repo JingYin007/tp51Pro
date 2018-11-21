@@ -32,14 +32,14 @@
                     {volist name="menus" id="vo"}
                         <tr>
                             <td class="td-menu-parent td-nav-menu">
-                                {$vo['namez']}
+                                {$vo['name']}
                                 <input type="checkbox" class="cb-nav-menu" value="{$vo['id']}"
                                        lay-skin="switch" lay-text="ON|OFF" checked>
                             </td>
                             <td class="td-menu-child td-nav-menu">
                                 {volist name="vo.child" id="voi"}
                                     <input type="checkbox" class="cb-nav-menu" value="{$voi['id']}"
-                                           title="{$voi['namez']}" checked>
+                                           title="{$voi['name']}" checked>
                                 {/volist}
                             </td>
                         </tr>

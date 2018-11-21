@@ -40,7 +40,7 @@
                     {volist name="menus" id="vo"}
                         <tr>
                             <td class="td-menu-parent td-nav-menu">
-                                <p>{$vo['namez']}</p>
+                                <p>{$vo['name']}</p>
                                 <input type="checkbox" class="cb-nav-menu" value="{$vo['id']}"
                                        lay-skin="switch" lay-text="ON|OFF"
                                         {php}
@@ -54,7 +54,7 @@
                             <td class="td-menu-child td-nav-menu">
                                 {volist name="vo.child" id="voi"}
                                     <input type="checkbox" class="cb-nav-menu" value="{$voi['id']}"
-                                           title="{$voi['namez']}"
+                                           title="{$voi['name']}"
                                             {php}
                                                 if(in_array($voi['id'],$menuSelf)){
                                                     echo " checked";
