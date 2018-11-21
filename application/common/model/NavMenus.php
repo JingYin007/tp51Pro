@@ -49,7 +49,7 @@ class NavMenus extends BaseModel
      * @return bool
      */
     public function checkNavMenuMan($nav_id = 0 ,$cmsAID = 0){
-        $str = $this->getAdminNavMenus($cmsAID);
+        $str = $this->getAdminMenus($cmsAID);
         $navMenus = explode('|',$str);
         $tag = in_array($nav_id,$navMenus);
         return $tag;
@@ -64,23 +64,33 @@ class NavMenus extends BaseModel
         if (!$cmsAID){
             return null;
         }else{
-            $str = $this->getAdminNavMenus($cmsAID);
+            $str = $this->getAdminMenus($cmsAID);
             $arr = explode('|',$str);
-            $res1 = $this->allNavMenus();
-            $res = $this->deal($res1,$arr);
+            $rootMenus = $this->getAllRootMenus();
+            $res = $this->dealForAdminShowMenus($rootMenus,$arr);
             return $res?$res->toArray():null;
         }
     }
-    public function getAdminNavMenus($id = 1){
-        $res = Db('admins')
+
+    /**
+     * 根据管理员 获取其权限下的 菜单组合
+     * @param int $id
+     * @return mixed
+     */
+    public function getAdminMenus($id = 1){
+        $nav_menu_ids = Db('admins')
             ->alias('a')
-            ->field('ar.nav_menu_ids')
             ->join('admin_roles ar','ar.id = a.role_id')
             ->where('a.id',$id)
-            ->find();
-        return $res['nav_menu_ids'];
+            ->value('nav_menu_ids');
+        return $nav_menu_ids;
     }
-    public function allNavMenus(){
+
+    /**
+     * 获取所有可显示的 根级菜单
+     * @return array|\PDOStatement|string|\think\Collection
+     */
+    public function getAllRootMenus(){
         $res = $this
             ->field('*')
             ->where('id','>',0)
@@ -90,25 +100,38 @@ class NavMenus extends BaseModel
             ->select();
         return $res;
     }
-    public function deal($res,$arr){
-        foreach ($res as $key => $value){
+
+    /**
+     * 处理管理员 权限所要展示的菜单项
+     * @param $rootMenus
+     * @param $arr
+     * @return mixed
+     */
+    public function dealForAdminShowMenus($rootMenus,$arr){
+        foreach ($rootMenus as $key => $value){
             $parent_id = $value['id'];
             if (!in_array($parent_id,$arr)){
-                unset($res[$key]);
+                unset($rootMenus[$key]);
             }else{
                 $childRes = $this
                     ->where('parent_id',$parent_id)
                     ->where('status',1)
                     ->order('list_order','desc')
                     ->select();
-                $childRes = $this->deal2($childRes,$arr);
-                $res[$key]['child'] = $childRes;
+                $childRes = $this->dealForAdminShowMenus2($childRes,$arr);
+                $rootMenus[$key]['child'] = $childRes;
             }
         }
-        return $res;
+        return $rootMenus;
     }
 
-    public function deal2($res,$arr){
+    /**
+     * 嘚瑟 进一步处理
+     * @param $res
+     * @param $arr
+     * @return mixed
+     */
+    public function dealForAdminShowMenus2($res,$arr){
         foreach ($res as $key => $value){
             $parent_id = $value['id'];
             if (!in_array($parent_id,$arr)){
