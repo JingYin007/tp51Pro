@@ -27,6 +27,7 @@ class Articles extends BaseModel
      */
     public function getArticleList(){
         $data = $this
+            ->field("a.*,ap.picture,ap.abstract")
             ->alias('a')//给主表取别名
             ->join('article_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
             ->where('a.id','>',0)
@@ -63,6 +64,7 @@ class Articles extends BaseModel
             ->alias('a')
             ->join('article_points ap','ap.article_id = a.id')
             ->order('ap.view desc')
+            ->where("ap.status",1)
             ->limit(9)
             ->select()
             ->toArray();
@@ -99,6 +101,7 @@ class Articles extends BaseModel
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
             ->join('article_points ap','ap.article_id = a.id')
+            ->where("ap.status",1)
             ->order('a.list_order desc')
             ->order('a.id desc')
             ->select();
