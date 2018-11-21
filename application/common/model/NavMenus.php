@@ -11,28 +11,23 @@ use \think\Model;
 
 class NavMenus extends Model
 {
-    private $adminModel;
-    /*public function __construct()
-    {
-        $this->adminModel = new Admins();
-    }*/
-
     /**
      * 获取所有正常状态的菜单列表
      * @return mixed
      */
     public function getNavMenus(){
+
         $res = $this
             ->field('*')
-            ->where('id > 0 and parent_id = 0 and status = 1')
-            ->order('list_order desc')
+            ->where([['id','>',0],['parent_id','=',0],['status','=',1]])
+            ->order('list_order','desc')
             ->select();
         foreach ($res as $key => $value){
             $parent_id = $value['id'];
             $childRes = $this
-                ->where('parent_id = '.$parent_id)
-                ->where('status = 1')
-                ->order('list_order desc')
+                ->where('parent_id',$parent_id)
+                ->where('status',1)
+                ->order('list_order','desc')
                 ->select();
             $res[$key]['child'] = $childRes;
         }

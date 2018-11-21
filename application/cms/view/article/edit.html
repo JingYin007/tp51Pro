@@ -59,9 +59,7 @@
             <label class="layui-form-label">文章内容：</label>
             <div class="layui-input-block div-article-content">
                 <script id="ue-container" name="content"  type="text/plain">
-                    {php}
-                        echo htmlspecialchars_decode($article['content']);
-                    {/php}
+                    {php}echo htmlspecialchars_decode($article['content']);{/php}
                 </script>
             </div>
 
