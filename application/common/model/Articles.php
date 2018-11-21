@@ -46,7 +46,7 @@ class Articles extends BaseModel
             ->field('a.title,a.id')
             ->alias('a')
             ->join('article_points ap','ap.article_id = a.id')
-            ->order('ap.view desc')
+            ->order('ap.view','desc')
             ->where('ap.status',1)
             ->limit(6)
             ->select()
@@ -59,15 +59,11 @@ class Articles extends BaseModel
      * @return array
      */
     public function getPhotos(){
-        $res = $this
-            ->field('ap.picture')
-            ->alias('a')
-            ->join('article_points ap','ap.article_id = a.id')
-            ->order('ap.view desc')
-            ->where("ap.status",1)
+        $res = Db::name('photos')
+            ->field('picture')
+            ->order("id","asc")
             ->limit(9)
-            ->select()
-            ->toArray();
+            ->select();
         return $res;
     }
 

@@ -78,7 +78,8 @@
     text-overflow:ellipsis;
 }
 .div-article-gallery .gallery-grid-pic img{
-    height: 88px;
+    height: 108px;
+    width: 108px;
 }
 .info-pic img{
     border-radius:80%;
