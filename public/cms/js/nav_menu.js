@@ -18,7 +18,7 @@ function ToAjaxOpForPage(toUrl,postData) {
                         "                <td>"+e.name+"</td>\n" +
                         "                <td class=\"td-menu\"><img src='"+e.icon+"'></td>\n" +
                         "                <td>"+e.action+"</td>\n" +
-                        "                <td>"+e.parent_id+"</td>\n" +
+                        "                <td>"+e.parent_name+"</td>\n" +
                         "                <td>"+e.list_order+"</td>\n" +
                         "                <td>"+e.created_at+"</td>\n" +
                         "                <td>"+e.status_tip +"</td>\n" +
