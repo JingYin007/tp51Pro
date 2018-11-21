@@ -1,5 +1,6 @@
 <?php
 namespace app\common\model;
+use app\common\validate\NavMenu;
 use think\Db;
 use \think\Model;
 /**
@@ -9,8 +10,15 @@ use \think\Model;
  * Time: 16:45
  */
 
-class NavMenus extends Model
+class NavMenus extends BaseModel
 {
+    protected $validate;
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        $this->validate = new NavMenu();
+    }
+
     /**
      * 获取所有正常状态的菜单列表
      * @return mixed
@@ -121,41 +129,43 @@ class NavMenus extends Model
     public function getNavMenuByID($id = 0){
         $res = $this
             ->alias('nm')
-            ->field('nm.*,nm2.namez parent_name')
+            ->field('nm.*,nm2.name parent_name')
             ->join('nav_menus nm2','nm.parent_id = nm2.id')
             ->where('nm.id',$id)
             ->find();
         return $res?$res:[];
     }
 
+    /**
+     * 获取 符合条件的 菜单数量
+     * @param null $search
+     * @return int|string
+     */
     public function getNavMenusCount($search = null){
-        if ($search){
-            //如果有查询限制
-            $res = $this
-                ->field('*')
-                ->where('id','>','0')
-                ->whereLike('namez','%'.$search.'%')
-                //->orWhere('action','like','%'.$search.'%')
-                ->order('list_order','desc')
-                ->order('created_at','desc')
-                ->count();
-        }else{
-            $res = $this
-                ->field('*')
-                ->where('id > 0')
-                ->order('list_order','desc')
-                ->order('created_at','desc')
-                ->count();
-        }
+        $res = $this
+            ->field('id')
+            ->where([['id','>','0'],["status",'=',1]])
+            ->whereLike('name','%'.$search.'%')
+            //->orWhere('action','like','%'.$search.'%')
+            ->count();
         return $res;
     }
+
+    /**
+     * 分页获取 菜单数据
+     * @param $curr_page
+     * @param $limit
+     * @param null $search
+     * @return array|\PDOStatement|string|\think\Collection
+     */
     public function getNavMenusForPage($curr_page,$limit,$search = null){
         $res = $this
-            ->field('*')
-            ->where('id > 0')
-            ->whereLike('namez','%'.$search.'%')
-            ->order('list_order','desc')
-            ->order('created_at','desc')
+            ->field('n1.*,n2.name parent_name')
+            ->alias('n1')
+            ->join("nav_menus n2",'n1.parent_id = n2.id')
+            ->where([['n1.id','>','0'],["n1.status",'=',1]])
+            ->whereLike('n1.name','%'.$search.'%')
+            ->order(['n1.list_order'=>'desc','n1.created_at'=>'desc'])
             ->limit($limit*($curr_page - 1),$limit)
             ->select();
         foreach ($res as $key => $v){
@@ -168,37 +178,63 @@ class NavMenus extends Model
         return $res;
     }
 
+    /**
+     * 添加菜单数据
+     * @param $data
+     * @return array
+     */
     public function addNavMenu($data){
-        $this->namez = $data['namez'];
-        $this->parent_id = $data['parent_id'];
-        $this->action = $data['action']?$data['action']:'';
-        $this->icon = $data['icon']?$data['icon']:'';
-        $this->created_at = time();
-        $this->updated_at = time();
-        $this->list_order = $data['list_order'];
-        $this->status = $data['status'];
-        $this->save();
+        $addData = [
+            'name' => isset($data['name'])?$data['name']:'',
+            'parent_id' => intval($data['parent_id']),
+            'action' => isset($data['action']) ? $data['action'] : '',
+            'icon' => $data['icon']?$data['icon']:'',
+            'created_at' => date("Y-m-d H:i:s", time()),
+            'list_order' => intval($data['list_order']),
+            'status' => $data['status'],
+        ];
+        $validateRes = $this->validate($this->validate, $addData);
+        if ($validateRes['tag']) {
+            $tag = $this->insert($addData);
+            $validateRes['tag'] = $tag;
+            $validateRes['message'] = $tag ? '菜单添加成功' : '添加失败';
+        }
+        return $validateRes;
     }
 
+    /**
+     * 更新菜单数据
+     * @param $id
+     * @param $data
+     * @return array
+     */
     public function editNavMenu($id,$data){
         $opTag = isset($data['tag']) ? $data['tag']:'edit';
+        $tag = 0;
         if($opTag == 'del'){
             $tag = $this
                 ->where('id',$id)
                 ->update(['status' => -1]);
+            $validateRes['message'] = '菜单删除成功';
         }else{
-            $tag = $this
-                ->where('id',$id)
-                ->update(
-                    [
-                        'namez' => $data['namez'],
-                        'icon' => $data['icon'],
-                        'list_order' => $data['list_order'],
-                        'parent_id' => $data['parent_id'],
-                        'action' => $data['action']?$data['action']:'',
-                        'status' => $data['status'],
-                    ]);
+            $saveData = [
+                'name' => isset($data['name'])?$data['name']:'',
+                'icon' => $data['icon']?$data['icon']:'',
+                'list_order' => intval($data['list_order']),
+                'parent_id' => $data['parent_id'],
+                'action' => isset($data['action']) ? $data['action'] : '',
+                'status' => $data['status'],
+            ];
+            $validateRes = $this->validate($this->validate, $saveData);
+            if ($validateRes['tag']){
+                $tag = $this
+                    ->where('id',$id)
+                    ->update($saveData);
+                $validateRes['message'] = $tag?'菜单修改成功':'数据无变动';
+            }
+
         }
-        return $tag;
+        $validateRes['tag'] = $tag;
+        return $validateRes;
     }
 }

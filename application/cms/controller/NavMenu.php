@@ -26,7 +26,6 @@ class NavMenu extends Base
         $search = $request->param('str_search');
         $record_num = $this->menuModel->getNavMenusCount($search);
         $list = $this->menuModel->getNavMenusForPage(1,$this->page_limit,$search);
-
         return view('index',
             [
                 'menus' => $list,
@@ -56,8 +55,8 @@ class NavMenu extends Base
         $rootMenus = $this->menuModel->getNavMenus();
         if ($Tag == 'POST'){
             $input = $request->param();
-            $this->menuModel->addNavMenu($input);
-            return showMsg(1,'添加成功');
+            $opRes = $this->menuModel->addNavMenu($input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('add',[
                 'rootMenus'=>$rootMenus,
@@ -68,7 +67,8 @@ class NavMenu extends Base
     /**
      * 编辑导航菜单数据
      * @param Request $request
-     * @param $id 菜单 ID
+     * @param $id
+     * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
         $Tag = $request->Method();
@@ -77,10 +77,9 @@ class NavMenu extends Base
         $menuData = $this->menuModel->getNavMenuByID($id);
         if ($Tag == 'POST'){
             //TODO 修改对应的菜单
-            $input = $request->param();
-            $opID = $input['id'];
-            $tag = $this->menuModel->editNavMenu($opID,$input);
-            return showMsg($tag,'修改成功');
+            $input = $request->post();
+            $opRes = $this->menuModel->editNavMenu($input['id'],$input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('edit',[
                 'rootMenus' => $rootMenus,

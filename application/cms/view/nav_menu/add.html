@@ -4,7 +4,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">导航标题：</label>
             <div class="layui-input-inline">
-                <input type="text" name="namez" required lay-verify="required"
+                <input type="text" name="name" required lay-verify="required"
                        placeholder="请输入标题" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">请七个字以内</div>
@@ -30,7 +30,7 @@
                 <select name="parent_id" lay-verify="required">
                     <option value="0">根级导航</option>
                     {volist name="rootMenus" id="vo"}
-                        <option value="{$vo['id']}">{$vo['namez']}</option>
+                        <option value="{$vo['id']}">{$vo['name']}</option>
                     {/volist}
                 </select>
             </div>
