@@ -130,13 +130,13 @@
         //添加导航菜单
         function addNavMenu() {
             var toUrl = "{:url('cms/menu/add')}";
-            ToOpenPopups(toUrl,'添加导航菜单');
+            ToOpenPopups(toUrl,'✚ 添加导航菜单','55%','61%');
         }
         //根据菜单ID修改菜单信息
         function editNavMenu(id) {
             var toUrl = "{:url('cms/navMenu/edit',['id'=>'NMID'])}";
             toUrl = toUrl.replace("NMID",id);
-            ToOpenPopups(toUrl,'菜单信息修改');
+            ToOpenPopups(toUrl,'✎ 菜单信息修改','55%','61%');
         }
     </script>
 

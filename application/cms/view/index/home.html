@@ -1,27 +1,155 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>首页</title>
-    <style>
+{extend name="layouts/cms"}
+{block name='body-content'}
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        background-size: 100%;
+        background-image: url(../cms/images/home2.png);
+        background-repeat: no-repeat;
+    }
 
-        .div-body{
-            width: 99%;
-            height: auto;
-            background-image: url(../images/home.png);
-            background-repeat:no-repeat;
-        }
-        .img-home{
-            width: 99%;
-            height: auto;
-        }
-    </style>
-</head>
+    .div-warmTip-left {
+        position: relative;
+        width: 33%;
+    }
 
-<body>
-<div class="div-body">
-    <img class="img-home" src="__CMS__/images/home.png">
+    .div-warmTip-left .layui-colla-content,
+    .div-warmTip-left .layui-timeline-content,
+    .div-warmTip-right .layui-card-body {
+        background-color: #393D49;
+        color: wheat;
+    }
+
+    .div-warmTip-left .layui-timeline-title {
+        color: #b94a48;
+    }
+
+    .div-warmTip-right {
+        position: absolute;
+        width: 30%;
+        float: right;
+        right: 0px;
+        top: 0px;
+        z-index: 100;
+        margin-right: 5px;
+    }
+
+    .div-warmTip-right a {
+        color: #ce8483;
+    }
+
+    .div-warmTip-right b {
+        color: #a6e1ec;
+    }
+</style>
+
+<div class="div-warmTip-left">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+        <legend>☂ 如果时间刚刚好</legend>
+    </fieldset>
+    <div class="layui-collapse" lay-accordion="">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">闲言碎语➷ </h2>
+            <div class="layui-colla-content">
+                感觉这里有点空<br>
+                //突然，又不知道说啥好了！还能咋地，凑合过呗 ...
+            </div>
+        </div>
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">更新日志➷ </h2>
+            <div class="layui-colla-content layui-show">
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">至今</h3>
+                            <p>准备中...
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">11月22日</h3>
+                            <p>
+                                > 优化了页面的边框显示问题，主要是自己看着顺眼、中意;
+                                <br>> 顺带变更了几个图片资源;
+                                <br>> 首页补充了面板功能，可以清晰展示更新时间线;
+                                <br>> 博客同步更新;
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">11月21日</h3>
+                            <p>
+                                > 数据库表字段优化，文件 tp5_pro.sql上传;
+                                <br>> 导航菜单的图标统一资源替换，展示效果人性化;
+                                <br>> 对公共布局文件 css、js 的命名尽量统一规划，删减冗余代码;
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">11月09日</h3>
+                            <p>
+                                > 补充对 model 类操作的规则验证(validate);
+                                <br>> 优化菜单栏链接，排除跳转无效的Bug;
+                                <br>> 优化管理员角色权限设置
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">06月04日</h3>
+                            <p>
+                                > 公共文件优化、替换;
+                                <br>> 管理系统测试已基本可以使用;
+                                <br>> 补充 404,500异常效果，剔除不用的 public/upload 资源;
+                                <br>> 第一版本框架源码完善，Github上传;
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="layui-timeline-title">2018 新年伊始</div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--此处，温馨提示哦-->
+<div class="div-warmTip-right">
+    <fieldset class="layui-elem-field layui-field-title"
+              style="margin-top: 50px">
+        <legend>☁ 温馨提示</legend>
+    </fieldset>
+    <div class="layui-card-body">
+        ♩. 开源框架支持：<b>ThinkPHP5.1.2</b>，
+        <b><a href="https://www.layui.com/">LayUI经典前端</a></b>，
+        <b>UEditor富文本编辑器</b><br>
+        ♪. 图片资源来自：
+        <b><a href="https://weibo.com/p/1035051252103722/home?is_hot=1">吾皇的白茶</a></b>，
+        <b><a href="http://www.iconfont.cn/plus">阿里巴巴矢量图标库</a></b><br>
+        ♫. 后期会尽心对重要功能进行增加、扩展、优化<br>
+        ♬. 详情、疑问、答疑、吐槽等，请移驾同步文章 :
+        <b><a href="https://blog.csdn.net/u011415782/article/details/79307673">
+            moTzxx-CMS —— [一个基于PHP代码的后台管理系统]
+        </a>
+        </b><br>
+        §. 只要别伤了鄙人自尊，那么... 欢迎道友指摘、吐槽咯~ ➷➷➷
+    </div>
 </div>
 
-</body>
-</html>
+{/block}
+

@@ -43,14 +43,14 @@
 .layui-tab-title{
     border-bottom: 3px solid #009688;
     width: 100%;
-    margin: -1px -1px;
 }
-
+.layui-layout-body{
+    height: auto;
+}
 .iframe-body{
     width:100%;
-    height: 93%;
-    frameborder:0;
-    scrolling:no;
+    height: auto;
+    overflow: hidden;
 }
 .layui-tab-title .title-selected{
     background-color: #009688;

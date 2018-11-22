@@ -32,8 +32,6 @@
         </ul>
 
         <ul class="layui-nav layui-layout-right">
-
-
             <li class="layui-nav-item nav_weather">
                 <!-- 天气信息 -->
                 {include file="layouts/weather" /}
@@ -168,6 +166,12 @@
         }else{
             layer.msg("您的刷新速度太快，还是等两秒再刷新吧！");
         }
+    });
+
+    $(document).ready(function(){
+        var allH = $(".layui-body").height();
+        var titleH = $(".layui-tab-title").height();
+        $(".iframe-body").css("height", allH - titleH - 10);
     });
 </script>
 </html>

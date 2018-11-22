@@ -207,14 +207,20 @@ function ToRemoveDiv(tag) {
 function ToOpenPopups(op_url,title,width,height) {
     var widthTag = width?width:'70%';
     var heightTag = height?height:'65%';
-    layer.open({
+    var openPopus = layer.open({
         type: 2,
+        shade:0.61,
+        shadeClose:true,
+        anim:4,
         moveOut: true,
         title: title,
         maxmin: true, //开启最大化最小化按钮
         area: [widthTag, heightTag],
         content: op_url, //可以出现滚动条
         //content: [op_url, 'no'], //如果你不想让iframe出现滚动条
+    });
+    layer.style(openPopus, {
+        background: '#EEEEEE',
     });
 }
 /**
@@ -231,8 +237,8 @@ function ToPostPopupsDeal(toUrl,postData) {
             dialog.tip(result.message);
             if(result.status == 1){
                 setTimeout(function(){
-                    window.parent.location.reload();
-                    //parent.layer.close(index);
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前 iframe层的索引
+                    parent.layer.close(index); //再执行关闭
                 },2000);
             }else{
                 //失败

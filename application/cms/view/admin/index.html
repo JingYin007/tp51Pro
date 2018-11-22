@@ -115,13 +115,13 @@
         //添加导航菜单
         function addAdmins() {
             var toUrl = "{:url('cms/admin/add')}";
-            ToOpenPopups(toUrl,'添加管理员');
+            ToOpenPopups(toUrl,'✚ 添加管理员','38%','76%');
         }
         //根据菜单ID修改菜单信息
         function editAdmin(id) {
             var toUrl = "{:url('cms/admin/edit',['id'=>'AdminID'])}";
             toUrl = toUrl.replace('AdminID',id);
-            ToOpenPopups(toUrl,'管理员信息修改');
+            ToOpenPopups(toUrl,'✎ 管理员修改','38%','76%');
         }
     </script>
 

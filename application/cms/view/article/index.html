@@ -88,13 +88,13 @@
         //添加导航菜单
         function addArticle() {
             var toUrl = "{:url('cms/article/add')}";
-            ToOpenPopups(toUrl,'文章添加');
+            ToOpenPopups(toUrl,'✚ 文章添加','','76%');
         }
         //根据菜单ID修改菜单信息
         function editArticle(id) {
             var toUrl = "{:url('cms/article/edit',['id'=>'AID'])}";
-            toUrl = toUrl.replace('AID',id)
-            ToOpenPopups(toUrl,'文章修改');
+            toUrl = toUrl.replace('AID',id);
+            ToOpenPopups(toUrl,'✎ 文章修改','','76%');
         }
     </script>
 {/block}
