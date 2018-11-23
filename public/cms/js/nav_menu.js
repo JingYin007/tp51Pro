@@ -33,7 +33,7 @@ function ToAjaxOpForPage(toUrl,postData) {
                         "                            <i class=\"layui-icon\">&#xe640;</i>\n" +
                         "                        </button>\n" +
                         "                        <button class=\"layui-btn layui-btn-sm\"\n" +
-                        "                                onclick=\"authNavMenu('"+e.id+"')\">权限\n" +
+                        "                                onclick=\"authNavMenu('"+e.id+"')\">\n" +
                         "                            <i class=\"layui-icon\">&#xe628;</i>\n" +
                         "                        </button>\n" +
                         "                    </div>\n" +

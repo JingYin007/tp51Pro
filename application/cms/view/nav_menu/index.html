@@ -31,7 +31,7 @@
             <col width="10%">
             <col width="10%">
             <col width="10%">
-            <col width="10%">
+            <col width="15%">
         </colgroup>
         <thead>
         <tr>
@@ -74,7 +74,7 @@
                             <i class="layui-icon">&#xe640;</i>
                         </button>
                         <button class="layui-btn layui-btn-sm"
-                                onclick="authNavMenu('{$vo['id']}')">权限
+                                onclick="authNavMenu('{$vo['id']}')">
                             <i class="layui-icon">&#xe628;</i>
                         </button>
                     </div>
@@ -145,7 +145,7 @@
         function authNavMenu(id) {
             var toUrl = "{:url('cms/navMenu/auth',['id'=>'NMID'])}";
             toUrl = toUrl.replace("NMID",id);
-            ToOpenPopups(toUrl,'♖ 权限管理','38%','51%');
+            ToOpenPopups(toUrl,'♖ 权限管理','58%','51%');
         }
     </script>
 
