@@ -63,6 +63,26 @@ class NavMenu extends CmsBase
             ]);
         }
     }
+    /**
+     * 赋予权限
+     * @param Request $request
+     * @return \think\response\View|void
+     */
+    public function auth(Request $request,$id){
+        $Tag = $request->Method();
+        $authMenus = $this->menuModel->getAuthChildNavMenus($id);
+
+        if ($Tag == 'POST'){
+            $input = $request->param();
+            $opRes = $this->menuModel->addNavMenu($input,$id);
+            return showMsg($opRes['tag'],$opRes['message']);
+        }else{
+            return view('auth',[
+                'authMenus'=>$authMenus,
+                'parent_id' => $id
+            ]);
+        }
+    }
 
     /**
      * 编辑导航菜单数据

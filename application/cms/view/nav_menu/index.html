@@ -67,11 +67,15 @@
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm"
                                 onclick="editNavMenu('{$vo['id']}')">
-                            <i class="layui-icon"></i>
+                            <i class="layui-icon">&#xe642;</i>
                         </button>
                         <button class="layui-btn layui-btn-sm"
                                 onclick="delNavMenu('{$vo['id']}')">
-                            <i class="layui-icon"></i>
+                            <i class="layui-icon">&#xe640;</i>
+                        </button>
+                        <button class="layui-btn layui-btn-sm"
+                                onclick="authNavMenu('{$vo['id']}')">权限
+                            <i class="layui-icon">&#xe628;</i>
                         </button>
                     </div>
                 </td>
@@ -137,6 +141,11 @@
             var toUrl = "{:url('cms/navMenu/edit',['id'=>'NMID'])}";
             toUrl = toUrl.replace("NMID",id);
             ToOpenPopups(toUrl,'✎ 菜单信息修改','55%','61%');
+        }
+        function authNavMenu(id) {
+            var toUrl = "{:url('cms/navMenu/auth',['id'=>'NMID'])}";
+            toUrl = toUrl.replace("NMID",id);
+            ToOpenPopups(toUrl,'♖ 权限管理','38%','51%');
         }
     </script>
 

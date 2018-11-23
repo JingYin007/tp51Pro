@@ -27,6 +27,7 @@ Route::get('cms/home','cms/index/home');
 Route::get('cms/menu/index','cms/navMenu/index');
 Route::any('cms/menu/add','cms/navMenu/add');
 Route::any('cms/menu/edit/:id','cms/navMenu/edit');
+Route::any('cms/menu/auth/:id','cms/navMenu/auth');
 Route::post('cms/menu/ajaxOpForPage','cms/navMenu/ajaxOpForPage');
 
 

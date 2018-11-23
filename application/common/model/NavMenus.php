@@ -92,9 +92,7 @@ class NavMenus extends BaseModel
     public function getAllRootMenus(){
         $res = $this
             ->field('*')
-            ->where('id','>',0)
-            ->where('parent_id',0)
-            ->where('status',1)
+            ->where([['id','>',0],['parent_id','=',0],['status','=',1],['type','=',0]])
             ->order('list_order','desc')
             ->select();
         return $res;
@@ -191,6 +189,9 @@ class NavMenus extends BaseModel
             ->limit($limit*($curr_page - 1),$limit)
             ->select();
         foreach ($res as $key => $v){
+            if (!$v['action']){
+                $res[$key]['action'] = '/';
+            }
             if ($v['status'] == 1){
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
             }else{
@@ -205,15 +206,16 @@ class NavMenus extends BaseModel
      * @param $data
      * @return array
      */
-    public function addNavMenu($data){
+    public function addNavMenu($data,$parent_id = 0){
         $addData = [
             'name' => isset($data['name'])?$data['name']:'',
-            'parent_id' => intval($data['parent_id']),
+            'parent_id' => $parent_id?$parent_id:intval($data['parent_id']),
             'action' => isset($data['action']) ? $data['action'] : '',
-            'icon' => $data['icon']?$data['icon']:'',
+            'icon' => isset($data['icon'])?$data['icon']:'/',
             'created_at' => date("Y-m-d H:i:s", time()),
-            'list_order' => intval($data['list_order']),
-            'status' => $data['status'],
+            'list_order' => isset($data['list_order'])?intval($data['list_order']):0,
+            'status' => isset($data['status'])?$data['status']:1,
+            'type'  => $parent_id?1:0
         ];
         $validateRes = $this->validate($this->validate, $addData);
         if ($validateRes['tag']) {
@@ -258,5 +260,18 @@ class NavMenus extends BaseModel
         }
         $validateRes['tag'] = $tag;
         return $validateRes;
+    }
+
+    /**
+     * 获取子集导航菜单
+     * @param int $parentID
+     * @return array
+     */
+    public function getAuthChildNavMenus($parentID = 0){
+        $res = $this
+            ->field('name,action')
+            ->where([["parent_id",'=',$parentID],['type','=',1]])
+            ->select();
+        return $res?$res->toArray():[];
     }
 }
