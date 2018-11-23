@@ -2,11 +2,11 @@
 
 namespace app\cms\Controller;
 
-use app\common\controller\Base;
+use app\common\controller\CmsBase;
 use app\common\model\TodayWords;
 use think\Request;
 
-class TodayWord extends Base
+class TodayWord extends CmsBase
 {
     //
     private $model;

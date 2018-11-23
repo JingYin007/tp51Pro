@@ -2,6 +2,7 @@
 namespace app\common\model;
 
 use app\common\validate\Admin;
+use think\Db;
 use think\Model;
 
 class Admins extends BaseModel
@@ -83,7 +84,7 @@ class Admins extends BaseModel
             ->field('a.*,ar.user_name role_name')
             ->join('admin_roles ar','ar.id = a.role_id')
             ->where('a.id',$id)
-            ->find()->toArray();
+            ->find();
         return $res;
     }
 
@@ -176,15 +177,26 @@ class Admins extends BaseModel
             ->count();
         return $tag;
     }
+
+    /**
+     * 获取当前管理员权限下的 导航菜单
+     * @param int $id
+     * @return mixed
+     */
     public function getAdminNavMenus($id = 1){
-        $res = $this
+        $nav_menu_ids = $this
             ->alias('a')
-            ->field('ar.nav_menu_ids')
             ->join('admin_roles ar','ar.id = a.role_id')
             ->where('a.id',$id)
-            ->find();
-        return $res->nav_menu_ids;
+            ->value('nav_menu_ids');
+        return $nav_menu_ids;
     }
+
+    /**
+     * 管理员登录 反馈
+     * @param $input
+     * @return bool|mixed
+     */
     public function adminLogin($input){
         $userName = $input['user_name'];
         $pwd = $input['password'];
@@ -201,7 +213,64 @@ class Admins extends BaseModel
         return false;
     }
 
+    /**
+     * 检查 管理员是否对此URL有管理权限
+     * @param int $adminID
+     * @param string $authUrl
+     * @return bool
+     */
+    public function checkAdminAuth($adminID = 0,$authUrl = ''){
+        $checkTag = false;
+        $nav_menu_ids = $this->getAdminNavMenus($adminID);
+        if (is_string($nav_menu_ids)){
+            $arrMenus = explode("|",$nav_menu_ids);
+            foreach ($arrMenus as $key => $menu_id){
+                if ($menu_id){
+                    $checkTag = $this->checkAuthUrlForMenuID($menu_id,$authUrl);
+                    if ($checkTag){
+                        break;
+                    }else{
+                        //此时判断其的 下级权限中是否满足 当前访问的权限
+                        $childMenus = Db::name('nav_menus')
+                            ->field("n2.id")
+                            ->alias('n1')
+                            ->join("nav_menus n2","n1.id = n2.parent_id")
+                            ->where([["n2.parent_id",'=',$menu_id],['n2.type','=',1]])
+                            ->select();
+                        foreach ($childMenus as $key2 => $child_menu){
+                            $checkTag = $this->checkAuthUrlForMenuID($child_menu['id'],$authUrl);
+                            if ($checkTag){
+                                break;
+                            }else{
+                                continue;
+                            }
+                        }
+                        if ($checkTag){
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return $checkTag;
+    }
 
+    /**
+     * 忽略 因操作系统不同对链接字符串大小写的敏感
+     * @param int $menu_id
+     * @param $authUrl
+     * @return bool
+     */
+    public function checkAuthUrlForMenuID($menu_id = 0,$authUrl){
+        $checkTag = false;
+        $menuAction = Db::name('nav_menus')
+            ->where("id",$menu_id)
+            ->value('action');
+        if ("/".strtolower($menuAction) == strtolower($authUrl)){
+            $checkTag = true;
+        }
+        return $checkTag;
+    }
 
 
 

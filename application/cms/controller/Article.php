@@ -2,11 +2,11 @@
 
 namespace app\cms\Controller;
 
-use app\common\controller\Base;
+use app\common\controller\CmsBase;
 use app\common\model\Articles;
 use think\Request;
 
-class Article extends Base
+class Article extends CmsBase
 {
     //
     private $model ;

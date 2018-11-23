@@ -2,15 +2,14 @@
 
 namespace app\cms\Controller;
 
-use app\common\controller\Base;
+use app\common\controller\CmsBase;
 use app\common\model\AdminRoles;
 use app\common\model\Admins;
 use app\common\model\NavMenus;
 use think\Request;
 
-class Admin extends Base
+class Admin extends CmsBase
 {
-    //
     private $model;
     private $ar_model;
     private $menuModel;

@@ -25,6 +25,7 @@ class Index{
      * @return \think\response\View
      */
     public function index(){
+        //获取 登录的管理员有效期ID
         $cmsAID = Session::get('cmsAID');
         $menuList = $this->menuModel->getNavMenusShow($cmsAID);
         if (!$cmsAID || !$menuList){

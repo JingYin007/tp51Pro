@@ -33,8 +33,7 @@ class NavMenus extends BaseModel
         foreach ($res as $key => $value){
             $parent_id = $value['id'];
             $childRes = $this
-                ->where('parent_id',$parent_id)
-                ->where('status',1)
+                ->where([['parent_id','=',$parent_id],["status",'=',1],["type",'=',0]])
                 ->order('list_order','desc')
                 ->select();
             $res[$key]['child'] = $childRes;
@@ -167,7 +166,7 @@ class NavMenus extends BaseModel
     public function getNavMenusCount($search = null){
         $res = $this
             ->field('id')
-            ->where([['id','>','0'],["status",'=',1]])
+            ->where([['id','>','0'],["status",'=',1],["type",'=',0]])
             ->whereLike('name','%'.$search.'%')
             //->orWhere('action','like','%'.$search.'%')
             ->count();
@@ -186,7 +185,7 @@ class NavMenus extends BaseModel
             ->field('n1.*,n2.name parent_name')
             ->alias('n1')
             ->join("nav_menus n2",'n1.parent_id = n2.id')
-            ->where([['n1.id','>','0'],["n1.status",'=',1]])
+            ->where([['n1.id','>','0'],["n1.status",'=',1],["n1.type",'=',0]])
             ->whereLike('n1.name','%'.$search.'%')
             ->order(['n1.list_order'=>'desc','n1.created_at'=>'desc'])
             ->limit($limit*($curr_page - 1),$limit)

@@ -2,12 +2,12 @@
 
 namespace app\cms\Controller;
 
-use app\common\controller\Base;
+use app\common\controller\CmsBase;
 use app\common\model\NavMenus;
 use think\facade\Session;
 use think\Request;
 
-class NavMenu extends Base
+class NavMenu extends CmsBase
 {
     private $menuModel;
     //定义每页的记录数
