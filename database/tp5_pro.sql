@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : 127.0.0.1
 Source Server Version : 50553
 Source Host           : localhost:3306
-Source Database       : tp5_pro2
+Source Database       : tp5_pro
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-11-21 19:19:12
+Date: 2018-11-23 18:57:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `tp5_admins` (
 -- Records of tp5_admins
 -- ----------------------------
 INSERT INTO `tp5_admins` VALUES ('1', 'niuNeng@admin', '/cms/images/headshot/niuNeng.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
-INSERT INTO `tp5_admins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '2', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
+INSERT INTO `tp5_admins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei.png', 'db69fc039dcbd2962cb4d28f5891aae1', '2', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
 INSERT INTO `tp5_admins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
 
 -- ----------------------------
@@ -55,7 +55,7 @@ CREATE TABLE `tp5_admin_roles` (
 -- Records of tp5_admin_roles
 -- ----------------------------
 INSERT INTO `tp5_admin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|4|5|', '2018-02-11 21:02:43', '1');
-INSERT INTO `tp5_admin_roles` VALUES ('2', '初级管理员', '1|6|3|5|', '2018-02-11 21:02:43', '1');
+INSERT INTO `tp5_admin_roles` VALUES ('2', '初级管理员', '1|7|6|2|3|5|', '2018-02-11 21:02:43', '1');
 
 -- ----------------------------
 -- Table structure for tp5_articles
@@ -162,20 +162,21 @@ CREATE TABLE `tp5_nav_menus` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
   `list_order` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序标识，越大越靠前',
   `created_at` timestamp NULL DEFAULT NULL,
+  `type` tinyint(2) DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_nav_menus
 -- ----------------------------
-INSERT INTO `tp5_nav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('2', '菜单列表', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('6', '管理人员', '1', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '2', '2018-02-11 21:02:43');
-INSERT INTO `tp5_nav_menus` VALUES ('7', '角色列表', '1', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43');
+INSERT INTO `tp5_nav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('2', '菜单列表', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('6', '管理人员', '1', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '2', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_nav_menus` VALUES ('7', '角色列表', '1', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43', '0');
 
 -- ----------------------------
 -- Table structure for tp5_photos
