@@ -25,11 +25,11 @@ function ToAjaxOpForPageAdmins(toUrl,postData) {
                         "                    <div class=\"layui-btn-group\">\n" +
                         "                        <button class=\"layui-btn layui-btn-sm\"\n" +
                         "                                onclick=\"editAdmin('"+e.id+"')\">\n" +
-                        "                            <i class=\"layui-icon\"></i>\n" +
+                        "                            <i class=\"layui-icon\">&#xe642;</i>\n" +
                         "                        </button>\n" +
                         "                        <button class=\"layui-btn layui-btn-sm\"\n" +
                         "                                onclick=\"delAdmin('"+e.id+"')\">\n" +
-                        "                            <i class=\"layui-icon\"></i>\n" +
+                        "                            <i class=\"layui-icon\">&#xe640;</i>\n" +
                         "                        </button>\n" +
                         "                    </div>\n" +
                         "                </td>\n" +
