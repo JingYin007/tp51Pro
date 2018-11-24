@@ -1,123 +1,132 @@
 {extend name="layouts/cms" /}
 {block name="body-content"}
-    <button class="layui-btn layui-btn-normal"
-            onclick="addItem()">
-        <i class="layui-icon" >&#xe608;</i> 添加赠言
-    </button>
-    <div class="layui-inline">
-        <div class="layui-input-inline">
-            <form class="form-search" action="{:url('cms/todayWord')}" method="post">
-                <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
-                <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
-                <input type="hidden" name="curr_page" class="curr_page" value="1">
-            </form>
-        </div>
+<button class="layui-btn layui-btn-normal"
+        onclick="addItem()">
+    <i class="layui-icon">&#xe608;</i> 添加赠言
+</button>
+<div class="layui-inline">
+    <div class="layui-input-inline">
+        <form class="form-search" action="{:url('cms/todayWord/index')}" method="get">
+            <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
+            <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
+            <input type="hidden" name="curr_page" class="curr_page" value="1">
+            <input type="text" value="{$search}" name="str_search" placeholder="请输入出处"
+                   class="layui-input search_input">
+        </form>
     </div>
+    <button class="layui-btn-warm btn-search-navMenu">
+        <i class="layui-icon">&#xe615;</i>
+    </button>
+</div>
 
-    <table class="layui-table table-body" lay-even="" lay-skin="row">
-        <colgroup>
-            <col width="5%">
-            <col width="15%">
-            <col width="10%">
-            <col width="35%">
-            <col width="10%">
-            <col width="10%">
-            <col width="15%">
-        </colgroup>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>出处</th>
-            <th>图片</th>
-            <th>内容</th>
-            <th>更新时间</th>
-            <th>状态</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody class="tbody-itmes">
-        {volist name="todayWords" id="vo"}
-            <tr class="tr-menu-{$vo['id']}">
-                <td>{$vo['id']}</td>
-                <td>《{$vo['from']}》</td>
-                <td class="td-item">
-                        <img src="{$vo['picture']}" class="layui-circle">
-                </td>
-                <td>{$vo['word']}</td>
-                <td>{$vo['updated_at']}</td>
-                <td>{php} echo $vo['status_tip']{/php}</td>
-                <td>
-                    <div class="layui-btn-group">
-                        <button class="layui-btn layui-btn-sm"
-                                onclick="editItem('{$vo.id}')">
-                            <i class="layui-icon">&#xe642;</i>
-                        </button>
-                        <button class="layui-btn layui-btn-sm"
-                                onclick="delItem('{$vo.id}')">
-                            <i class="layui-icon">&#xe640;</i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        {/volist}
-        </tbody>
-    </table>
-    <div id="demo2-1"></div>
+<table class="layui-table table-body" lay-even="" lay-skin="row">
+    <colgroup>
+        <col width="5%">
+        <col width="15%">
+        <col width="10%">
+        <col width="35%">
+        <col width="10%">
+        <col width="10%">
+        <col width="15%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>出处</th>
+        <th>图片</th>
+        <th>内容</th>
+        <th>更新时间</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody class="tbody-items">
+    {volist name="todayWords" id="vo"}
+    <tr class="tr-menu-{$vo['id']}">
+        <td>{$vo['id']}</td>
+        <td>《{$vo['from']}》</td>
+        <td class="td-item">
+            <img src="{$vo['picture']}" class="layui-circle">
+        </td>
+        <td>{$vo['word']}</td>
+        <td>{$vo['updated_at']}</td>
+        <td>{php} echo $vo['status_tip']{/php}</td>
+        <td>
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm"
+                        onclick="editItem('{$vo.id}')">
+                    <i class="layui-icon">&#xe642;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm"
+                        onclick="delItem('{$vo.id}')">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<div id="demo2-1"></div>
 {/block}
 
 {block name='single-content'}
-    <script src="__CMS__/js/today_words.js"></script>
-    <script src="__CMS__/js/moZhang.js"></script>
-    <script>
-        layui.use(['laypage', 'layer'], function() {
-            var laypage = layui.laypage;
-            var page_limit = $(".page_limit").val();
-            var record_num = $(".record_num").val();
-            laypage.render({
-                elem: 'demo2-1'
-                ,limit:page_limit
-                ,count: record_num
-                ,jump: function(obj, first){
-                    //obj包含了当前分页的所有参数
-                    //首次不执行
-                    if(!first){
-                        //layer.msg(obj.curr);
-                        ajaxOpForPage(obj.curr);
-                    }
+<script src="__CMS__/js/today_words.js"></script>
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage;
+        var page_limit = $(".page_limit").val();
+        var record_num = $(".record_num").val();
+        laypage.render({
+            elem: 'demo2-1'
+            , limit: page_limit
+            , count: record_num
+            , jump: function (obj, first) {
+                //obj包含了当前分页的所有参数
+                //首次不执行
+                if (!first) {
+                    //layer.msg(obj.curr);
+                    ajaxOpForPage(obj.curr);
                 }
-                ,theme: '#FF5722'
-            });
+            }
+            , theme: '#FF5722'
         });
-    </script>
-    <script>
-        //根据菜单ID 删除菜单记录
-        function delItem(id) {
-            var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
-            toUrl = toUrl.replace("TWID", id);
-            ToDelItem(id,toUrl,'.tr-menu-'+id);
-        }
-        $(".btn-search-navMenu").on('click',function () {
-            //var str_search = $(".search_input").val();
-            $(".form-search").submit();
-        });
-        //通过ajax 获取分页数据
-        function ajaxOpForPage(curr_page) {
-            var toUrl = "{:url('cms/todayWord/ajaxOpForPage')}";
-            $(".curr_page").val(curr_page);
-            var postData = $(".form-search").serialize();
-            ToAjaxOpForPageTodayWords(toUrl,postData);
-        }
-        //添加导航菜单
-        function addItem() {
-            var toUrl = "{:url('cms/todayWord/add')}";
-            ToOpenPopups(toUrl,'ღ 添加今日赠言','30%');
-        }
-        //根据菜单ID修改菜单信息
-        function editItem(id) {
-            var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
-            toUrl = toUrl.replace("TWID", id);
-            ToOpenPopups(toUrl,'✌ 今日赠言修改','30%');
-        }
-    </script>
+    });
+</script>
+<script>
+    //根据菜单ID 删除菜单记录
+    function delItem(id) {
+        var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
+        toUrl = toUrl.replace("TWID", id);
+        ToDelItem(id, toUrl, '.tr-menu-' + id);
+    }
+
+    $(".btn-search-navMenu").on('click', function () {
+        //var str_search = $(".search_input").val();
+        $(".form-search").submit();
+    });
+
+    //通过ajax 获取分页数据
+    function ajaxOpForPage(curr_page) {
+        var toUrl = "{:url('cms/todayWord/ajaxOpForPage')}";
+        $(".curr_page").val(curr_page);
+        var postData = $(".form-search").serialize();
+        ToAjaxOpForPageTodayWords(toUrl, postData);
+    }
+
+    //添加导航菜单
+    function addItem() {
+        var toUrl = "{:url('cms/todayWord/add')}";
+        ToOpenPopups(toUrl, 'ღ 添加今日赠言', '30%');
+    }
+
+    //根据菜单ID修改菜单信息
+    function editItem(id) {
+        var toUrl = "{:url('cms/todayWord/edit',['id'=>'TWID'])}";
+        toUrl = toUrl.replace("TWID", id);
+        ToOpenPopups(toUrl, '✌ 今日赠言修改', '30%');
+    }
+</script>
 
 {/block}

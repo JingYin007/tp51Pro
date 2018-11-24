@@ -4,7 +4,7 @@
  * @param postData
  * @constructor
  */
-function ToAjaxOpForPage(toUrl,postData) {
+function ToAjaxOpForNavMenusPage(toUrl,postData) {
     $.post(
         toUrl,
         postData,

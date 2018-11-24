@@ -90,20 +90,46 @@ class Articles extends BaseModel
 
     /**
      * 后台获取文章数据列表
+     * @param $curr_page
+     * @param int $limit
+     * @param null $search
      * @return array
      */
-    public function getCmsArticleList(){
+    public function getCmsArticlesForPage($curr_page,$limit = 1,$search = null){
         $res = $this
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
             ->join('article_points ap','ap.article_id = a.id')
             ->where("ap.status",1)
-            ->order('a.list_order desc')
-            ->order('a.id desc')
+            ->whereLike('a.title','%'.$search.'%')
+            ->order(['a.list_order'=>'desc','a.id'=>'desc'])
+            ->limit($limit*($curr_page - 1),$limit)
             ->select();
+        foreach ($res as $key => $v){
+            if ($v['status'] == 1){
+                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
+            }else{
+                $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-cyan\">删除</span>";
+            }
+        }
         return $res->toArray();
     }
 
+    /**
+     * 后台获取文章总数
+     * @param null $search
+     * @return int|string
+     */
+    public function getCmsArticlesCount($search = null){
+        $count = $this
+            ->alias('a')
+            ->field('a.id,title,a.updated_at,status,picture,abstract')
+            ->join('article_points ap','ap.article_id = a.id')
+            ->where("ap.status",1)
+            ->whereLike('a.title','%'.$search.'%')
+            ->count();
+        return $count;
+    }
     /**
      * 根据文章ID 获取文章内容
      * @param $id

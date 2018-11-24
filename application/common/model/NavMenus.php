@@ -166,7 +166,6 @@ class NavMenus extends BaseModel
             ->field('id')
             ->where([['id','>','0'],["status",'=',1],["type",'=',0]])
             ->whereLike('name','%'.$search.'%')
-            //->orWhere('action','like','%'.$search.'%')
             ->count();
         return $res;
     }
@@ -239,7 +238,7 @@ class NavMenus extends BaseModel
             $tag = $this
                 ->where('id',$id)
                 ->update(['status' => -1]);
-            $validateRes['message'] = '菜单删除成功';
+            $validateRes['message'] = $tag ? '删除成功':'已删除';
         }else{
             $saveData = [
                 'name' => isset($data['name'])?$data['name']:'',
@@ -256,7 +255,6 @@ class NavMenus extends BaseModel
                     ->update($saveData);
                 $validateRes['message'] = $tag?'菜单修改成功':'数据无变动';
             }
-
         }
         $validateRes['tag'] = $tag;
         return $validateRes;
@@ -269,8 +267,8 @@ class NavMenus extends BaseModel
      */
     public function getAuthChildNavMenus($parentID = 0){
         $res = $this
-            ->field('name,action')
-            ->where([["parent_id",'=',$parentID],['type','=',1]])
+            ->field('name,action,id')
+            ->where([["parent_id",'=',$parentID],['type','=',1],['status','=',1]])
             ->select();
         return $res?$res->toArray():[];
     }

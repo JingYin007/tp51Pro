@@ -62,11 +62,12 @@ class TodayWords extends BaseModel
      * 获取 今日赠言 正常数据的数量
      * @return mixed
      */
-    public function getTodayWordsCount()
+    public function getTodayWordsCount($search = null)
     {
         $res = $this
             ->field('id')
             ->where("status",1)
+            ->whereLike('from','%'.$search.'%')
             ->count();
         return $res;
     }
@@ -77,12 +78,13 @@ class TodayWords extends BaseModel
      * @param $limit 本页要获取的记录条数
      * @return mixed
      */
-    public function getTodayWordsForPage($curr_page, $limit)
+    public function getTodayWordsForPage($curr_page, $limit,$search = null)
     {
         $res = $this
             ->field('*')
             ->order('id desc')
             ->where('status',1)
+            ->whereLike('from','%'.$search.'%')
             ->limit($limit * ($curr_page - 1), $limit)
             ->select()
             ->toArray();

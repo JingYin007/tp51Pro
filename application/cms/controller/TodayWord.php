@@ -22,10 +22,9 @@ class TodayWord extends CmsBase
      * 今日赠言 列表首页
      */
     public function index(Request $request){
-
-        $list = $this->model->getTodayWordsForPage(1,$this->page_limit);
-        $search = $request->param('search');
-        $record_num = $this->model->getTodayWordsCount();
+        $search = $request->get('str_search');
+        $list = $this->model->getTodayWordsForPage(1,$this->page_limit,$search);
+        $record_num = $this->model->getTodayWordsCount($search);
 
         return view('index',
             [
@@ -42,7 +41,7 @@ class TodayWord extends CmsBase
     public function add(Request $request){
         $Tag = $request->Method();
         if ($Tag == 'POST'){
-            $input = $request->param();
+            $input = $request->post();
             $opRes = $this->model->addTodayWord($input);
             return showMsg($opRes['tag'],$opRes['message']);
         }else{
@@ -62,7 +61,7 @@ class TodayWord extends CmsBase
         $todayWordData = $this->model->getTodayWord($id);
         if ($Tag == 'POST'){
             //TODO 修改对应的菜单
-            $input = $request->param();
+            $input = $request->post();
             $opID = $input['id'];
             $opRes = $this->model->editTodayWord($opID,$input);
             return showMsg($opRes['tag'],$opRes['message']);

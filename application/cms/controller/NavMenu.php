@@ -41,7 +41,8 @@ class NavMenu extends CmsBase
      */
     public function ajaxOpForPage(Request $request){
         $curr_page = $request->param('curr_page',1);
-        $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit);
+        $search = $request->param('str_search');
+        $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit,$search);
         return showMsg(1,'**',$list);
     }
 

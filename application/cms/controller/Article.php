@@ -15,7 +15,7 @@ class Article extends CmsBase
     {
         parent::__construct();
         $this->model = new Articles();
-        $this->page_limit = config('app.CMS_PAGE_SIZE');
+        $this->page_limit = 2;
     }
 
     /**
@@ -24,11 +24,9 @@ class Article extends CmsBase
      * @return \think\response\View
      */
     public function index(Request $request){
-
-        $articles = $this->model->getCmsArticleList();
         $search = $request->param('str_search');
-        $record_num = count($articles);
-
+        $articles = $this->model->getCmsArticlesForPage(1,$this->page_limit,$search);
+        $record_num = $this->model->getCmsArticlesCount($search);
         $data = [
             'articles' => $articles,
             'search' => $search,
@@ -38,6 +36,15 @@ class Article extends CmsBase
         return view('index',$data);
     }
 
+    /**
+     * @param Request $request
+     */
+    public function ajaxOpForPage(Request $request){
+        $curr_page = $request->param('curr_page',1);
+        $search = $request->param('str_search');
+        $list = $this->model->getCmsArticlesForPage($curr_page,$this->page_limit,$search);
+        return showMsg(1,'**',$list);
+    }
     /**
      * 添加文章
      * @param Request $request

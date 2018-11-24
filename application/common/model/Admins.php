@@ -187,7 +187,7 @@ class Admins extends BaseModel
         $nav_menu_ids = $this
             ->alias('a')
             ->join('admin_roles ar','ar.id = a.role_id')
-            ->where('a.id',$id)
+            ->where([['a.id','=',$id],['a.status','=',1]])
             ->value('nav_menu_ids');
         return $nav_menu_ids;
     }
@@ -235,7 +235,12 @@ class Admins extends BaseModel
                             ->field("n2.id")
                             ->alias('n1')
                             ->join("nav_menus n2","n1.id = n2.parent_id")
-                            ->where([["n2.parent_id",'=',$menu_id],['n2.type','=',1]])
+                            ->where(
+                                [
+                                    ["n2.parent_id",'=',$menu_id],
+                                    ['n2.status','=',1],
+                                    ['n2.type','=',1]
+                                ])
                             ->select();
                         foreach ($childMenus as $key2 => $child_menu){
                             $checkTag = $this->checkAuthUrlForMenuID($child_menu['id'],$authUrl);
@@ -264,7 +269,7 @@ class Admins extends BaseModel
     public function checkAuthUrlForMenuID($menu_id = 0,$authUrl){
         $checkTag = false;
         $menuAction = Db::name('nav_menus')
-            ->where("id",$menu_id)
+            ->where([["id",'=',$menu_id],['status','=',1]])
             ->value('action');
         if ("/".strtolower($menuAction) == strtolower($authUrl)){
             $checkTag = true;
