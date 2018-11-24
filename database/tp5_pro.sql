@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-11-23 20:53:32
+Date: 2018-11-24 18:16:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,7 +164,7 @@ CREATE TABLE `tp5_nav_menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `type` tinyint(2) DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_nav_menus
@@ -177,7 +177,7 @@ INSERT INTO `tp5_nav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index
 INSERT INTO `tp5_nav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_nav_menus` VALUES ('6', '管理人员', '1', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '2', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_nav_menus` VALUES ('7', '角色管理', '1', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('29', '添加导航菜单', '2', 'cms/navMenu/add', '/', '1', '0', '2018-11-23 20:32:29', '1');
+INSERT INTO `tp5_nav_menus` VALUES ('29', '添加导航菜单', '2', 'cms/menu/add', '/', '1', '0', '2018-11-23 20:32:29', '1');
 INSERT INTO `tp5_nav_menus` VALUES ('30', '导航菜单修改', '2', 'cms/menu/edit', '/', '1', '0', '2018-11-23 20:34:54', '1');
 INSERT INTO `tp5_nav_menus` VALUES ('31', '菜单权限设置', '2', 'cms/menu/auth', '/', '1', '0', '2018-11-23 20:35:33', '1');
 INSERT INTO `tp5_nav_menus` VALUES ('32', '分页获取菜单数据', '2', 'cms/menu/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:35:57', '1');
@@ -191,6 +191,7 @@ INSERT INTO `tp5_nav_menus` VALUES ('39', '修改管理员数据', '6', 'cms/adm
 INSERT INTO `tp5_nav_menus` VALUES ('40', '分页获取管理员数据', '6', 'cms/admin/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:48:08', '1');
 INSERT INTO `tp5_nav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
 INSERT INTO `tp5_nav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
+INSERT INTO `tp5_nav_menus` VALUES ('43', '分页获取文章数据', '5', 'cms/article/ajaxOpForPage', '/', '1', '0', '2018-11-24 16:28:33', '1');
 
 -- ----------------------------
 -- Table structure for tp5_photos
