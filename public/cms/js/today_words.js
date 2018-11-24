@@ -23,11 +23,11 @@ function ToAjaxOpForPageTodayWords(toUrl,postData) {
                         "                <td>\n" +
                         "                    <div class=\"layui-btn-group\">\n" +
                         "                        <button class=\"layui-btn layui-btn-sm\"\n" +
-                        "                                onclick=\"editTodayWord('"+e.id+"')\">\n" +
+                        "                                onclick=\"editItem('"+e.id+"')\">\n" +
                         "                            <i class=\"layui-icon\">&#xe642;</i>\n" +
                         "                        </button>\n" +
                         "                        <button class=\"layui-btn layui-btn-sm\"\n" +
-                        "                                onclick=\"delTodayWord('"+e.id+"')\">\n" +
+                        "                                onclick=\"delItem('"+e.id+"')\">\n" +
                         "                            <i class=\"layui-icon\">&#xe640;</i>\n" +
                         "                        </button>\n" +
                         "                    </div>\n" +
