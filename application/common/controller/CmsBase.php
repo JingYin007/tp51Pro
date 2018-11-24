@@ -50,10 +50,14 @@ class CmsBase extends Base
      * 检查权限
      * @param int $adminID
      * @return bool
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function checkCmsAdminAuth($adminID = 0){
-        $action = request()->action();
-        $authUrl = explode($action,$_SERVER["REQUEST_URI"])[0].$action;
+        $action = strtolower(request()->action());
+        $request_url = strtolower($_SERVER["REQUEST_URI"]);
+        $authUrl = explode($action,$request_url)[0].$action;
         //对待检测的URL 忽略大小写
         $adminModel = new Admins();
         $checkTag = $adminModel->checkAdminAuth($adminID,$authUrl);

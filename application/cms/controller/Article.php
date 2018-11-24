@@ -15,7 +15,7 @@ class Article extends CmsBase
     {
         parent::__construct();
         $this->model = new Articles();
-        $this->page_limit = 2;
+        $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 
     /**

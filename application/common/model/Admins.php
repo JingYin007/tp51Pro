@@ -218,6 +218,9 @@ class Admins extends BaseModel
      * @param int $adminID
      * @param string $authUrl
      * @return bool
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function checkAdminAuth($adminID = 0,$authUrl = ''){
         $checkTag = false;
