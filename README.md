@@ -34,7 +34,7 @@ composer install
 ## 附录
 
 - 可参考博文
- > [moTzxx-CMS —— [一个基于PHP代码的后台管理系统]](http://blog.csdn.net/u011415782/article/details/79307673)
+ > [moTzxx-CMS —— [一个基于PHP代码的后台管理系统(ThinkPHP5.1)]](http://blog.csdn.net/u011415782/article/details/79307673)
  
  
  
