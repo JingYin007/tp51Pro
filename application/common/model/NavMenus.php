@@ -20,7 +20,6 @@ class NavMenus extends BaseModel
     {
         parent::__construct($data);
         $this->validate = new NavMenu();
-
     }
 
     /**
