@@ -38,6 +38,10 @@ class Login
         }
     }
 
+    /**
+     * ajax 检查登录状态
+     * @param Request $request
+     */
     public function ajaxCheckLoginStatus(Request $request)
     {
         $method = $request->Method();

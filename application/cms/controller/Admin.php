@@ -138,8 +138,8 @@ class Admin extends CmsBase
         $roleData = $this->ar_model->getRoleData($id);
         if ($method == 'POST'){
             $input = $request->param();
-            $tag = $this->ar_model->editRole($id,$input);
-            return showMsg($tag,'角色信息修改成功');
+            $opRes = $this->ar_model->editRole($id,$input);
+            return showMsg($opRes['tag'],$opRes['message']);
         }else{
             //TODO 获取所有可以分配的权限菜单
             $viewMenus = $this->menuModel->getNavMenus();

@@ -72,7 +72,6 @@ class NavMenu extends CmsBase
     public function auth(Request $request,$id){
         $Tag = $request->Method();
         $authMenus = $this->menuModel->getAuthChildNavMenus($id);
-
         if ($Tag == 'POST'){
             $input = $request->param();
             $opRes = $this->menuModel->addNavMenu($input,$id);

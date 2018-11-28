@@ -19,7 +19,7 @@ class Admin extends Validate
         'picture'      =>  'require',
         'role_id'      =>  'number',
         'content'      =>  'require|max:500',
-
+        '__token__'    =>  'token',
 
     ];
     protected $message  =   [
@@ -29,5 +29,14 @@ class Admin extends Validate
         'role_id'            =>  '角色不能为空',
         'content.require'    =>  '备注信息不能为空',
         'content.max'        =>  '备注信息不能超过500字符',
+        '__token__'          =>  'Token非法操作或失效',
+    ];
+    /**
+     * 定义情景
+     * @var array
+     */
+    protected $scene = [
+        'default'  =>  ['user_name','picture','role_id','content','__token__'],
+        'token'    =>  ['__token__'],
     ];
 }

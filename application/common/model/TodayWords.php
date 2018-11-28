@@ -115,7 +115,8 @@ class TodayWords extends BaseModel
             'status' => $data['status'],
             'updated_at' => date("Y-m-d H:i:s", time()),
         ];
-        $validateRes = $this->validate($this->validate, $addData);
+        $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
+        $validateRes = $this->validate($this->validate, $addData, $tokenData);
         if ($validateRes['tag']) {
             $tag = $this->insert($addData);
             $validateRes['tag'] = $tag;
@@ -147,7 +148,8 @@ class TodayWords extends BaseModel
                 'updated_at' => date("Y-m-d H:i:s", time()),
                 'status' => $data['status'],
             ];
-            $validateRes = $this->validate($this->validate, $saveData);
+            $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
+            $validateRes = $this->validate($this->validate, $saveData, $tokenData);
             if ($validateRes['tag']){
                 $saveTag = $this
                     ->where('id', $id)

@@ -63,7 +63,8 @@ class AdminRoles extends BaseModel
                 'updated_at' => date("Y-m-d H:i:s",time()),
                 'status'    => intval($input['status']),
             ];
-            $validateRes = $this->validate($this->validate, $addData);
+            $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+            $validateRes = $this->validate($this->validate, $addData, $tokenData);
             if ($validateRes['tag']) {
                 $tag = $this->insert($addData);
                 $validateRes['tag'] = $tag;
@@ -72,28 +73,43 @@ class AdminRoles extends BaseModel
         }
         return $validateRes;
     }
+
+    /**
+     * 修改角色数据
+     * @param $id
+     * @param $input
+     * @return void|static
+     */
     public function editRole($id,$input){
         $opTag = isset($input['tag']) ? $input['tag']:'edit';
         if ($opTag == 'del'){
             $tag = $this
                 ->where('id',$id)
                 ->update(['status' => -1]);
+            $validateRes['tag'] = $tag;
+            $validateRes['message'] = $tag? '角色删除成功':'Sorry,角色删除失败！';
         }else{
             $sameTag = $this->chkSameUserName($input['user_name'],$id);
             if ($sameTag){
-                return showMsg(0,'此昵称已被占用，请换一个！');
+                $validateRes['tag'] = 0;
+                $validateRes['message'] = '此昵称已被占用，请换一个！';
             }else{
                 $saveData = [
                     'user_name' => $input['user_name'],
                     'status' => $input['status'],
                     'nav_menu_ids' => $input['nav_menu_ids'],
                 ];
-                $tag = $this
-                    ->where('id',$id)
-                    ->update($saveData);
+                $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+                $validateRes = $this->validate($this->validate, $saveData, $tokenData);
+                if ($validateRes['tag']){
+                    $tag = $this
+                        ->where('id',$id)
+                        ->update($saveData);
+                    $validateRes['message'] = $tag ? '角色修改成功' : '数据无表动，修改失败';
+                }
             }
         }
-        return $tag;
+        return $validateRes;
     }
 
     /**
@@ -111,22 +127,18 @@ class AdminRoles extends BaseModel
         return $tag;
     }
 
+    /**
+     * 获取不同角色对应的数据
+     * @param $id
+     * @return array|null|\PDOStatement|string|Model
+     */
     public function getRoleData($id){
         $res = $this
             ->field('*')
             ->where('id',$id)
-            ->find()->toArray();
+            ->find();
         return $res;
     }
-
-
-
-
-
-
-
-
-
 
 
 }

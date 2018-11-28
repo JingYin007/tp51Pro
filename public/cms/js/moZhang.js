@@ -30,7 +30,9 @@ $(document).ready(function () {
             $(".layui-body .iframe-body").attr('src',url);
         }
     });
-
+    /**
+     * 导航菜单栏 触发事件
+     */
     $(".layui-side-scroll .a-to-Url").click(function () {
         var action = $(this).attr('action');
         var nav_menu_id = $(this).attr('nav_menu_id');

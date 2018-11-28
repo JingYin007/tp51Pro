@@ -168,7 +168,8 @@ class Articles extends BaseModel
                 'content' => isset($input['content'])?$input['content']:'',
                 'updated_at' => date('Y-m-d H:m:s', time())
             ];
-            $validateRes = $this->validate($this->validate, $saveData);
+            $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+            $validateRes = $this->validate($this->validate, $saveData, $tokenData);
             if ($validateRes['tag']) {
                 $saveTag = $this
                     ->where('id', $id)
@@ -205,7 +206,8 @@ class Articles extends BaseModel
             'created_at' => date('Y-m-d H:m:s', time()),
             'updated_at' => date('Y-m-d H:m:s', time())
         ];
-        $validateRes = $this->validate($this->validate, $addData);
+        $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
+        $validateRes = $this->validate($this->validate, $addData, $tokenData);
         if ($validateRes['tag']) {
             $tag = $this->insert($addData);
             if ($tag) {

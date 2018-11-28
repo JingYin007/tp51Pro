@@ -109,7 +109,8 @@ class Admins extends BaseModel
                 'status'    => intval($input['status']),
                 'content'   => $input['content'],
             ];
-            $validateRes = $this->validate($this->validate, $addData);
+            $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+            $validateRes = $this->validate($this->validate, $addData, $tokenData);
             if ($validateRes['tag']) {
                 $tag = $this->insert($addData);
                 $validateRes['tag'] = $tag;
@@ -147,7 +148,8 @@ class Admins extends BaseModel
                     'status' => $input['status'],
                     'content' => $input['content'],
                 ];
-                $validateRes = $this->validate($this->validate, $saveData);
+                $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+                $validateRes = $this->validate($this->validate, $saveData, $tokenData);
                 if ($validateRes['tag']){
                     if ($input['password']){
                         //TODO 如果输入了新密码
