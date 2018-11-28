@@ -18,10 +18,20 @@ class Login
         $this->navMenuModel = new NavMenus();
     }
 
+    /**
+     * 登录页
+     * @param Request $request
+     * @return \think\response\View
+     */
     public function index(Request $request){
         Session::set('cmsAID',null);
         return view('index');
     }
+
+    /**
+     * ajax 进行管理员的登录操作
+     * @param Request $request
+     */
     public function ajaxLogin(Request $request){
         $method = $request->Method();
         if ($method == 'POST'){
