@@ -8,7 +8,6 @@ use think\Request;
 
 class Article extends CmsBase
 {
-    //
     private $model ;
     private $page_limit;
     public function __construct()
