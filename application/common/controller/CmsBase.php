@@ -33,11 +33,12 @@ class CmsBase extends Base
      * 进行权限控制
      */
     public function initAuth(){
-        $cmsAID = Session::get('cmsMoTzxxAID');
         $authFlag = false;
-        if (!$cmsAID){
+        $hasCmsAID = Session::has('cmsMoTzxxAID');
+        if (!$hasCmsAID){
             $message = "You are offline,please logon again!";
         }else{
+            $cmsAID = Session::get('cmsMoTzxxAID');
             //TODO 判断当前用户是否具有此操作权限
             $checkAuth = $this->checkCmsAdminAuth($cmsAID);
             $authFlag = $checkAuth;
