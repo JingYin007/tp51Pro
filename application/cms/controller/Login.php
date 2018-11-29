@@ -24,7 +24,7 @@ class Login
      * @return \think\response\View
      */
     public function index(Request $request){
-        Session::set('cmsAID',null);
+        Session::set('cmsMoTzxxAID',null);
         return view('index');
     }
 
@@ -38,7 +38,7 @@ class Login
             $input = $request->param();
             $tag = $this->adminModel->adminLogin($input);
             if ($tag){
-                Session::set('cmsAID', $tag);
+                Session::set('cmsMoTzxxAID', $tag);
                 return showMsg(1,'登录成功');
             }else{
                 return showMsg(0,'登录失败，请检查您的信息');
@@ -56,7 +56,7 @@ class Login
     {
         $method = $request->Method();
         if ($method == 'POST'){
-            $cmsAID = Session::get('cmsAID');
+            $cmsAID = Session::get('cmsMoTzxxAID');
             $nav_menu_id = $request->param('nav_menu_id');
             //TODO 判断当前菜单是否属于他的权限内
             $checkTag = $this->navMenuModel->checkNavMenuMan($nav_menu_id,$cmsAID);
