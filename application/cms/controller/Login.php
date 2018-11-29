@@ -24,7 +24,7 @@ class Login
      * @return \think\response\View
      */
     public function index(Request $request){
-        Session::set('cmsMoTzxxAID',null);
+        Session::delete('cmsMoTzxxAID');
         return view('index');
     }
 

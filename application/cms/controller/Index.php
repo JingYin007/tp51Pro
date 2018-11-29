@@ -1,6 +1,7 @@
 <?php
 namespace app\cms\controller;
 use app\common\controller\Base;
+use app\common\controller\CmsBase;
 use app\common\model\Admins;
 use app\common\model\NavMenus;
 use think\facade\Session;
@@ -18,6 +19,10 @@ class Index{
     {
         $this->menuModel = new NavMenus();
         $this->adminModel = new Admins();
+        $cmsAID = Session::get('cmsMoTzxxAID');
+        if (!$cmsAID){
+            return redirect('cms/login/index',302);
+        }
     }
 
     /**
@@ -26,7 +31,7 @@ class Index{
      */
     public function index(){
         //获取 登录的管理员有效期ID
-        $cmsAID = Session::get('cmsAID');
+        $cmsAID = Session::get('cmsMoTzxxAID');
         $menuList = $this->menuModel->getNavMenusShow($cmsAID);
         if (!$cmsAID || !$menuList){
             //TODO 页面跳转至登录页
