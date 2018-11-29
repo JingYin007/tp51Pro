@@ -17,7 +17,7 @@ class NavMenu extends Validate
     protected $rule = [
         'name'         =>  'require|max:100',
         'icon'         =>  'require',
-        '__token__'    =>  'token',
+        '__token__'    =>  'require|token',
     ];
     protected $message  =   [
         'name.require'  =>  '菜单不能为空',

@@ -18,7 +18,7 @@ class AdminRole extends Validate
         'user_name'    =>  'require|max:100',
         'nav_menu_ids' =>  'require',
         'status'       =>  'number',
-        '__token__'    =>  'token',
+        '__token__'    =>  'require|token',
     ];
     protected $message  =   [
         'user_name.require'  =>  '角色名称不能为空',

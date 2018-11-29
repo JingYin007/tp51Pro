@@ -19,7 +19,7 @@ class Admin extends Validate
         'picture'      =>  'require',
         'role_id'      =>  'number',
         'content'      =>  'require|max:500',
-        '__token__'    =>  'token',
+        '__token__'    =>  'require|token',
 
     ];
     protected $message  =   [
@@ -36,7 +36,7 @@ class Admin extends Validate
      * @var array
      */
     protected $scene = [
-        'default'  =>  ['user_name','picture','role_id','content','__token__'],
+        'default'  =>  ['user_name','picture','role_id','content'],
         'token'    =>  ['__token__'],
     ];
 }

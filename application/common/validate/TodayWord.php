@@ -18,7 +18,7 @@ class TodayWord extends Validate
         'from'         =>  'require|max:100',
         'picture'      =>  'require',
         'word'         =>  'require|max:255',
-        '__token__'    =>  'token',
+        '__token__'    =>  'require|token',
     ];
     protected $message  =   [
         'word.require'  =>  '赠言不能为空',

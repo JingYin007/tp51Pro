@@ -13,7 +13,7 @@ class Article extends Validate
         'title'         =>  'require|max:100',
         'list_order'    =>  'require|number',
         'content'       =>  'require',
-        '__token__'     =>  'token',
+        '__token__'     =>  'require|token',
     ];
     protected $message  =   [
         'title.max'     =>  '标题不能超过100个字符',
