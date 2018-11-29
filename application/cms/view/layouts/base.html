@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>moTzxx-CMS</title>
-    <meta name="keywords" content="moTzxx-CMS" />
-    <meta name="description" content="moTzxx-CMS Version:1.0" />
-    <meta name="Author" content="moTzxx" />
+    <meta name="keywords" content="moTzxx-CMS"/>
+    <meta name="description" content="moTzxx-CMS Version:1.0"/>
+    <meta name="Author" content="moTzxx"/>
 
     <!-- load layui -->
     {include file="layouts/layui" /}
     <!-- 加载公共文件  -->
-    <link  href="__CMS__/css/zhang.css" rel="stylesheet">
-    <script type='text/javascript' src="__CMS__/js/moZhang.js" ></script>
+    <link href="__CMS__/css/zhang.css" rel="stylesheet">
+    <script type='text/javascript' src="__CMS__/js/moZhang.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -20,7 +20,7 @@
         <div class="layui-logo"><span>moTzxx 后台管理</span></div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left ">
-            <li class="layui-nav-item " >
+            <li class="layui-nav-item ">
                 <span class="menu-switch open"></span>
             </li>
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -87,7 +87,7 @@
             </div>
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <!--后台首页 可以写死！-->
                 <li class="layui-nav-item">
                     <a class="a-to-Url single-to-Url" href="javascript:;"
@@ -157,18 +157,18 @@
 </body>
 <script>
     $(".refresh").click(function () {
-        if($(this).hasClass("refreshThis")){
+        if ($(this).hasClass("refreshThis")) {
             $(this).removeClass("refreshThis");
             $(".layui-layout-admin .layui-body").find("iframe")[0].contentWindow.location.reload(true);
-            setTimeout(function(){
+            setTimeout(function () {
                 $(".refresh").addClass("refreshThis");
-            },2000);
-        }else{
+            }, 2000);
+        } else {
             layer.msg("您的刷新速度太快，还是等两秒再刷新吧！");
         }
     });
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         var allH = $(".layui-body").height();
         var titleH = $(".layui-tab-title").height();
         $(".iframe-body").css("height", allH - titleH - 10);

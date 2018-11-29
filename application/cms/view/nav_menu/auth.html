@@ -51,7 +51,7 @@
         <td>
             <div class="layui-btn-group">
                 <button class="layui-btn layui-btn-primary layui-btn-sm"
-                onclick="delNavMenu('{$vo.id}')">
+                        onclick="delNavMenu('{$vo.id}')">
                     <i class="layui-icon">&#xe640;</i>
                 </button>
             </div>
@@ -73,6 +73,7 @@
         var toUrl = $(".post-url").val();
         ToPostPopupsDeal(toUrl, postData);
     }
+
     //根据菜单ID 删除菜单记录
     function delNavMenu(id) {
         var toUrl = "{:url('cms/navMenu/edit',['id'=>'NMID'])}";
