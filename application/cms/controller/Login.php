@@ -9,7 +9,6 @@ use think\Request;
 
 class Login
 {
-    //
     private $adminModel;
     private $navMenuModel;
     public function __construct()
@@ -20,14 +19,26 @@ class Login
 
     /**
      * 登录页
-     * @param Request $request
      * @return \think\response\View
      */
-    public function index(Request $request){
-        Session::delete('cmsMoTzxxAID');
-        return view('index');
+    public function index(){
+        if (Session::has('cmsMoTzxxAID')){
+            return redirect('cms/index/index');
+        }else{
+            return view('index');
+        }
     }
 
+    /**
+     * 登出账号
+     * @return \think\response\Redirect
+     */
+    public function logout(){
+        if (Session::has('cmsMoTzxxAID')){
+            Session::delete('cmsMoTzxxAID');
+        }
+        return redirect('cms/login/index');
+    }
     /**
      * ajax 进行管理员的登录操作
      * @param Request $request

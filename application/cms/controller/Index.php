@@ -21,7 +21,7 @@ class Index{
         $this->adminModel = new Admins();
         $cmsAID = Session::get('cmsMoTzxxAID');
         if (!$cmsAID){
-            return redirect('cms/login/index',302);
+            return redirect('cms/login/index');
         }
     }
 
@@ -35,7 +35,7 @@ class Index{
         $menuList = $this->menuModel->getNavMenusShow($cmsAID);
         if (!$cmsAID || !$menuList){
             //TODO 页面跳转至登录页
-            return redirect('cms/login/index',302);
+            return redirect('cms/login/index');
         }else{
             $adminInfo = $this->adminModel->getAdminData($cmsAID);
             $data = [
@@ -45,11 +45,12 @@ class Index{
             return view('index',$data);
         }
     }
+
+    /**
+     * 首页显示 可自定义呗
+     * @return \think\response\View
+     */
     public function home(){
         return view('home');
-    }
-
-    public function toLogin(){
-        return redirect('cms/login/index',302);
     }
 }

@@ -52,6 +52,7 @@ Route::any('cms/admin/addRole','cms/admin/addRole');
 Route::any('cms/admin/editRole/:id', 'cms/admin/editRole');
 
 Route::get('cms/login/index','cms/login/index');
+Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
 Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
 /**
