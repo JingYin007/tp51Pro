@@ -157,7 +157,7 @@ CREATE TABLE `tp5_nav_menus` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'navMenu 主键',
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级菜单ID',
-  `action` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'action地址（etc:admin/home）',
+  `action` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'action地址（etc:admin/home）',
   `icon` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义图标样式',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
   `list_order` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序标识，越大越靠前',
