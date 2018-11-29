@@ -19,7 +19,7 @@
         <div class="layui-form-mid layui-word-aux">(example:cms/menu/edit)</div>
     </div>
     <input type="hidden" class="post-url" value="{:url('cms/NavMenu/auth',['id'=>$parent_id])}">
-
+    {:token()}
     <div class="layui-form-item">
         <div class="layui-input-block div-form-op">
             <button class="layui-btn" type="button" onclick="addNewNavMenu()"
