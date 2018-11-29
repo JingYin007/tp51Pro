@@ -33,7 +33,7 @@ class CmsBase extends Base
      * 进行权限控制
      */
     public function initAuth(){
-        $cmsAID = Session::get('cmsAID');
+        $cmsAID = Session::get('cmsMoTzxxAID');
         $authFlag = false;
         if (!$cmsAID){
             $message = "You are offline,please logon again!";
