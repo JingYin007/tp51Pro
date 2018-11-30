@@ -16,7 +16,6 @@ Route::get('article/:id','index/index/article');
 Route::get('/index/review','index/index/review');
 Route::get('/index/contact','index/index/contact');
 
-
 /**
  * 后台 CMS配置
  */
