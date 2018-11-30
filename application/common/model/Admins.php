@@ -81,10 +81,12 @@ class Admins extends BaseModel
     public function getAdminData($id){
         $res = $this
             ->alias('a')
-            ->field('a.*,ar.user_name role_name')
+            ->field('a.id,a.user_name,a.picture,a.role_id,a.created_at,
+                     a.status,a.content,ar.user_name role_name')
             ->join('admin_roles ar','ar.id = a.role_id')
             ->where('a.id',$id)
-            ->find();
+            ->find()
+            ->toArray();
         return $res;
     }
 
@@ -122,6 +124,39 @@ class Admins extends BaseModel
     }
 
     /**
+     * 当前在线管理员 对个人信息的修改
+     * @param $id
+     * @param $input
+     * @param $cmsAID
+     * @return array
+     */
+    public function editCurrAdmin($id,$input,$cmsAID){
+        $saveData = [
+            'user_name' => $input['user_name'],
+            'picture' => $input['picture'],
+            'content' => $input['content'],
+        ];
+        $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
+        $validateRes = $this->validate($this->validate, $saveData, $tokenData,'cms_admin');
+        if ($validateRes['tag']){
+            if ($input['password']){
+                //TODO 如果输入了新密码
+                $saveData['password'] = md5(base64_encode($input['password']));
+            }
+            if ($cmsAID && ($cmsAID != $id)){
+                $validateRes['tag'] = 0;
+                $validateRes['message'] = "您没有权限进行修改";
+            }else{
+                $tag = $this
+                    ->where('id',$id)
+                    ->update($saveData);
+                $validateRes['tag'] = $tag;
+                $validateRes['message'] = $tag ? '信息修改成功' : '数据无变动，修改失败';
+            }
+        }
+        return $validateRes;
+    }
+    /**
      * 根据ID 修改管理员数据
      * @param $id
      * @param $input
@@ -158,7 +193,8 @@ class Admins extends BaseModel
                     $tag = $this
                         ->where('id',$id)
                         ->update($saveData);
-                    $validateRes['message'] = $tag ? '管理员修改成功' : '数据无表动，修改失败';
+                    $validateRes['tag'] = $tag;
+                    $validateRes['message'] = $tag ? '管理员修改成功' : '数据无变动，修改失败';
                 }
             }
         }

@@ -38,5 +38,6 @@ class Admin extends Validate
     protected $scene = [
         'default'  =>  ['user_name','picture','role_id','content'],
         'token'    =>  ['__token__'],
+        'cms_admin'=>  ['user_name','picture','content']
     ];
 }

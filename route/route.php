@@ -11,8 +11,7 @@
 /**
  * 前台页面
  */
-Route::get('/','index');
-Route::get('test','index/index/test');
+Route::get('/','index/index/index');
 Route::get('article/:id','index/index/article');
 Route::get('/index/review','index/index/review');
 Route::get('/index/contact','index/index/contact');
@@ -21,8 +20,11 @@ Route::get('/index/contact','index/index/contact');
 /**
  * 后台 CMS配置
  */
-Route::any('cms/index','cms/index/index');
+Route::rule('cmsx','cms/index/index');
+Route::get('cms/index/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
+Route::any('cms/index/admin/:id','cms/index/admin');
+
 
 Route::get('cms/menu/index','cms/navMenu/index');
 Route::any('cms/menu/add','cms/navMenu/add');
@@ -55,6 +57,8 @@ Route::get('cms/login/index','cms/login/index');
 Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
 Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
+
+
 /**
  * 工具类
  */

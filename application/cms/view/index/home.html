@@ -55,11 +55,11 @@
             <div class="layui-colla-content layui-show">
                     <i class="layui-icon layui-timeline-axis"></i>
                     <div class="layui-timeline-content layui-text">
-                        <h3 class="layui-timeline-title">2018-11-29</h3>
+                        <h3 class="layui-timeline-title">2018-11-30</h3>
                         <p>
-                            > tp5.sql文件更新，增加表nav_menus的action字段长度;
-                            <br>> 优化登录、登出判断逻辑;
-                            <br>> 删减了之前没必要存在的页面重定向;
+                            > 添加登录管理员的个人信息页;
+                            <br>> 可进行账号密码等重要信息的修改;
+                            <br>> 后台入口更改为 xxxxx.com/cmsx;
                         </p>
                     </div>
             </div>
@@ -72,11 +72,23 @@
                     <li class="layui-timeline-item">
                         <i class="layui-icon layui-timeline-axis"></i>
                         <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">2018-11-29</h3>
+                            <p>
+                                > tp5.sql文件更新，增加表 "nav_menus"的 "action"字段长度;
+                                <br>> 优化登录、登出判断逻辑;
+                                <br>> 删减了之前没必要存在的页面重定向;
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
                             <h3 class="layui-timeline-title">2018-11-28</h3>
                             <p>
                                 > 补充几天前错删的 role.js 文件;
                                 <br>> 对公共类 BaseModel 中的 validate() 进行了优化;
-                                <br>> 补充了ThinkPHP5.1 下的表单令牌功能;
+                                <br>> 补充了 ThinkPHP5.1 下的表单令牌功能;
                                 <br>> 更新了所有的 model类，降低 CSRF 恶意攻击
                             </p>
                         </div>
@@ -88,7 +100,7 @@
                             <h3 class="layui-timeline-title">2018-11-24</h3>
                             <p>
                                 > 着重优化后台管理员访问权限;
-                                <br>> 优化排除Linux对路径索引大小写敏感无法识别的Bug
+                                <br>> 优化排除 Linux对路径索引大小写敏感无法识别的 Bug
                                 <br>> 对数据表 "tp5_nav_menus" 添加字段 "type";
                                 <br>> 用以区别导航菜单与权限路径;
                                 <br>> 补充了 "文章管理" 和 "今日赠言" 的分页获取功能;

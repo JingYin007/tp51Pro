@@ -37,19 +37,6 @@ class Index
     }
 
     /**
-     * 只是一个简单的测试页面而已
-     * @return \think\response\View
-     */
-    public function test()
-    {
-        $data = [
-            'name'=>'MoTzxx',
-            'todayWord'=>[],
-            ];
-        return view('test',$data);
-    }
-
-    /**
      * 文章列表页
      * @return \think\response\View
      */

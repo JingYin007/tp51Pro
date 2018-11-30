@@ -53,22 +53,16 @@
                     {$admin['user_name']}
                 </a>
                 <dl class="layui-nav-child">
-                    <!--<dd>
-                        <a href="">
+                    <dd>
+                        <a href="#" onclick="viewAdminMsg('{$admin.id}')">
                             <img class="nav-icon" src="__CMS__/images/icon/cms_user.png">
                             基本资料
                         </a>
                     </dd>
                     <dd>
-                        <a href="">
-                            <img class="nav-icon" src="__CMS__/images/icon/cms_secure.png">
-                            安全设置
-                        </a>
-                    </dd>-->
-                    <dd>
                         <a href="{:url('cms/login/logout')}">
                             <img class="nav-icon" src="__CMS__/images/icon/cms_exit.png">
-                            退出
+                            注销退出
                         </a>
                     </dd>
                 </dl>
@@ -173,5 +167,15 @@
         var titleH = $(".layui-tab-title").height();
         $(".iframe-body").css("height", allH - titleH - 10);
     });
+
+    /**
+     * 主要用于管理员 自身账号修改
+     * @param adminID
+     */
+    function viewAdminMsg(adminID) {
+        var toUrl = "{:url('cms/index/admin',['id'=>'AdminID'])}";
+        toUrl = toUrl.replace('AdminID',adminID);
+        ToOpenPopups(toUrl,'✎ 基本资料','48%','65%');
+    }
 </script>
 </html>
