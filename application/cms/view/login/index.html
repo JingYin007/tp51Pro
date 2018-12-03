@@ -22,15 +22,20 @@
 <div class="div-login">
     <form class="layui-form layui-form-pane" id="form-login">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户</label>
+            <label class="layui-form-label">
+                <img class="img-user_name"
+                     src="/cms/images/icon/user_name.png"></label>
             <div class="layui-input-inline">
+
                 <input type="text" name="user_name" required
                        lay-verify="required" placeholder="请输入用户名"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label class="layui-form-label">
+                <img class="img-user_pwd"
+                     src="/cms/images/icon/user_pwd.png"></label>
             <div class="layui-input-inline">
                 <input type="password" name="password" required
                        lay-verify="required" placeholder="请输入密码"
@@ -53,6 +58,9 @@
     </form>
 </div>
 <style>
+    .img-user_name,.img-user_pwd{
+        width: 25px;
+    }
     .input-verifyCode {
         font-weight: 700;
         font-family: "Droid Sans";
