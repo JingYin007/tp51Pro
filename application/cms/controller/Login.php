@@ -46,14 +46,12 @@ class Login
     public function ajaxLogin(Request $request){
         $method = $request->Method();
         if ($method == 'POST'){
-            $input = $request->param();
-            $tag = $this->adminModel->adminLogin($input);
-            if ($tag){
-                Session::set('cmsMoTzxxAID', $tag);
-                return showMsg(1,'登录成功');
-            }else{
-                return showMsg(0,'登录失败，请检查您的信息');
+            $input = $request->post();
+            $tagRes = $this->adminModel->adminLogin($input);
+            if ($tagRes['tag']){
+                Session::set('cmsMoTzxxAID', $tagRes['tag']);
             }
+            return showMsg($tagRes['tag'],$tagRes['message']);
         }else{
             return showMsg(0,'sorry,您的请求不合法！');
         }

@@ -38,6 +38,11 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <input type="text" name="login_verifyCode" required
+                   class="layui-input input-verifyCode" placeholder="请输入验证码">
+            <span class="span-img-verifyCode">{:captcha_img()}</span>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block div-form-op">
                 <button class="layui-btn btn-login" type="button" onclick="adminLogin()"
                         lay-submit lay-filter="formDemo">登录
@@ -47,7 +52,25 @@
         </div>
     </form>
 </div>
+<style>
+    .input-verifyCode {
+        font-weight: 700;
+        font-family: "Droid Sans";
+        width: 40%;
+        height: 50.2px;
+    }
+    .span-img-verifyCode {
+        position: relative;
+        top: -50.2px;
+        left: 110px;
+        width: 71%;
+        float: left;
+    }
 
+    .span-img-verifyCode img {
+        width: 80%;
+    }
+</style>
 </body>
 <script>
     window.onload = function () {
@@ -85,7 +108,7 @@
             toUrl,
             postData,
             function (result) {
-                if (result.status == 1) {
+                if (result.status != 0) {
                     window.location.href = indexUrl;
                 } else {
                     //失败

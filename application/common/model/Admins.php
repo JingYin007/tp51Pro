@@ -4,6 +4,7 @@ namespace app\common\model;
 use app\common\validate\Admin;
 use think\Db;
 use think\Model;
+use think\Session;
 
 class Admins extends BaseModel
 {
@@ -236,19 +237,34 @@ class Admins extends BaseModel
      * @return bool|mixed
      */
     public function adminLogin($input){
-        $userName = $input['user_name'];
-        $pwd = $input['password'];
-        $res = $this
-            ->field('password,id')
-            ->where('user_name',$userName)
-            ->where('status',1)
-            ->find();
-        if ($res){
-            if ($res->password == md5(base64_encode($pwd))){
-                return $res->id;
+        $flag = false;
+        $message = "登录成功";
+        $userName = isset($input['user_name'])?$input['user_name']:'';
+        $pwd = isset($input['password'])?$input['password']:'';
+        $verifyCode = isset($input['login_verifyCode'])?$input['login_verifyCode']:'';
+        //TODO 首先判断验证码是否可用
+        if(!captcha_check($verifyCode)){
+            $message = "验证码填写有误或已过期";
+        }else{
+            $res = $this
+                ->field('password,id')
+                ->where('user_name',$userName)
+                ->where('status',1)
+                ->find();
+            if ($res){
+                if ($res->password == md5(base64_encode($pwd))){
+                    $flag = $res->id;
+                }else{
+                   $message = "登录失败，请检查您的信息";
+                }
+            }else{
+                $message = "该用户名不存在";
             }
         }
-        return false;
+        return [
+            'tag' => $flag,
+            'message' => $message
+        ];
     }
 
     /**
