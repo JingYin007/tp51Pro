@@ -11,7 +11,7 @@ return [
     'seKey'    => 'ThinkPHP.CN.moTzxx',
 
     // 验证码字符集合
-    'codeSet'  => '2347abcdefhijkmnprtuvwxyACDEFGHJKLMNPRTUVWXY',
+    'codeSet'  => '2347abcdefhijkmnprtuvwxyACEFGHJKLMNPRTUVWXY',
 
     'length'   => 4,
     'fontSize' => 77,
