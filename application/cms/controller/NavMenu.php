@@ -21,6 +21,8 @@ class NavMenu extends CmsBase
 
     /**
      * 菜单导航列表页
+     * @param Request $request
+     * @return \think\response\View
      */
     public function index(Request $request){
         $search = $request->param('str_search');
@@ -67,9 +69,11 @@ class NavMenu extends CmsBase
             ]);
         }
     }
+
     /**
      * 赋予权限
      * @param Request $request
+     * @param $id 菜单ID
      * @return \think\response\View|void
      */
     public function auth(Request $request,$id){
@@ -89,7 +93,7 @@ class NavMenu extends CmsBase
     /**
      * 编辑导航菜单数据
      * @param Request $request
-     * @param $id
+     * @param $id 菜单ID
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){

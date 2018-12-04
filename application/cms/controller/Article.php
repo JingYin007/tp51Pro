@@ -67,7 +67,7 @@ class Article extends CmsBase
     /**
      * 更新文章数据
      * @param Request $request
-     * @param $id
+     * @param $id 文章ID
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){

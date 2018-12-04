@@ -20,6 +20,8 @@ class TodayWord extends CmsBase
 
     /**
      * 今日赠言 列表首页
+     * @param Request $request
+     * @return \think\response\View
      */
     public function index(Request $request){
         $search = $request->get('str_search');
@@ -37,6 +39,8 @@ class TodayWord extends CmsBase
 
     /**
      * 增加新赠言
+     * @param Request $request
+     * @return \think\response\View|void
      */
     public function add(Request $request){
         if ($request->isPost()){
@@ -51,7 +55,7 @@ class TodayWord extends CmsBase
     /**
      * 编辑新赠言
      * @param Request $request
-     * @param $id
+     * @param $id 赠言ID
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
