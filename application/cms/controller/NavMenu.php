@@ -16,7 +16,7 @@ class NavMenu extends CmsBase
     {
         parent::__construct();
         $this->menuModel = new NavMenus();
-        $this->page_limit = 3;
+        $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 
     /**
