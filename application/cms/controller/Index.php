@@ -60,9 +60,8 @@ class Index{
      * @return \think\response\View|void
      */
     public function admin(Request $request,$id){
-        $method = $request->method();
         $adminModel = new Admins();
-        if ($method == 'GET'){
+        if ($request->isGet()){
             $adminData = $adminModel->getAdminData($id);
             return view('admin',[
                 'admin' => $adminData,

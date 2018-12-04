@@ -39,8 +39,7 @@ class TodayWord extends CmsBase
      * 增加新赠言
      */
     public function add(Request $request){
-        $Tag = $request->Method();
-        if ($Tag == 'POST'){
+        if ($request->isPost()){
             $input = $request->post();
             $opRes = $this->model->addTodayWord($input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -56,10 +55,9 @@ class TodayWord extends CmsBase
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
-        $Tag = $request->Method();
         $opID = intval($id);
         $todayWordData = $this->model->getTodayWord($opID);
-        if ($Tag == 'POST'){
+        if ($request->isPost()){
             //TODO 修改对应的菜单
             $input = $request->post();
             $opRes = $this->model->editTodayWord($opID,$input);
@@ -76,8 +74,12 @@ class TodayWord extends CmsBase
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->param('curr_page',1);
-        $list = $this->model->getTodayWordsForPage($curr_page,$this->page_limit);
-        return showMsg(1,'**',$list);
+        if ($request->isPost()){
+            $curr_page = $request->post('curr_page',1);
+            $list = $this->model->getTodayWordsForPage($curr_page,$this->page_limit);
+            return showMsg(1,'success',$list);
+        }else{
+            return showMsg(0,'请求不合法');
+        }
     }
 }

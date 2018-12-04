@@ -44,8 +44,7 @@ class Login
      * @param Request $request
      */
     public function ajaxLogin(Request $request){
-        $method = $request->Method();
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $input = $request->post();
             $tagRes = $this->adminModel->adminLogin($input);
             if ($tagRes['tag']){
@@ -63,8 +62,7 @@ class Login
      */
     public function ajaxCheckLoginStatus(Request $request)
     {
-        $method = $request->Method();
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $cmsAID = Session::get('cmsMoTzxxAID');
             $nav_menu_id = $request->param('nav_menu_id');
             //TODO 判断当前菜单是否属于他的权限内

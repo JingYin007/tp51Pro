@@ -49,9 +49,8 @@ class Admin extends CmsBase
      * @return \think\response\View|void
      */
     public function add(Request $request){
-        $method = $request->Method();
         $adminRoles = $this->ar_model->getNormalRoles();
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $input = $request->post();
             $opRes = $tag = $this->model->addAdmin($input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -68,10 +67,9 @@ class Admin extends CmsBase
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
-        $method = $request->Method();
         $adminRoles = $this->ar_model->getNormalRoles();
         $adminData = $this->model->getAdminData($id);
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $input = $request->param();
             $opRes = $this->model->editAdmin($id,$input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -88,9 +86,14 @@ class Admin extends CmsBase
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->param('curr_page',1);
-        $list = $this->model->getAdminsForPage($curr_page,$this->page_limit);
-        return showMsg(1,'**',$list);
+        if ($request->isPost()){
+            $curr_page = $request->post('curr_page',1);
+            $list = $this->model->getAdminsForPage($curr_page,$this->page_limit);
+            return showMsg(1,'success',$list);
+        }else{
+            return showMsg(0,'sorry，请求不合法');
+        }
+
     }
 
     /*TODO -------------------------------------角色管理------------------------------*/
@@ -113,8 +116,7 @@ class Admin extends CmsBase
      * @return \think\response\View|void
      */
     public function addRole(Request $request){
-        $method = $request->Method();
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $input = $request->post();
             $opRes = $this->ar_model->addRole($input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -134,9 +136,8 @@ class Admin extends CmsBase
      * @return \think\response\View|void
      */
     public function editRole(Request $request,$id){
-        $method = $request->Method();
         $roleData = $this->ar_model->getRoleData($id);
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $input = $request->param();
             $opRes = $this->ar_model->editRole($id,$input);
             return showMsg($opRes['tag'],$opRes['message']);

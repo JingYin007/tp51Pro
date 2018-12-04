@@ -39,10 +39,15 @@ class Article extends CmsBase
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->param('curr_page',1);
-        $search = $request->param('str_search');
-        $list = $this->model->getCmsArticlesForPage($curr_page,$this->page_limit,$search);
-        return showMsg(1,'**',$list);
+        if ($request->isPost()){
+            $curr_page = $request->post('curr_page',1);
+            $search = $request->post('str_search');
+            $list = $this->model->getCmsArticlesForPage($curr_page,$this->page_limit,$search);
+            return showMsg(1,'success',$list);
+        }else{
+            return showMsg(0,'sorry，请求不合法');
+        }
+
     }
     /**
      * 添加文章
@@ -50,8 +55,7 @@ class Article extends CmsBase
      * @return \think\response\View|void
      */
     public function add(Request $request){
-        $method = $request->method();
-        if($method == 'POST'){
+        if($request->isPost()){
             $input = $request->param();
             $opRes = $this->model->addArticle($input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -67,8 +71,7 @@ class Article extends CmsBase
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
-        $method = $request->method();
-        if ($method == 'POST'){
+        if ($request->isPost()){
             $opRes = $this->model->updateCmsArticleData( $request->param());
             return showMsg($opRes['tag'],$opRes['message']);
         }else{

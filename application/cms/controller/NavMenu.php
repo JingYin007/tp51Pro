@@ -16,7 +16,7 @@ class NavMenu extends CmsBase
     {
         parent::__construct();
         $this->menuModel = new NavMenus();
-        $this->page_limit = config('app.CMS_PAGE_SIZE');
+        $this->page_limit = 3;
     }
 
     /**
@@ -40,10 +40,14 @@ class NavMenu extends CmsBase
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request){
-        $curr_page = $request->param('curr_page',1);
-        $search = $request->param('str_search');
-        $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit,$search);
-        return showMsg(1,'**',$list);
+        if ($request->isPost()){
+            $curr_page = $request->post('curr_page',1);
+            $search = $request->post('str_search');
+            $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit,$search);
+            return showMsg(1,'success',$list);
+        }else{
+            return showMsg(0,'sorry，请求不合法');
+        }
     }
 
     /**
@@ -52,9 +56,8 @@ class NavMenu extends CmsBase
      * @return \think\response\View|void
      */
     public function add(Request $request){
-        $Tag = $request->Method();
         $rootMenus = $this->menuModel->getNavMenus();
-        if ($Tag == 'POST'){
+        if ($request->isPost()){
             $input = $request->param();
             $opRes = $this->menuModel->addNavMenu($input);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -70,9 +73,8 @@ class NavMenu extends CmsBase
      * @return \think\response\View|void
      */
     public function auth(Request $request,$id){
-        $Tag = $request->Method();
         $authMenus = $this->menuModel->getAuthChildNavMenus($id);
-        if ($Tag == 'POST'){
+        if ($request->isPost()){
             $input = $request->param();
             $opRes = $this->menuModel->addNavMenu($input,$id);
             return showMsg($opRes['tag'],$opRes['message']);
@@ -91,11 +93,10 @@ class NavMenu extends CmsBase
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
-        $Tag = $request->Method();
         $rootMenus = $this->menuModel->getNavMenus();
         if($id == 0) $id=$request->param('id');
         $menuData = $this->menuModel->getNavMenuByID($id);
-        if ($Tag == 'POST'){
+        if ($request->isPost()){
             //TODO 修改对应的菜单
             $input = $request->post();
             $opRes = $this->menuModel->editNavMenu($input['id'],$input);
