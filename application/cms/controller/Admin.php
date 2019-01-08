@@ -145,7 +145,7 @@ class Admin extends CmsBase
             //TODO 获取所有可以分配的权限菜单
             $viewMenus = $this->menuModel->getNavMenus();
             $arrMenuSelf = explode('|',$roleData['nav_menu_ids']);
-            return view('edit_Role',[
+            return view('edit_role',[
                 'role' => $roleData,
                 'menus' => $viewMenus,
                 'menuSelf' => $arrMenuSelf,
