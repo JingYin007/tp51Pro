@@ -65,6 +65,11 @@ Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
 Route::post('api/upload/img_file','api/upload/img_file');
 Route::any('api/upload/test','api/upload/test');
 
+/**
+ * Uni API 接口类，用于 uniApp 开发
+ */
+Route::any('uniapi/getArticleList','uniapi/index/getArticleList');
+Route::any('uniapi/article','uniapi/index/getArticleInfo');
 
 
 
