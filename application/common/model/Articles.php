@@ -34,6 +34,7 @@ class Articles extends BaseModel
             ->where('ap.status',1)
             ->select()
             ->toArray();
+        $data = array_merge($data,$data,$data,$data,$data,$data,$data);
         return $data;
     }
 
