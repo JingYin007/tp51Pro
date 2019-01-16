@@ -37,7 +37,7 @@ class Index
      */
     public function getArticleInfo(Request $request)
     {
-        $article_id = $request->get('id');
+        $article_id = $request->post('id');
         $articleInfo = $this->articleModel->getInfoByID(intval($article_id));
         return showMsg(1, 'getArticleInfo', $articleInfo);
     }
