@@ -69,7 +69,7 @@ Route::any('api/upload/test','api/upload/test');
  * Uni API 接口类，用于 uniApp 开发学习
  */
 Route::any('uniapi/getArticleList','uniapi/index/getArticleList');
-Route::any('uniapi/article','uniapi/index/getArticleInfo');
+Route::post('uniapi/article','uniapi/index/getArticleInfo');
 
 
 
