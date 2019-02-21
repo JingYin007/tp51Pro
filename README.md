@@ -22,6 +22,17 @@ composer install
 ```
 ![](https://img-blog.csdnimg.cn/20181126191857684.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE0MTU3ODI=,size_16,color_FFFFFF,t_70)
 
+- 此时，请确认一下文件 `\vendor\topthink\think-captcha\src\helper.php` 中的 `captcha_img（）` 方法，并进行覆写如下：
+```
+function captcha_img($id = '')
+{
+    $js_src = "this.src='".captcha_src()."'";
+    return '<img src="' . captcha_src($id) . '" title="点击更新验证码" alt="点击更新验证码" onclick="'.$js_src.'" />';
+    //return '<img src="' . captcha_src($id) . '" alt="captcha" />';
+}
+```
+> 此处操作，保证登录验证码的正常使用，可参看文章 :【[`ThinkPHP5.0+ 验证码功能实现`](https://blog.csdn.net/u011415782/article/details/77367280)】
+
 - ### 第二步. 获取数据库数据
 
 > 为了操作方便，建议打开 `MySql `管理工具，直接运行所提供的  `database/tp5_pro.sql`  数据库文件
