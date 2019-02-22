@@ -34,7 +34,7 @@ class Articles extends BaseModel
             ->where('ap.status',1)
             ->select()
             ->toArray();
-        $data = array_merge($data,$data,$data,$data,$data,$data,$data);
+        //$data = array_merge($data,$data,$data,$data,$data,$data,$data);
         return $data;
     }
 
@@ -79,9 +79,8 @@ class Articles extends BaseModel
         if(is_numeric($id)){
             $res = $this
                 ->alias('a')
-                ->join('users u','u.id = a.user_id')
                 ->join('article_points ap','ap.article_id = a.id')
-                ->field('a.*,u.user_name')
+                ->field('a.*')
                 ->where('a.id = '.$id)
                 ->find();
         }

@@ -104,28 +104,6 @@ INSERT INTO `tp5_article_points` VALUES ('4', '4', '0', '', '/home/images/articl
 INSERT INTO `tp5_article_points` VALUES ('3', '3', '0', '', '/home/images/article3.png', '因为穷，所以要努力赚钱；努力赚钱，就会没时间找对象；找不到对象就算了，钱也没赚多少，难免开始焦虑；一旦焦虑，每天洗头的时候，掉出来的头发会告诉你什么才是真正的“绝望”。', '1');
 
 -- ----------------------------
--- Table structure for tp5_comments
--- ----------------------------
-DROP TABLE IF EXISTS `tp5_comments`;
-CREATE TABLE `tp5_comments` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `article_id` int(11) NOT NULL DEFAULT '0' COMMENT '文章ID',
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `reply_id` int(11) NOT NULL DEFAULT '0' COMMENT '所回复的评论ID,0表示原始评论',
-  `content` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '评论内容',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of tp5_comments
--- ----------------------------
-INSERT INTO `tp5_comments` VALUES ('1', '1', '2', '0', '这是一个神奇的世界，你是个神奇的人！', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_comments` VALUES ('2', '1', '1', '1', '嗯，你说的对！', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_comments` VALUES ('3', '2', '2', '0', '我们啊，其实都一样', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-
--- ----------------------------
 -- Table structure for tp5_migrations
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_migrations`;
@@ -240,28 +218,5 @@ INSERT INTO `tp5_today_words` VALUES ('4', '人老了的好处，就是可失去
 INSERT INTO `tp5_today_words` VALUES ('5', '到底要怎么才能证明自己成长了 那种事情我也不知道啊 但是只要那一抹笑容尚存 我便心无旁骛 ', '声之形', '/home/images/ps5.png', '1', '2018-11-20 23:23:51');
 INSERT INTO `tp5_today_words` VALUES ('6', '你觉得被圈养的鸟儿为什么无法自由地翱翔天际？是因为鸟笼不是属于它的东西', '东京食尸鬼', '/home/images/ps6.png', '1', '2018-11-20 23:23:37');
 INSERT INTO `tp5_today_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/home/images/ps7.png', '1', '2018-02-11 21:02:43');
-INSERT INTO `tp5_today_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福                ', '千与千寻', '/home/images/ps8.png', '1', '2018-11-20 21:14:30');
-INSERT INTO `tp5_today_words` VALUES ('12', '发个非官方个', 'dfdffdfdf大概', '/cms/images/headshot/wuHuang.png', '-1', '2018-11-20 23:28:36');
+INSERT INTO `tp5_today_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福', '千与千寻', '/home/images/ps8.png', '1', '2018-11-20 21:14:30');
 
--- ----------------------------
--- Table structure for tp5_users
--- ----------------------------
-DROP TABLE IF EXISTS `tp5_users`;
-CREATE TABLE `tp5_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'User 主键',
-  `user_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
-  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '登录密码',
-  `head_portrait` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '头像',
-  `age` tinyint(4) NOT NULL DEFAULT '0' COMMENT '年龄',
-  `signature` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '个性签名',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of tp5_users
--- ----------------------------
-INSERT INTO `tp5_users` VALUES ('1', 'MoTzxx', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img1.jpg', '25', '你若盛开，清风自来', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_users` VALUES ('2', '百里守约', 'c33367701511b4f6020ec61ded352059', 'home/images/user_img2.jpg', '25', '放心，我一直都在！', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
-INSERT INTO `tp5_users` VALUES ('3', '牧云骑星', 'e10adc3949ba59abbe56e057f20f883e', 'home/images/user_img3.jpg', '22', '天上的每一颗星星，都是一个值得还念的故人！', '2018-02-11 21:02:43', '2018-02-11 21:02:43');
