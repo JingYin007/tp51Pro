@@ -3,7 +3,7 @@
 namespace app\cms\Controller;
 
 use app\common\controller\CmsBase;
-use app\common\model\Articles;
+use app\common\model\Xarticles;
 use think\Request;
 
 class Article extends CmsBase
@@ -13,7 +13,7 @@ class Article extends CmsBase
     public function __construct()
     {
         parent::__construct();
-        $this->model = new Articles();
+        $this->model = new Xarticles();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 

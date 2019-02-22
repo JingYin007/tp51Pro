@@ -128,10 +128,10 @@ INSERT INTO `tp5_migrations` VALUES ('8', '2018_01_28_081817_create_admins_table
 INSERT INTO `tp5_migrations` VALUES ('9', '2018_02_07_105721_create_sessions_table', '1');
 
 -- ----------------------------
--- Table structure for tp5_nav_menus
+-- Table structure for tp5_xnav_menus
 -- ----------------------------
-DROP TABLE IF EXISTS `tp5_nav_menus`;
-CREATE TABLE `tp5_nav_menus` (
+DROP TABLE IF EXISTS `tp5_xnav_menus`;
+CREATE TABLE `tp5_xnav_menus` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'navMenu 主键',
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级菜单ID',
@@ -145,54 +145,54 @@ CREATE TABLE `tp5_nav_menus` (
 ) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of tp5_nav_menus
+-- Records of tp5_xnav_menus
 -- ----------------------------
-INSERT INTO `tp5_nav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('2', '菜单管理', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('6', '管理人员', '1', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '2', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('7', '角色管理', '1', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_nav_menus` VALUES ('29', '添加导航菜单', '2', 'cms/menu/add', '/', '1', '0', '2018-11-23 20:32:29', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('30', '导航菜单修改', '2', 'cms/menu/edit', '/', '1', '0', '2018-11-23 20:34:54', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('31', '菜单权限设置', '2', 'cms/menu/auth', '/', '1', '0', '2018-11-23 20:35:33', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('32', '分页获取菜单数据', '2', 'cms/menu/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:35:57', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('33', '添加今日赠言', '4', 'cms/todayWord/add', '/', '1', '0', '2018-11-23 20:37:59', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('34', '修改今日赠言', '4', 'cms/todayWord/edit', '/', '1', '0', '2018-11-23 20:38:17', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('35', '分页获取今日赠言数据', '4', 'cms/todayWord/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:38:43', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('36', '添加文章数据', '5', 'cms/article/add', '/', '1', '0', '2018-11-23 20:39:02', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('37', '修改文章数据', '5', 'cms/article/edit', '/', '1', '0', '2018-11-23 20:39:22', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('38', '添加管理员', '6', 'cms/admin/add', '/', '1', '0', '2018-11-23 20:46:18', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('39', '修改管理员数据', '6', 'cms/admin/edit', '/', '1', '0', '2018-11-23 20:46:35', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('40', '分页获取管理员数据', '6', 'cms/admin/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:48:08', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
-INSERT INTO `tp5_nav_menus` VALUES ('43', '分页获取文章数据', '5', 'cms/article/ajaxOpForPage', '/', '1', '0', '2018-11-24 16:28:33', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('2', '菜单管理', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('6', '管理人员', '1', 'cms/admin/index', '/cms/images/icon/admin.png', '1', '2', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('7', '角色管理', '1', 'cms/admin/role', '/cms/images/icon/role.png', '1', '3', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('29', '添加导航菜单', '2', 'cms/menu/add', '/', '1', '0', '2018-11-23 20:32:29', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('30', '导航菜单修改', '2', 'cms/menu/edit', '/', '1', '0', '2018-11-23 20:34:54', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('31', '菜单权限设置', '2', 'cms/menu/auth', '/', '1', '0', '2018-11-23 20:35:33', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('32', '分页获取菜单数据', '2', 'cms/menu/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:35:57', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('33', '添加今日赠言', '4', 'cms/todayWord/add', '/', '1', '0', '2018-11-23 20:37:59', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('34', '修改今日赠言', '4', 'cms/todayWord/edit', '/', '1', '0', '2018-11-23 20:38:17', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('35', '分页获取今日赠言数据', '4', 'cms/todayWord/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:38:43', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('36', '添加文章数据', '5', 'cms/article/add', '/', '1', '0', '2018-11-23 20:39:02', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('37', '修改文章数据', '5', 'cms/article/edit', '/', '1', '0', '2018-11-23 20:39:22', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('38', '添加管理员', '6', 'cms/admin/add', '/', '1', '0', '2018-11-23 20:46:18', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('39', '修改管理员数据', '6', 'cms/admin/edit', '/', '1', '0', '2018-11-23 20:46:35', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('40', '分页获取管理员数据', '6', 'cms/admin/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:48:08', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('43', '分页获取文章数据', '5', 'cms/article/ajaxOpForPage', '/', '1', '0', '2018-11-24 16:28:33', '1');
 
 -- ----------------------------
--- Table structure for tp5_photos
+-- Table structure for tp5_xphotos
 -- ----------------------------
-DROP TABLE IF EXISTS `tp5_photos`;
-CREATE TABLE `tp5_photos` (
+DROP TABLE IF EXISTS `tp5_xphotos`;
+CREATE TABLE `tp5_xphotos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图片存放位置',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of tp5_photos
+-- Records of tp5_xphotos
 -- ----------------------------
-INSERT INTO `tp5_photos` VALUES ('8', '/cms/images/headshot/user8.png');
-INSERT INTO `tp5_photos` VALUES ('2', '/cms/images/headshot/user2.png');
-INSERT INTO `tp5_photos` VALUES ('4', '/cms/images/headshot/user4.png');
-INSERT INTO `tp5_photos` VALUES ('7', '/cms/images/headshot/user7.png');
-INSERT INTO `tp5_photos` VALUES ('6', '/cms/images/headshot/user6.png');
-INSERT INTO `tp5_photos` VALUES ('3', '/cms/images/headshot/user3.png');
-INSERT INTO `tp5_photos` VALUES ('1', '/cms/images/headshot/user1.png');
-INSERT INTO `tp5_photos` VALUES ('9', '/cms/images/headshot/user9.png');
-INSERT INTO `tp5_photos` VALUES ('5', '/cms/images/headshot/user5.png');
+INSERT INTO `tp5_xphotos` VALUES ('8', '/cms/images/headshot/user8.png');
+INSERT INTO `tp5_xphotos` VALUES ('2', '/cms/images/headshot/user2.png');
+INSERT INTO `tp5_xphotos` VALUES ('4', '/cms/images/headshot/user4.png');
+INSERT INTO `tp5_xphotos` VALUES ('7', '/cms/images/headshot/user7.png');
+INSERT INTO `tp5_xphotos` VALUES ('6', '/cms/images/headshot/user6.png');
+INSERT INTO `tp5_xphotos` VALUES ('3', '/cms/images/headshot/user3.png');
+INSERT INTO `tp5_xphotos` VALUES ('1', '/cms/images/headshot/user1.png');
+INSERT INTO `tp5_xphotos` VALUES ('9', '/cms/images/headshot/user9.png');
+INSERT INTO `tp5_xphotos` VALUES ('5', '/cms/images/headshot/user5.png');
 
 -- ----------------------------
 -- Table structure for tp5_today_words

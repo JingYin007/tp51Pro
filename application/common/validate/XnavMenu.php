@@ -11,7 +11,7 @@ namespace app\common\validate;
 
 use think\Validate;
 
-class NavMenu extends Validate
+class XnavMenu extends Validate
 {
 
     protected $rule = [

@@ -2,7 +2,7 @@
 
 namespace app\common\model;
 
-use app\common\validate\NavMenu;
+use app\common\validate\XnavMenu;
 use think\Db;
 use \think\Model;
 
@@ -12,14 +12,14 @@ use \think\Model;
  * Date: 2018/1/11
  * Time: 16:45
  */
-class NavMenus extends BaseModel
+class XnavMenus extends BaseModel
 {
     protected $validate;
 
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validate = new NavMenu();
+        $this->validate = new XnavMenu();
     }
 
     /**
@@ -158,7 +158,7 @@ class NavMenus extends BaseModel
         $res = $this
             ->alias('nm')
             ->field('nm.*,nm2.name parent_name')
-            ->join('nav_menus nm2', 'nm.parent_id = nm2.id')
+            ->join('xnav_menus nm2', 'nm.parent_id = nm2.id')
             ->where('nm.id', $id)
             ->find();
         return $res ? $res : [];
@@ -191,7 +191,7 @@ class NavMenus extends BaseModel
         $res = $this
             ->field('n1.*,n2.name parent_name')
             ->alias('n1')
-            ->join("nav_menus n2", 'n1.parent_id = n2.id')
+            ->join("xnav_menus n2", 'n1.parent_id = n2.id')
             ->where([['n1.id', '>', '0'], ["n1.status", '=', 1], ["n1.type", '=', 0]])
             ->whereLike('n1.name', '%' . $search . '%')
             ->order(['n1.list_order' => 'desc', 'n1.created_at' => 'desc'])

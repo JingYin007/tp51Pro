@@ -1,7 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use app\common\model\Articles;
+use app\common\model\Xarticles;
 use app\common\model\TodayWords;
 
 class Index
@@ -11,7 +11,7 @@ class Index
 
     public function __construct()
     {
-        $this->articleModel = new Articles();
+        $this->articleModel = new Xarticles();
         $this->todayWordModel = new TodayWords();
     }
 

@@ -1,6 +1,6 @@
 <?php
 namespace app\cms\controller;
-use app\common\model\NavMenus;
+use app\common\model\XnavMenus;
 use app\common\model\Xadmins;
 use think\facade\Session;
 use think\Request;
@@ -17,7 +17,7 @@ class Index{
     protected $cmsAID;
     public function __construct()
     {
-        $this->menuModel = new NavMenus();
+        $this->menuModel = new XnavMenus();
         $this->adminModel = new Xadmins();
         $this->cmsAID = Session::get('cmsMoTzxxAID');
         if (!$this->cmsAID){

@@ -10,7 +10,7 @@ use \think\Model;
  * Time: 16:45
  */
 
-class Articles extends BaseModel
+class Xarticles extends BaseModel
 {
     // 设置当前模型对应的完整数据表名称
     protected $autoWriteTimestamp = 'datetime';
@@ -60,7 +60,7 @@ class Articles extends BaseModel
      * @return array
      */
     public function getPhotos(){
-        $res = Db::name('photos')
+        $res = Db::name('xphotos')
             ->field('picture')
             ->order("id","asc")
             ->limit(9)
@@ -138,8 +138,7 @@ class Articles extends BaseModel
     public function getCmsArticleByID($id){
         $res = $this
             ->alias('a')
-            ->field('a.*,u.user_name,title,status,picture,abstract')
-            ->join('users u', 'u.id = a.user_id')
+            ->field('a.*,title,status,picture,abstract')
             ->join('article_points ap','ap.article_id = a.id')
             ->where('a.id',$id)
             ->find()

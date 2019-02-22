@@ -3,7 +3,7 @@
 namespace app\cms\Controller;
 
 use app\common\controller\CmsBase;
-use app\common\model\NavMenus;
+use app\common\model\XnavMenus;
 use think\facade\Session;
 use think\Request;
 
@@ -15,7 +15,7 @@ class NavMenu extends CmsBase
     public function __construct()
     {
         parent::__construct();
-        $this->menuModel = new NavMenus();
+        $this->menuModel = new XnavMenus();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 

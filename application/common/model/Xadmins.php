@@ -288,10 +288,10 @@ class Xadmins extends BaseModel
                         break;
                     }else{
                         //此时判断其的 下级权限中是否满足 当前访问的权限
-                        $childMenus = Db::name('nav_menus')
+                        $childMenus = Db::name('xnav_menus')
                             ->field("n2.id")
                             ->alias('n1')
-                            ->join("nav_menus n2","n1.id = n2.parent_id")
+                            ->join("xnav_menus n2","n1.id = n2.parent_id")
                             ->where(
                                 [
                                     ["n2.parent_id",'=',$menu_id],
@@ -325,7 +325,7 @@ class Xadmins extends BaseModel
      */
     public function checkAuthUrlForMenuID($menu_id = 0,$authUrl){
         $checkTag = false;
-        $menuAction = Db::name('nav_menus')
+        $menuAction = Db::name('xnav_menus')
             ->where([["id",'=',$menu_id],['status','=',1]])
             ->value('action');
         if ("/".strtolower($menuAction) == strtolower($authUrl)){

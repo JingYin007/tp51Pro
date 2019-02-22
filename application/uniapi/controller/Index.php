@@ -9,7 +9,7 @@
 namespace app\uniApi\Controller;
 
 
-use app\common\model\Articles;
+use app\common\model\Xarticles;
 use think\Request;
 
 class Index
@@ -18,7 +18,7 @@ class Index
 
     public function __construct()
     {
-        $this->articleModel = new Articles();
+        $this->articleModel = new Xarticles();
         header("Access-Control-Allow-Origin: *");
     }
 
