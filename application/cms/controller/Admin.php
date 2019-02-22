@@ -3,8 +3,8 @@
 namespace app\cms\Controller;
 
 use app\common\controller\CmsBase;
-use app\common\model\AdminRoles;
-use app\common\model\Admins;
+use app\common\model\XadminRoles;
+use app\common\model\Xadmins;
 use app\common\model\NavMenus;
 use think\Request;
 
@@ -17,8 +17,8 @@ class Admin extends CmsBase
     public function __construct()
     {
         parent::__construct();
-        $this->model = new Admins();
-        $this->ar_model = new AdminRoles();
+        $this->model = new Xadmins();
+        $this->ar_model = new XadminRoles();
         $this->menuModel = new NavMenus();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }

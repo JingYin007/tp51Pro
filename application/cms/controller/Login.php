@@ -2,7 +2,7 @@
 
 namespace app\cms\Controller;
 
-use app\common\model\Admins;
+use app\common\model\Xadmins;
 use app\common\model\NavMenus;
 use think\facade\Session;
 use think\Request;
@@ -13,7 +13,7 @@ class Login
     private $navMenuModel;
     public function __construct()
     {
-        $this->adminModel = new Admins();
+        $this->adminModel = new Xadmins();
         $this->navMenuModel = new NavMenus();
     }
 

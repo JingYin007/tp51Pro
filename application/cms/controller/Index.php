@@ -1,7 +1,7 @@
 <?php
 namespace app\cms\controller;
-use app\common\model\Admins;
 use app\common\model\NavMenus;
+use app\common\model\Xadmins;
 use think\facade\Session;
 use think\Request;
 
@@ -18,7 +18,7 @@ class Index{
     public function __construct()
     {
         $this->menuModel = new NavMenus();
-        $this->adminModel = new Admins();
+        $this->adminModel = new Xadmins();
         $this->cmsAID = Session::get('cmsMoTzxxAID');
         if (!$this->cmsAID){
             return redirect('cms/login/index');
@@ -60,7 +60,7 @@ class Index{
      * @return \think\response\View|void
      */
     public function admin(Request $request,$id){
-        $adminModel = new Admins();
+        $adminModel = new Xadmins();
         if ($request->isGet()){
             $adminData = $adminModel->getAdminData($id);
             return view('admin',[

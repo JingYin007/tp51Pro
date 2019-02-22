@@ -2,16 +2,16 @@
 namespace app\common\model;
 
 use app\common\controller\Base;
-use app\common\validate\AdminRole;
+use app\common\validate\XadminRole;
 use think\Model;
 
-class AdminRoles extends BaseModel
+class XadminRoles extends BaseModel
 {
     protected $validate;
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validate = new AdminRole();
+        $this->validate = new XadminRole();
     }
 
     /**

@@ -11,7 +11,7 @@ namespace app\common\validate;
 
 use think\Validate;
 
-class AdminRole extends Validate
+class XadminRole extends Validate
 {
 
     protected $rule = [

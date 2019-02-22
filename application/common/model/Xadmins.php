@@ -1,18 +1,18 @@
 <?php
 namespace app\common\model;
 
-use app\common\validate\Admin;
+use app\common\validate\Xadmin;
 use think\Db;
 use think\Model;
 use think\Session;
 
-class Admins extends BaseModel
+class Xadmins extends BaseModel
 {
     protected $validate;
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validate = new Admin();
+        $this->validate = new Xadmin();
     }
 
     /**
@@ -25,7 +25,7 @@ class Admins extends BaseModel
         $res = $this
             ->alias('a')
             ->field('a.*,ar.user_name role_name')
-            ->join('admin_roles ar','a.role_id = ar.id')
+            ->join('xadmin_roles ar','a.role_id = ar.id')
             ->order('a.id','desc')
             ->where("a.status",1)
             ->limit($limit*($curr_page - 1),$limit)
@@ -84,7 +84,7 @@ class Admins extends BaseModel
             ->alias('a')
             ->field('a.id,a.user_name,a.picture,a.role_id,a.created_at,
                      a.status,a.content,ar.user_name role_name')
-            ->join('admin_roles ar','ar.id = a.role_id')
+            ->join('xadmin_roles ar','ar.id = a.role_id')
             ->where('a.id',$id)
             ->find()
             ->toArray();
@@ -225,7 +225,7 @@ class Admins extends BaseModel
     public function getAdminNavMenus($id = 1){
         $nav_menu_ids = $this
             ->alias('a')
-            ->join('admin_roles ar','ar.id = a.role_id')
+            ->join('xadmin_roles ar','ar.id = a.role_id')
             ->where([['a.id','=',$id],['a.status','=',1]])
             ->value('nav_menu_ids');
         return $nav_menu_ids;

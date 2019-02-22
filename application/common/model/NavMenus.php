@@ -83,9 +83,9 @@ class NavMenus extends BaseModel
      */
     public function getAdminMenus($id = 1)
     {
-        $nav_menu_ids = Db('admins')
+        $nav_menu_ids = Db('xadmins')
             ->alias('a')
-            ->join('admin_roles ar', 'ar.id = a.role_id')
+            ->join('xadmin_roles ar', 'ar.id = a.role_id')
             ->where('a.id', $id)
             ->value('nav_menu_ids');
         return $nav_menu_ids;

@@ -7,7 +7,7 @@
  */
 namespace app\common\controller;
 
-use app\common\model\Admins;
+use app\common\model\Xadmins;
 use think\Db;
 use think\facade\Session;
 use think\Request;
@@ -60,7 +60,7 @@ class CmsBase extends Base
         $request_url = strtolower($_SERVER["REQUEST_URI"]);
         $authUrl = explode($action,$request_url)[0].$action;
         //对待检测的URL 忽略大小写
-        $adminModel = new Admins();
+        $adminModel = new Xadmins();
         $checkTag = $adminModel->checkAdminAuth($adminID,$authUrl);
         return $checkTag;
     }
