@@ -11,7 +11,7 @@ namespace app\common\validate;
 
 use think\Validate;
 
-class TodayWord extends Validate
+class XtodayWord extends Validate
 {
 
     protected $rule = [

@@ -3,7 +3,7 @@
 namespace app\cms\Controller;
 
 use app\common\controller\CmsBase;
-use app\common\model\TodayWords;
+use app\common\model\XtodayWords;
 use think\Request;
 
 class TodayWord extends CmsBase
@@ -14,7 +14,7 @@ class TodayWord extends CmsBase
     public function __construct()
     {
         parent::__construct();
-        $this->model = new TodayWords();
+        $this->model = new XtodayWords();
         $this->page_limit = config('app.CMS_PAGE_SIZE');
     }
 

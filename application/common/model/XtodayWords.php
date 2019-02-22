@@ -2,7 +2,7 @@
 
 namespace app\common\model;
 
-use app\common\validate\TodayWord;
+use app\common\validate\XtodayWord;
 use think\Db;
 use \think\Model;
 
@@ -12,14 +12,14 @@ use \think\Model;
  * Date: 2018/1/11
  * Time: 16:45
  */
-class TodayWords extends BaseModel
+class XtodayWords extends BaseModel
 {
     protected $validate;
 
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validate = new TodayWord();
+        $this->validate = new XtodayWord();
     }
 
     /**

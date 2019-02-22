@@ -1,6 +1,6 @@
 <?php
 namespace app\common\model;
-use app\common\validate\Article;
+use app\common\validate\Xarticle;
 use think\Db;
 use \think\Model;
 /**
@@ -18,7 +18,7 @@ class Xarticles extends BaseModel
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validate = new Article();
+        $this->validate = new Xarticle();
     }
 
     /**
@@ -29,7 +29,7 @@ class Xarticles extends BaseModel
         $data = $this
             ->field("a.*,ap.picture,ap.abstract")
             ->alias('a')//给主表取别名
-            ->join('article_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
+            ->join('xarticle_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
             ->where('a.id','>',0)
             ->where('ap.status',1)
             ->select()
@@ -46,7 +46,7 @@ class Xarticles extends BaseModel
         $res = $this
             ->field('a.title,a.id')
             ->alias('a')
-            ->join('article_points ap','ap.article_id = a.id')
+            ->join('xarticle_points ap','ap.article_id = a.id')
             ->order('ap.view','desc')
             ->where('ap.status',1)
             ->limit(6)
@@ -79,7 +79,7 @@ class Xarticles extends BaseModel
         if(is_numeric($id)){
             $res = $this
                 ->alias('a')
-                ->join('article_points ap','ap.article_id = a.id')
+                ->join('xarticle_points ap','ap.article_id = a.id')
                 ->field('a.*')
                 ->where('a.id = '.$id)
                 ->find();
@@ -99,7 +99,7 @@ class Xarticles extends BaseModel
         $res = $this
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
-            ->join('article_points ap','ap.article_id = a.id')
+            ->join('xarticle_points ap','ap.article_id = a.id')
             ->where("ap.status",1)
             ->whereLike('a.title','%'.$search.'%')
             ->order(['a.list_order'=>'desc','a.id'=>'desc'])
@@ -124,7 +124,7 @@ class Xarticles extends BaseModel
         $count = $this
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
-            ->join('article_points ap','ap.article_id = a.id')
+            ->join('xarticle_points ap','ap.article_id = a.id')
             ->where("ap.status",1)
             ->whereLike('a.title','%'.$search.'%')
             ->count();
@@ -139,7 +139,7 @@ class Xarticles extends BaseModel
         $res = $this
             ->alias('a')
             ->field('a.*,title,status,picture,abstract')
-            ->join('article_points ap','ap.article_id = a.id')
+            ->join('xarticle_points ap','ap.article_id = a.id')
             ->where('a.id',$id)
             ->find()
             ->toArray();
@@ -156,7 +156,7 @@ class Xarticles extends BaseModel
         $id = $input['id'];
         $opTag = isset($input['tag']) ? $input['tag'] : 'edit';
         if ($opTag == 'del') {
-            Db::name('article_points')
+            Db::name('xarticle_points')
                 ->where('article_id', $id)
                 ->update(['status' => -1]);
             $validateRes = ['tag' => 1, 'message' => '删除成功'];
@@ -174,7 +174,7 @@ class Xarticles extends BaseModel
                     ->where('id', $id)
                     ->update($saveData);
                 if ($saveTag) {
-                    Db::name('article_points')
+                    Db::name('xarticle_points')
                         ->where('article_id', $id)
                         ->update([
                             'picture' => $input['picture'] ? $input['picture'] : '',
@@ -210,7 +210,7 @@ class Xarticles extends BaseModel
         if ($validateRes['tag']) {
             $tag = $this->insert($addData);
             if ($tag) {
-                Db::name('article_points')
+                Db::name('xarticle_points')
                     ->data([
                         'picture' => $data['picture'],
                         'abstract' => $data['abstract'],

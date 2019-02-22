@@ -7,7 +7,7 @@
  */
 namespace app\common\validate;
 use \think\Validate;
-class Article extends Validate
+class Xarticle extends Validate
 {
     protected $rule = [
         'title'         =>  'require|max:100',

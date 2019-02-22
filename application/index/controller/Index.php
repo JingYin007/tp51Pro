@@ -2,7 +2,7 @@
 namespace app\index\controller;
 
 use app\common\model\Xarticles;
-use app\common\model\TodayWords;
+use app\common\model\XtodayWords;
 
 class Index
 {
@@ -12,7 +12,7 @@ class Index
     public function __construct()
     {
         $this->articleModel = new Xarticles();
-        $this->todayWordModel = new TodayWords();
+        $this->todayWordModel = new XtodayWords();
     }
 
     /**
