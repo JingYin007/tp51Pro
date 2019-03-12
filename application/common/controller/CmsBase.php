@@ -56,8 +56,8 @@ class CmsBase extends Base
      * @throws \think\exception\DbException
      */
     public function checkCmsAdminAuth($adminID = 0){
-        $action = strtolower(request()->action());
-        $request_url = strtolower($_SERVER["REQUEST_URI"]);
+        $action = trim(strtolower(request()->action()));
+        $request_url = trim(strtolower($_SERVER["REQUEST_URI"]));
         $authUrl = explode($action,$request_url)[0].$action;
         //对待检测的URL 忽略大小写
         $adminModel = new Xadmins();
