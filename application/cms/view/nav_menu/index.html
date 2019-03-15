@@ -93,9 +93,10 @@
         var record_num = $(".record_num").val();
         laypage.render({
             elem: 'demo2-1'
-            , limit: page_limit
-            , count: record_num
-            , jump: function (obj, first) {
+            ,limit: page_limit
+            ,count: record_num
+            ,layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip']
+            ,jump: function(obj,first){
                 //obj包含了当前分页的所有参数
                 //首次不执行
                 if (!first) {
