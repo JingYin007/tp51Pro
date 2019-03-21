@@ -6,6 +6,10 @@ use think\Request;
 
 class Upload
 {
+    /**
+     * 单一图片的上传操作
+     * @param Request $request
+     */
     public function img_file(Request $request)
     {
         $status = 0;

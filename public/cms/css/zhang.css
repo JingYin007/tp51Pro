@@ -5,6 +5,7 @@
     padding-top: 15px;
     padding-bottom: 8px;
 }
+
 .layui-side-scroll .user-info .photo-view {
     display: block;
     width: 76px;
@@ -12,6 +13,7 @@
     margin-left: 50px;
     padding: 0px;
 }
+
 .layui-side-scroll .user-info .photo-view img {
     display: block;
     width: 100%;
@@ -20,6 +22,7 @@
     -webkit-border-radius: 50%;
     border: 4px solid #44576B;
 }
+
 .layui-side-scroll .user-info p {
     display: block;
     width: 100%;
@@ -30,7 +33,8 @@
     text-align: center;
     margin-top: 15px;
 }
-.layui-header .menu-switch{
+
+.layui-header .menu-switch {
     display: block;
     width: 27px;
     height: 30px;
@@ -40,32 +44,38 @@
     background-size: 100%;
     cursor: pointer;
 }
-.layui-tab-title{
+
+.layui-tab-title {
     border-bottom: 3px solid #009688;
     width: 100%;
 }
-.layui-layout-body{
+
+.layui-layout-body {
     height: auto;
 }
-.iframe-body{
-    width:100%;
-    height: auto;
+
+.iframe-body {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
-.layui-tab-title .title-selected{
+
+.layui-tab-title .title-selected {
     background-color: #009688;
     color: white;
     font-weight: 600;
 }
 
-.layui-nav-item .nav-icon{
+.layui-nav-item .nav-icon {
     width: 25px;
     height: 25px;
 }
-.layui-nav-item .layui-nav-child .nav-icon{
+
+.layui-nav-item .layui-nav-child .nav-icon {
     width: 20px;
     height: 20px;
 }
+
 .admin-header-lock {
     width: 320px;
     height: 170px;
@@ -73,6 +83,7 @@
     position: relative;
     text-align: center;
 }
+
 .admin-header-lock-input {
     width: 170px;
     color: #fff;
@@ -81,136 +92,153 @@
     margin: 0 10px 0 40px;
     border: none;
 }
+
 .admin-header-lock-img {
     width: 60px;
     height: 60px;
     margin: 0 auto;
 }
+
 .admin-header-lock-img img {
     width: 60px;
     height: 60px;
     border-radius: 100%;
 }
+
 .admin-header-lock-name {
     color: #009688;
     margin: 8px 0 15px 0;
 }
+
 .input_btn {
     overflow: hidden;
     margin-bottom: 10px;
 }
+
 #unlock {
     float: left;
 }
+
 #lock-box p {
     color: #e60000;
 }
 
-
-
-.layui-logo span{
-    color:white ;
+.layui-logo span {
+    color: white;
 }
 
-.table-body th,.table-body td{
-    text-align:center;
+.table-body th, .table-body td {
+    text-align: center;
 }
-.div-menu-search{
+
+.div-menu-search {
     float: left;
 }
-.div-menu-search .layui-icon{
+
+.div-menu-search .layui-icon {
     float: right;
 }
-.layui-nav-child .mul-to-Url{
+
+.layui-nav-child .mul-to-Url {
     margin-left: 10px;
 }
-.layui-icon img{
+
+.layui-icon img {
     width: 22px;
     margin-right: 3px;
 }
 
-
-.div-body-show{
+.div-body-show {
     margin: 5px 5px;
 }
-.form-opNavMenu{
+
+.form-opNavMenu {
     padding: 10px 0px;
     background-color: #eeeeee;
 }
-.form-opNavMenu .img-upload-view{
-    width: 80px;
-    margin: -25px 0px 2px 150px;
-}
+
 .form-opNavMenu .div-form-op,
 .form-opTodayWords .div-form-op,
 .form-opAdmins .div-form-op,
 .form-opRoles .div-form-op,
-.form-opArticle .div-form-op{
+.form-opArticle .div-form-op {
     margin-right: 10px;
     float: right;
 }
-.layui-inline .btn-search-navMenu{
-    width:30px;
-    height:30px;
-    border-radius:30px
+
+.layui-inline .btn-search-navMenu {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px
 }
-.layui-inline .btn-search-navMenu:hover{
+
+.layui-inline .btn-search-navMenu:hover {
     background-color: #00aa00;
 }
-.form-opTodayWords .img-upload-view,.form-opAdmins .img-upload-view{
-    width: 100px;
-    height: 100px;
-    margin: -25px 0px 2px 150px;
-}
-.form-opArticle .article-title{
+
+.form-opArticle .article-title {
     width: 500px;
 }
-.form-opArticle .img-upload-view{
+
+.form-opArticle .img-upload-view {
     width: 300px;
+    height: auto;
 }
-.form-opArticle .div-article-content{
+
+.form-opArticle .div-article-content {
     width: 100%;
 }
-.tbody-articles .p-article-abstract{
+
+.tbody-articles .p-article-abstract {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-.tbody-items .td-item img{
+
+.tbody-items .td-item img {
     cursor: pointer;
     transition: all 0.6s;
     width: 66px;
     height: 66px;
 }
-.td-article img{
+
+.tbody-articles .td-article img {
     cursor: pointer;
     transition: all 0.6s;
-    width: 100px;
+    width: 110px;
+    max-width: 111px;
 }
+
 .tbody-items .td-item img:hover,
-.td-article img:hover{
+.tbody-articles .td-article img:hover {
     transform: scale(5);
 }
-.td-article img:hover{
-    z-index:5;
+
+.tbody-articles .td-article img:hover {
+    z-index: 5;
     transform: scale(5);
 }
-.td-article img:hover{
-    position:relative;
-    z-index:100;
+
+.tbody-articles .td-article img:hover {
+    position: relative;
+    z-index: 100;
 }
-.tbody-navMenus .td-menu img{
+
+.tbody-navMenus .td-menu img {
     width: 50px;
 }
-.table-nav-menus .td-menu-parent{
+
+.table-nav-menus .td-menu-parent {
     text-align: center;
-    vertical-align:middle;
+    vertical-align: middle;
 }
-.td-menu-parent .layui-form-switch{
+
+.td-menu-parent .layui-form-switch {
     margin-left: 0px;
 }
-.nav_weather{
+
+.nav_weather {
     margin-right: 20px;
 }
 
@@ -223,23 +251,25 @@
     width: 100%;
     height: 100%;
 }
-#body-login  .video_mask {
+
+#body-login .video_mask {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 90;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
-#body-login .div-login{
+
+#body-login .div-login {
     padding: 35px 0 0 0;
     width: 450px;
     border: 2px solid #00a7d0;
     border-radius: 20px;
     height: 180px;
 
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     margin: auto;
     top: 0;
@@ -248,14 +278,52 @@
     bottom: 0;
     z-index: 99;
 }
-#body-login .div-login .layui-form-item{
+
+#body-login .div-login .layui-form-item {
     width: 280px;
     margin-left: auto;
     margin-right: auto;
 }
-#body-login .div-login .div-form-op{
+
+#body-login .div-login .div-form-op {
     float: right;
 }
-#body-login .div-login .layui-form-label{
+
+#body-login .div-login .layui-form-label {
     width: 80px;
 }
+
+/*-START------------用于图片上传的预览效果------------------------*/
+.layui-upload .img-upload-preview-headshot {
+    width: 100px;
+    height: 100px;
+    margin: -25px 0px 2px 150px;
+}
+
+.layui-upload .img-upload-preview-small {
+    width: 80px;
+    height: 100%;
+    margin: -25px 0px 2px 150px;
+}
+
+.layui-upload .img-upload-preview-medium {
+    width: 300px;
+    height: auto;
+}
+
+.layui-upload .img-upload-preview {
+    width: 160px;
+    height: auto;
+}
+
+.layui-upload #div-multiple-img-upload-preview .layui-upload-img {
+    width: 120px;
+    height: auto;
+    padding-left: 5px;
+}
+
+.layui-upload #div-multiple-img-upload-preview .layui-upload-img:hover {
+    cursor: pointer;
+}
+
+/*-END--------------用于图片上传的预览效果------------------------*/

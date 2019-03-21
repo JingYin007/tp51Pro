@@ -16,7 +16,7 @@
             <button type="button" name="img_upload" class="layui-btn btn_upload_img">
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
-            <img class="layui-upload-img img-upload-view layui-circle" src="{$todayWordData['picture']}">
+            <img class="layui-upload-img img-upload-preview-headshot layui-circle" src="{$todayWordData['picture']}">
         </div>
     </div>
     <input type="hidden" name="picture" class="menu-icon" value="{$todayWordData['picture']}">
@@ -84,7 +84,7 @@
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
-                    $('.img-upload-view').attr('src', result); //图片链接（base64）
+                    $('.img-upload-preview-headshot').attr('src', result); //图片链接（base64）
                 });
             }
             , done: function (res) {
