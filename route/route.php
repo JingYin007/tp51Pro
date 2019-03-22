@@ -12,7 +12,6 @@
  * 前台页面
  */
 Route::get('/','index/index/index');
-Route::rule('app','index/index/index');
 Route::get('article/:id','index/index/article');
 Route::get('/index/review','index/index/review');
 Route::get('/index/contact','index/index/contact');
