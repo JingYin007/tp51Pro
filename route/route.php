@@ -57,6 +57,21 @@ Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
 Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
 
+/**
+ * 网站业务
+ */
+Route::get('cms/category/index','cms/category/index');
+Route::any('cms/category/add','cms/category/add');
+Route::any('cms/category/edit/:id','cms/category/edit');
+Route::post('cms/category/ajaxOpForPage','cms/category/ajaxOpForPage');
+Route::post('cms/category/ajaxForShow','cms/category/ajaxForShow');
+
+Route::get('cms/goods/index','cms/goods/index');
+Route::any('cms/goods/add','cms/goods/add');
+Route::any('cms/goods/edit/:id','cms/goods/edit');
+Route::post('cms/goods/ajaxOpForPage','cms/goods/ajaxOpForPage');
+Route::post('cms/goods/ajaxPutaway','cms/goods/ajaxPutaway');
+Route::post('cms/goods/ajaxDelUploadImg','cms/goods/ajaxDelUploadImg');
 
 /**
  * 工具类

@@ -24,3 +24,25 @@ function showMsg($status,$message = '',$data = array()){
     );
     exit(json_encode($result));
 }
+/**
+ * 进行图片数据的上传，写入表 xupload_imgs
+ * @param string $slide_show
+ * @param int $tag_id
+ * @param int $type 0：商品轮播图  1：订单评论图片
+ */
+function uploadSlideShow($slide_show = '',$tag_id = 0,$type = 0){
+    $arrSlideShow = explode(",",$slide_show);
+    foreach ($arrSlideShow as $value){
+        if ($value){
+            $addData = [
+                'tag_id' => $tag_id,
+                'type'  => $type,
+                'picture' => $value,
+                'add_time' => date('Y-m-d H:m:s', time()),
+
+            ];
+            Db('xupload_imgs')
+                ->insert($addData);
+        }
+    }
+}

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-02-22 18:16:26
+Date: 2019-03-27 15:26:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ CREATE TABLE `tp5_xadmin_roles` (
 -- ----------------------------
 -- Records of tp5_xadmin_roles
 -- ----------------------------
-INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|4|5|', '2018-02-11 21:02:43', '1');
+INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|4|5|48|50|', '2018-02-11 21:02:43', '1');
 INSERT INTO `tp5_xadmin_roles` VALUES ('2', '初级管理员', '1|6|2|3|4|5|', '2018-02-11 21:02:43', '1');
 
 -- ----------------------------
@@ -91,7 +91,7 @@ CREATE TABLE `tp5_xarticle_points` (
   `keywords` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '关键词',
   `picture` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文章配图',
   `abstract` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文章摘要',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '删除标记',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '删除标记',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -102,6 +102,70 @@ INSERT INTO `tp5_xarticle_points` VALUES ('1', '1', '2', '', '/home/images/artic
 INSERT INTO `tp5_xarticle_points` VALUES ('2', '2', '12', '', '/home/images/article2.png', '我的小天地，我闯荡的大江湖，我的浩瀚星辰和璀璨日月，再与你无关；而你的天地，你行走的江湖，你的日月和星辰，我也再不惦念。从此，一别两宽，各生欢喜。', '1');
 INSERT INTO `tp5_xarticle_points` VALUES ('4', '4', '0', '', '/home/images/article4.png', '人都是对喜欢的东西最上心。他若真的在乎你，一分一秒都不想失去你的消息，更不会不时玩消失，不会对你忽冷忽热，因为他比你还害怕失去。所有的不主动都是由于不喜欢，喜欢你的人永远不忙。', '1');
 INSERT INTO `tp5_xarticle_points` VALUES ('3', '3', '0', '', '/home/images/article3.png', '因为穷，所以要努力赚钱；努力赚钱，就会没时间找对象；找不到对象就算了，钱也没赚多少，难免开始焦虑；一旦焦虑，每天洗头的时候，掉出来的头发会告诉你什么才是真正的“绝望”。', '1');
+
+-- ----------------------------
+-- Table structure for tp5_xcategorys
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xcategorys`;
+CREATE TABLE `tp5_xcategorys` (
+  `cat_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(10) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '该分类的父id，取决于cat_id ',
+  `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否在 app 首页导航栏显示  0：不显示  1：显示',
+  `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序数字越大越靠前',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态 0：正常  -1：已删除',
+  `icon` varchar(255) NOT NULL COMMENT '分类图标',
+  `after_sale` text NOT NULL COMMENT '售后保障',
+  PRIMARY KEY (`cat_id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+
+-- ----------------------------
+-- Records of tp5_xcategorys
+-- ----------------------------
+INSERT INTO `tp5_xcategorys` VALUES ('1', '美妆', '0', '1', '0', '0', '/cms/images/category/beauty.png', '<p>ZZZZ</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('2', '洗护', '0', '0', '0', '0', '/cms/images/category/fresh_baby.png', '<p>TYTY</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('3', '尿不湿', '5', '0', '2', '0', '/cms/images/category/baby_diapers.png', '<p>SDSXZDS</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('4', '美食', '0', '1', '0', '0', '/cms/images/category/food.png', '<p>XCXX</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('5', '服饰', '0', '1', '0', '0', '/cms/images/category/clothing.png', '<p>TO</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('6', '面膜', '1', '1', '0', '0', '/cms/images/category/facial_mask.png', '<p>QQQQA</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('7', '清洁', '2', '1', '0', '0', '/cms/images/category/clean.png', '<p>11211</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('9', '连衣裙', '5', '1', '0', '0', '/cms/images/category/dress.png', '<p>AAAA</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('8', '饮料', '4', '1', '0', '0', '/cms/images/category/drink.png', '<p>OKII</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('10', '红酒', '4', '1', '1', '0', '/cms/images/category/red_wine.png', '<p>XXXX</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('0', '根级分类', '0', '0', '0', '0', '', '');
+
+-- ----------------------------
+-- Table structure for tp5_xgoods
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xgoods`;
+CREATE TABLE `tp5_xgoods` (
+  `goods_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `goods_name` varchar(50) NOT NULL COMMENT '商品名称',
+  `cat_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品分类id',
+  `thumbnail` varchar(200) NOT NULL COMMENT '缩略图，一般用于订单页的商品展示',
+  `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
+  `details` text NOT NULL COMMENT '商品描述详情',
+  `reference_price` decimal(11,2) DEFAULT '0.00' COMMENT '商品参考价',
+  `selling_price` decimal(11,2) DEFAULT '0.00' COMMENT '商品售价',
+  `stock` int(11) DEFAULT '0' COMMENT '库存，注意退货未支付订单时的数目变化',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '商品创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '商品更新时间',
+  `act_type` varchar(2) NOT NULL DEFAULT '0' COMMENT '商品参加活动类型 0：默认',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态 -1：删除 0：待上架 1：已上架 2：预售 ',
+  PRIMARY KEY (`goods_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='商品表\r\n\r\n注意：status 的规定，app 上只显示上架的产品哦';
+
+-- ----------------------------
+-- Records of tp5_xgoods
+-- ----------------------------
+INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '8', '/cms/images/goods/teaImg.png', '0', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"></p>', '11.55', '8.90', '11', '0000-00-00 00:00:00', '2019-03-27 10:03:59', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '12', '2019-03-11 18:03:26', '2019-03-27 11:17:00', '0', '0');
+INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '0', '<p>似懂非懂</p>', '89.00', '68.98', '23', '2019-03-12 17:03:39', '2019-03-27 11:16:58', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '2', '<p>地方</p>', '5.60', '4.22', '5', '2019-03-14 11:03:58', '2019-03-27 10:03:09', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('5', '萨缪尔红酒', '10', '/cms/images/goods/redWine.png', '1', '<p>ddd</p>', '4.33', '3.22', '1', '2019-03-18 17:03:17', '2019-03-27 15:14:17', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('7', '卡通鲨 连衣裙SR', '9', '/cms/images/goods/dress3.png', '0', '<p>trt</p>', '55.33', '55.22', '345', '2019-03-19 10:03:48', '2019-03-27 11:17:25', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;&nbsp;</p>', '56.99', '55.99', '12', '2019-03-11 18:03:26', '2019-03-27 11:03:35', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xnav_menus
@@ -118,14 +182,14 @@ CREATE TABLE `tp5_xnav_menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `type` tinyint(2) DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_xnav_menus
 -- ----------------------------
 INSERT INTO `tp5_xnav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('2', '菜单管理', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_xnav_menus` VALUES ('3', '前台管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('3', '内容管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
@@ -146,6 +210,19 @@ INSERT INTO `tp5_xnav_menus` VALUES ('40', '分页获取管理员数据', '6', '
 INSERT INTO `tp5_xnav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('43', '分页获取文章数据', '5', 'cms/article/ajaxOpForPage', '/', '1', '0', '2018-11-24 16:28:33', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('48', '产品分类', '3', 'cms/category/index', '/cms/images/icon/goods_category.png', '1', '0', '2019-03-11 11:41:24', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('49', '商品管理', '0', '', '/cms/images/icon/goods_manager.png', '1', '0', '2019-03-11 15:03:47', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('50', '商品列表', '3', 'cms/goods/index', '/cms/images/icon/goods.png', '1', '0', '2019-03-11 15:04:20', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('51', '添加产品分类', '48', 'cms/category/add', '/', '1', '0', '2019-03-11 15:16:11', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('52', '修改产品分类', '48', 'cms/category/edit', '/', '1', '0', '2019-03-11 15:16:11', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('53', '删除产品分类', '48', 'cms/category/del', '/', '1', '0', '2019-03-11 15:16:11', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('54', '商品添加', '50', 'cms/goods/add', '/', '1', '0', '2019-03-11 16:53:21', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('55', '商品修改', '50', 'cms/goods/edit', '/', '1', '0', '2019-03-11 16:53:43', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('56', '分页获取商品列表', '50', 'cms/goods/ajaxOpForPage', '/', '1', '0', '2019-03-11 16:54:05', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('57', '分页获取产品分类数据', '48', 'cms/category/ajaxOpForPage', '/', '1', '0', '2019-03-12 17:08:58', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('58', 'ajax 更改上下架状态', '50', 'cms/goods/ajaxPutaway', '/', '1', '0', '2019-03-19 16:40:41', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('59', 'ajax 首页显示状态修改', '48', 'cms/category/ajaxForShow', '/', '1', '0', '2019-03-21 11:52:13', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('60', 'ajax 删除上传的图片', '50', 'cms/goods/ajaxDelUploadImg', '/', '1', '0', '2019-03-21 18:07:22', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xphotos
@@ -196,3 +273,44 @@ INSERT INTO `tp5_xtoday_words` VALUES ('6', '你觉得被圈养的鸟儿为什�
 INSERT INTO `tp5_xtoday_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/home/images/ps7.png', '1', '2018-11-28 19:12:04');
 INSERT INTO `tp5_xtoday_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福                ', '千与千寻', '/home/images/ps8.png', '1', '2019-02-22 18:15:17');
 INSERT INTO `tp5_xtoday_words` VALUES ('12', '发个非官方个', 'dfdffdfdf大概', '/cms/images/headshot/wuHuang.png', '-1', '2018-11-20 23:28:36');
+
+-- ----------------------------
+-- Table structure for tp5_xupload_imgs
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xupload_imgs`;
+CREATE TABLE `tp5_xupload_imgs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_id` int(11) NOT NULL DEFAULT '0' COMMENT '当type=0时，对应商品ID；当type=1时，对应评论订单ID',
+  `picture` varchar(255) NOT NULL COMMENT '存储的图片路径',
+  `add_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+  `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '类型 0：商品轮播图（app界面） 1: 评论订单中的图片',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态  1：正常  -1：删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='上传图片表\r\n\r\n用于保存商品轮播图或者订单评论中需要的图片，注意其type的区分使用';
+
+-- ----------------------------
+-- Records of tp5_xupload_imgs
+-- ----------------------------
+INSERT INTO `tp5_xupload_imgs` VALUES ('1', '20', '/cms/images/goods/teaImg.png', '2019-03-17 20:29:48', '0', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('2', '18', '/cms/images/goods/dress.png', '2019-03-17 20:29:24', '0', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('3', '20', '/cms/images/goods/dress.png', '2019-03-17 20:34:39', '0', '-1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('4', '18', '/cms/images/goods/teaImg.png', '2019-03-17 20:29:55', '0', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('5', '20', '/cms/images/goods/dress2.png', '2019-03-17 20:34:39', '0', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('6', '18', '/cms/images/goods/teaImg.png', '2019-03-17 20:29:55', '1', '1');
+
+-- ----------------------------
+-- Table structure for tp5_xusers
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xusers`;
+CREATE TABLE `tp5_xusers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注信息',
+  `reg_time` int(10) unsigned zerofill DEFAULT '0000000000' COMMENT '注册时间',
+  `type` tinyint(4) DEFAULT '0' COMMENT '0:普通用户 1：内部员工',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of tp5_xusers
+-- ----------------------------

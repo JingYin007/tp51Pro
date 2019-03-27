@@ -296,13 +296,13 @@
 /*-START------------用于图片上传的预览效果------------------------*/
 .layui-upload .img-upload-preview-headshot {
     width: 100px;
-    height: 100px;
+    height: auto;
     margin: -25px 0px 2px 150px;
 }
 
 .layui-upload .img-upload-preview-small {
     width: 80px;
-    height: 100%;
+    height: auto;
     margin: -25px 0px 2px 150px;
 }
 

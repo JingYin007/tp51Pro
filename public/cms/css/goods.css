@@ -1,0 +1,27 @@
+.tbody-articles td {
+    font-weight: bold;
+}
+
+.tbody-articles .td-goods img {
+    width: 80px;
+}
+
+.td-goods_name {
+    color: #7274AB;
+}
+
+.td-selling_price {
+    color: #ff7800;
+}
+
+.td-greyxx {
+    color: #999999;
+}
+.td-weight{
+    color: #FF9233;
+}
+.td-stock{
+    font-weight: 700;
+    color: #A0522D;
+    background-color: #DBDBDB;
+}

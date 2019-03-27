@@ -1,0 +1,199 @@
+{extend name="layouts/cms"}
+
+{block name='body-content'}
+
+<button class="layui-btn layui-btn-normal"
+        onclick="addGoods()">
+    <i class="layui-icon">&#xe608;</i> 添加商品
+</button>
+<div class="layui-inline layui-form">
+    <form class="form-search" action="{:url('cms/goods/index')}" method="get">
+        <div class="layui-input-inline" style="width: 100px">
+            <select name="SelStatus" lay-filter="SelStatus">
+                <option value="Up" {$SelStatus=="Up"?"selected":""}>已上架</option>
+                <option value="Down" {$SelStatus=="Down"?"selected":""}>已下架</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline" style="width: 100px">
+            <select name="CatType" lay-filter="SelStatus">
+                <option value="0">全部分类</option>
+                {volist name="categoryList" id="cl"}
+                <option value="{$cl.cat_id}" {$CatType==$cl.cat_id?"selected":""}>{$cl.cat_name}</option>
+                {/volist}
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
+            <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
+            <input type="hidden" name="curr_page" class="curr_page" value="1">
+            <input type="text" value="{$search}" name="str_search" placeholder="请输入商品名称"
+                   class="layui-input search_input">
+        </div>
+        <button class="layui-btn-warm btn-search-navMenu">
+            <i class="layui-icon">&#xe615;</i>
+        </button>
+    </form>
+
+</div>
+
+<table class="layui-table table-body" lay-even="" lay-skin="row">
+    <colgroup>
+        <col width="5%">
+        <col width="15%">
+        <col width="12%">
+        <col width="8%">
+        <col width="5%">
+        <col width="5%">
+        <col width="5%">
+        <col width="5%">
+        <col width="10%">
+        <col width="5%">
+        <col width="10%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>商品名称</th>
+        <th>缩略图片</th>
+        <th>分类</th>
+        <th>参考价</th>
+        <th>售价</th>
+        <th>库存</th>
+        <th>排序权重</th>
+        <th>更新时间</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody class="tbody-articles layui-form">
+    {volist name="goods" id="vo"}
+    <tr class="tr-article-{$vo['goods_id']}">
+        <td>{$vo['goods_id']}</td>
+        <td class="td-goods_name">{$vo['goods_name']}</td>
+        <td class="td-goods">
+            <img src="{$vo['thumbnail']}" class="">
+        </td>
+        <td class="td-goods_name">{$vo['cat_name']}</td>
+        <td class="td-greyxx">{$vo['reference_price']}</td>
+        <td class="td-selling_price">{$vo['selling_price']}</td>
+        <td class="td-stock">{$vo['stock']}</td>
+        <td class="td-weight">{$vo['list_order']}</td>
+        <td>{$vo['updated_at']}</td>
+        <td>
+            <input type="checkbox" class="switch_checked" lay-filter="switchGoodsID"
+                   switch_goods_id="{$vo['goods_id']}"
+                   lay-skin="switch" {$vo['status_checked']} lay-text="上架|下架">
+        </td>
+        <td>
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm"
+                        onclick="editGoods({$vo['goods_id']})">
+                    <i class="layui-icon">&#xe642;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm"
+                        onclick="delGoods({$vo['goods_id']})">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<div id="demo2-1"></div>
+<link href="__CMS__/css/goods.css" rel="stylesheet">
+{/block}
+
+{block name='single-content'}
+<script src="__CMS__/js/goods.js"></script>
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage;
+        var page_limit = $(".page_limit").val();
+        var record_num = $(".record_num").val();
+        laypage.render({
+            elem: 'demo2-1'
+            , limit: page_limit
+            , count: record_num
+            , layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip']
+            , jump: function (obj, first) {
+                //obj包含了当前分页的所有参数
+                //首次不执行
+                if (!first) {
+                    //layer.msg(obj.curr);
+                    ajaxOpForPage(obj.curr);
+                }
+            }
+            , theme: '#FF5722'
+        });
+    });
+
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('switch(switchGoodsID)', function (data) {
+            //开关是否开启，true或者false
+            var checked = data.elem.checked;
+            var okStatus = 0;
+            if (checked) {
+                okStatus = 1
+            }
+            //获取所需属性值
+            var switch_goods_id = data.elem.attributes['switch_goods_id'].nodeValue;
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/goods/ajaxPutaway')}";
+            $.post(
+                toUrl,
+                {goods_id: switch_goods_id, okStatus: okStatus},
+                function (result) {
+                    if (result.status > 0) {
+                        data.elem.checked = checked;
+                        form.render();
+                    } else {
+                        //失败
+                        data.elem.checked = !checked;
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
+        });
+    });
+</script>
+<script>
+    //根据菜单ID 删除菜单记录
+    function delGoods(id) {
+        var toUrl = "{:url('cms/goods/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        ToDelItem(id, toUrl, '.tr-article-' + id);
+    }
+
+
+    $(".btn-search-navMenu").on('click', function () {
+        //var str_search = $(".search_input").val();
+        $(".form-search").submit();
+    });
+
+    //添加导航菜单
+    function addGoods() {
+        var toUrl = "{:url('cms/goods/add')}";
+        ToOpenPopups(toUrl, '✚ 商品添加', '', '76%');
+    }
+
+    //根据菜单ID修改菜单信息
+    function editGoods(id) {
+        var toUrl = "{:url('cms/goods/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        ToOpenPopups(toUrl, '✎ 商品修改', '', '76%');
+    }
+
+    //通过ajax 获取分页数据
+    function ajaxOpForPage(curr_page) {
+        var toUrl = "{:url('cms/goods/ajaxOpForPage')}";
+        $(".curr_page").val(curr_page);
+        var postData = $(".form-search").serialize();
+        ToAjaxOpForPageGoods(toUrl, postData);
+    }
+</script>
+{/block}

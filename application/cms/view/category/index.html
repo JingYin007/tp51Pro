@@ -1,0 +1,178 @@
+{extend name="layouts/cms"}
+
+{block name='body-content'}
+<div class="layui-form-item">
+    <button class="layui-btn layui-btn-normal"
+            onclick="addCategory()">
+        <i class="layui-icon">&#xe608;</i> 添加产品分类
+    </button>
+</div>
+<div class="layui-inline layui-form">
+    <form class="form-search " action="{:url('cms/category/index')}" method="get">
+        <div class="layui-input-inline" style="width: 100px">
+            <select name="CatType" lay-filter="CatType">
+                <option value="S" {$cat_type=="S"?"selected":""}>二级分类</option>
+                <option value="F" {$cat_type=="F"?"selected":""}>顶级分类</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <input type="hidden" name="record_num" class="record_num" value="<?php echo $num; ?>">
+            <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
+            <input type="hidden" name="curr_page" class="curr_page" value="1">
+            <input type="text" value="{$search}" name="str_search" placeholder="请输入名称"
+                   class="layui-input search_input">
+        </div>
+        <button class="layui-btn-warm btn-search-navMenu">
+            <i class="layui-icon">&#xe615;</i>
+        </button>
+    </form>
+</div>
+
+<table class="layui-table table-body" lay-even="" lay-skin="row">
+    <colgroup>
+        <col width="10%">
+        <col width="10%">
+        <col width="20%">
+        <col width="10%">
+        <col width="15%">
+        <col width="15%">
+        <col width="20%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>图标</th>
+        <th>父级</th>
+        <th>排序</th>
+        <th>首页显示</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody class="tbody-navMenus tbody-categorys layui-form">
+    {volist name="list" id="vo"}
+    <tr class="tr-article-{$vo['cat_id']}">
+        <td>{$vo['cat_id']}</td>
+        <td>{$vo['cat_name']}</td>
+        <td class="td-menu">
+            <img src="{$vo['icon']}" class="">
+        </td>
+        <td>{$vo['parent_name']}</td>
+        <td>{$vo['list_order']}</td>
+        <td>
+            <input type="checkbox" class="switch_checked" lay-filter="switchCatID"
+                   switch_cat_id="{$vo['cat_id']}" {$vo['status_checked']}
+            lay-skin="switch" lay-text="显示|隐藏">
+        </td>
+        <td>
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm"
+                        onclick="editCategory('{$vo['cat_id']}')">
+                    <i class="layui-icon">&#xe642;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm"
+                        onclick="delCategory('{$vo['cat_id']}')">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<div id="demo2-1"></div>
+{/block}
+
+{block name='single-content'}
+<script src="__CMS__/js/categorys.js"></script>
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage;
+        var page_limit = $(".page_limit").val();
+        var record_num = $(".record_num").val();
+        //完整功能
+        laypage.render({
+            elem: 'demo2-1'
+            , limit: page_limit
+            , count: record_num
+            , layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip']
+            , jump: function (obj, first) {
+                //obj包含了当前分页的所有参数
+                //首次不执行
+                if (!first) {
+                    //layer.msg(obj.curr);
+                    ajaxOpForPage(obj.curr);
+                }
+            }
+            , theme: '#FF5722'
+        });
+    });
+
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('switch(switchCatID)', function (data) {
+            //开关是否开启，true或者false
+            var checked = data.elem.checked;
+            var okStatus = 0;
+            if (checked) {
+                okStatus = 1
+            }
+            //获取所需属性值
+            var switch_cat_id = data.elem.attributes['switch_cat_id'].nodeValue;
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/category/ajaxForShow')}";
+            toUrl = toUrl.replace('AID', switch_cat_id);
+            $.post(
+                toUrl,
+                {cat_id: switch_cat_id, okStatus: okStatus},
+                function (result) {
+                    if (result.status > 0) {
+                        data.elem.checked = checked;
+                        form.render();
+                    } else {
+                        //失败
+                        data.elem.checked = !checked;
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
+        });
+    });
+</script>
+<script>
+    //根据菜单ID 删除菜单记录
+    function delCategory(id) {
+        var toUrl = "{:url('cms/category/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        ToDelItem(id, toUrl, '.tr-article-' + id);
+    }
+
+    $(".btn-search-navMenu").on('click', function () {
+        //var str_search = $(".search_input").val();
+        $(".form-search").submit();
+    });
+
+    //添加导航菜单
+    function addCategory() {
+        var toUrl = "{:url('cms/category/add')}";
+        ToOpenPopups(toUrl, '✚ 产品分类添加', '', '76%');
+    }
+
+    //根据菜单ID修改菜单信息
+    function editCategory(id) {
+        var toUrl = "{:url('cms/category/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        ToOpenPopups(toUrl, '✎ 产品分类修改', '', '76%');
+    }
+
+    //通过ajax 获取分页数据
+    function ajaxOpForPage(curr_page) {
+        var toUrl = "{:url('cms/category/ajaxOpForPage')}";
+        $(".curr_page").val(curr_page);
+        var postData = $(".form-search").serialize();
+        ToAjaxOpForPageCategorys(toUrl, postData);
+    }
+</script>
+{/block}

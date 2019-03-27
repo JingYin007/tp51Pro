@@ -1,0 +1,123 @@
+{extend name='layouts/cms'}
+{block name='body-content'}
+<form class="layui-form form-opArticle layui-form-pane">
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名称：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="cat_name" required lay-verify="required"
+                   value="{$cat['cat_name']}"
+                   placeholder="请输入标题" autocomplete="off" class="layui-input article-title">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类图标：</label>
+        <div class="layui-upload layui-input-inline">
+            <button type="button" name="icon" class="layui-btn btn_upload_icon">
+                <i class="layui-icon">&#xe67c;</i>上传图标
+            </button>
+            <img class="layui-upload-img img-upload-preview-small img-upload-icon"
+                 src="{$cat['icon']}">
+            <input type="hidden" name="icon" class="upload-icon" value="{$cat['icon']}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">父级分类：</label>
+        <div class="layui-input-block">
+            <select name="parent_id" lay-verify="required">
+                {volist name="cat_list" id="vo"}
+                    <option value="{$vo['cat_id']}" {if ($cat['parent_id'] == $vo['cat_id'])}selected{/if}>{$vo.cat_name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline">
+            <input type="number" name="list_order"
+                   value="{$cat['list_order']}" required lay-verify="required"
+                   placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">(数字越大，排序越靠前)</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">首页显示：</label>
+        <div class="layui-input-block">
+            <input type="radio" name="is_show" value="1" title="显示" {if ($cat['is_show'] == 1)}
+            checked
+            {/if}>
+            <input type="radio" name="is_show" value="0" title="隐藏" {if ($cat['is_show'] == 0)}
+            checked
+            {/if}>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text ">
+        <label class="layui-form-label">售后保障：</label>
+        <div class="layui-input-block div-article-content" >
+            <script id="ue-container" name="after_sale" type="text/plain">{php}echo htmlspecialchars_decode($cat['after_sale']);{/php}</script>
+        </div>
+
+    </div>
+    <input type="hidden" name="id" value="{$cat['cat_id']}">
+    {:token()}
+    <div class="layui-form-item">
+        <div class="layui-input-block div-form-op">
+            <button class="layui-btn" type="button" onclick="editCategory({$cat['cat_id']})">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
+        </div>
+    </div>
+</form>
+
+{/block}
+
+{block name='single-content'}
+<script src="__CMS__/js/moZhang.js"></script>
+{include file='layouts/ueditor-js'}
+<script>
+    //修改按钮的点击事件
+    function editCategory(id) {
+        var toUrl = "{:url('cms/category/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        var postData = $(".form-opArticle").serialize();
+        ToPostPopupsDeal(toUrl, postData);
+    }
+
+    layui.use('upload', function () {
+        var upload = layui.upload;
+        var tag_token = $(".tag_token").val();
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '.btn_upload_icon'
+            , type: 'images'
+            , exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
+            //,auto:false //选择图片后是否直接上传
+            //,accept:'images' //上传文件类型
+            , url: '/api/upload/img_file'
+            , data: {'_token': tag_token}
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('.img-upload-icon').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                dialog.tip(res.message);
+                //如果上传成功
+                if (res.status == 1) {
+                    $('.upload-icon').val(res.data.url);
+                }
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                return layer.msg('上传失败,请重新上传');
+            }
+        });
+    });
+</script>
+{/block}
+
+
+
+
