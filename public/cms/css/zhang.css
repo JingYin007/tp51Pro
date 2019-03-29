@@ -166,13 +166,13 @@
     float: right;
 }
 
-.layui-inline .btn-search-navMenu {
+.layui-inline .btn-search-zm {
     width: 30px;
     height: 30px;
     border-radius: 30px
 }
 
-.layui-inline .btn-search-navMenu:hover {
+.layui-inline .btn-search-zm:hover {
     background-color: #00aa00;
 }
 
