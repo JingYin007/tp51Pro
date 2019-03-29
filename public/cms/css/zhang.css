@@ -166,17 +166,17 @@
     float: right;
 }
 
-.layui-inline .btn-search-zm {
+.layui-inline .btn-search-mz {
     width: 30px;
     height: 30px;
     border-radius: 30px
 }
 
-.layui-inline .btn-search-zm:hover {
+.layui-inline .btn-search-mz:hover {
     background-color: #00aa00;
 }
 
-.form-opArticle .article-title {
+.form-opArticle .input-title-mz {
     width: 500px;
 }
 
