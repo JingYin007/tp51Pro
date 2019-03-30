@@ -123,7 +123,6 @@
             var switch_cat_id = data.elem.attributes['switch_cat_id'].nodeValue;
             //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
             var toUrl = "{:url('cms/category/ajaxForShow')}";
-            toUrl = toUrl.replace('AID', switch_cat_id);
             $.post(
                 toUrl,
                 {cat_id: switch_cat_id, okStatus: okStatus},
