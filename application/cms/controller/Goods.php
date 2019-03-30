@@ -21,7 +21,7 @@ class Goods extends CmsBase
     }
 
     /**
-     * 获取文章列表数据
+     * 获取商品列表数据
      * @param Request $request
      * @return \think\response\View
      */
@@ -62,7 +62,7 @@ class Goods extends CmsBase
 
     }
     /**
-     * 添加文章
+     * 添加商品
      * @param Request $request
      * @return \think\response\View|void
      */
@@ -78,7 +78,7 @@ class Goods extends CmsBase
     }
 
     /**
-     * 更新文章数据
+     * 更新商品数据
      * @param Request $request
      * @param $id 文章ID
      * @return \think\response\View|void
