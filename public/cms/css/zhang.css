@@ -198,29 +198,24 @@
 
 .tbody-items .td-item img {
     cursor: pointer;
-    transition: all 0.6s;
     width: 66px;
     height: 66px;
 }
 
 .tbody-articles .td-article img {
     cursor: pointer;
-    transition: all 0.6s;
     width: 110px;
     max-width: 111px;
 }
 
 .tbody-items .td-item img:hover,
 .tbody-articles .td-article img:hover {
+    transition: all 0.6s;
     transform: scale(5);
 }
 
 .tbody-articles .td-article img:hover {
-    z-index: 5;
     transform: scale(5);
-}
-
-.tbody-articles .td-article img:hover {
     position: relative;
     z-index: 100;
 }
