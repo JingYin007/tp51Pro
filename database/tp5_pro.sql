@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-03-27 15:26:27
+Date: 2019-05-05 18:26:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ CREATE TABLE `tp5_xadmin_roles` (
 -- ----------------------------
 -- Records of tp5_xadmin_roles
 -- ----------------------------
-INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|4|5|48|50|', '2018-02-11 21:02:43', '1');
+INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|4|5|49|48|50|67|', '2018-02-11 21:02:43', '1');
 INSERT INTO `tp5_xadmin_roles` VALUES ('2', '初级管理员', '1|6|2|3|4|5|', '2018-02-11 21:02:43', '1');
 
 -- ----------------------------
@@ -125,14 +125,14 @@ CREATE TABLE `tp5_xcategorys` (
 -- ----------------------------
 INSERT INTO `tp5_xcategorys` VALUES ('1', '美妆', '0', '1', '0', '0', '/cms/images/category/beauty.png', '<p>ZZZZ</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('2', '洗护', '0', '0', '0', '0', '/cms/images/category/fresh_baby.png', '<p>TYTY</p>');
-INSERT INTO `tp5_xcategorys` VALUES ('3', '尿不湿', '5', '0', '2', '0', '/cms/images/category/baby_diapers.png', '<p>SDSXZDS</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('3', '尿不湿', '5', '0', '2', '-1', '/cms/images/category/baby_diapers.png', '<p>SDSXZDS</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('4', '美食', '0', '1', '0', '0', '/cms/images/category/food.png', '<p>XCXX</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('5', '服饰', '0', '1', '0', '0', '/cms/images/category/clothing.png', '<p>TO</p>');
-INSERT INTO `tp5_xcategorys` VALUES ('6', '面膜', '1', '1', '0', '0', '/cms/images/category/facial_mask.png', '<p>QQQQA</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('6', '面膜', '1', '1', '0', '-1', '/cms/images/category/facial_mask.png', '<p>QQQQA</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('7', '清洁', '2', '1', '0', '0', '/cms/images/category/clean.png', '<p>11211</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('9', '连衣裙', '5', '1', '0', '0', '/cms/images/category/dress.png', '<p>AAAA</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('8', '饮料', '4', '1', '0', '0', '/cms/images/category/drink.png', '<p>OKII</p>');
-INSERT INTO `tp5_xcategorys` VALUES ('10', '红酒', '4', '1', '1', '0', '/cms/images/category/red_wine.png', '<p>XXXX</p>');
+INSERT INTO `tp5_xcategorys` VALUES ('10', '红酒', '4', '1', '1', '-1', '/cms/images/category/red_wine.png', '<p>XXXX</p>');
 INSERT INTO `tp5_xcategorys` VALUES ('0', '根级分类', '0', '0', '0', '0', '', '');
 
 -- ----------------------------
@@ -146,9 +146,10 @@ CREATE TABLE `tp5_xgoods` (
   `thumbnail` varchar(200) NOT NULL COMMENT '缩略图，一般用于订单页的商品展示',
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
   `details` text NOT NULL COMMENT '商品描述详情',
-  `reference_price` decimal(11,2) DEFAULT '0.00' COMMENT '商品参考价',
-  `selling_price` decimal(11,2) DEFAULT '0.00' COMMENT '商品售价',
-  `stock` int(11) DEFAULT '0' COMMENT '库存，注意退货未支付订单时的数目变化',
+  `reference_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品参考价',
+  `selling_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品售价',
+  `attr_info` varchar(500) NOT NULL COMMENT 'json形式保存的属性数据',
+  `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存，注意退货未支付订单时的数目变化',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '商品创建时间',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '商品更新时间',
   `act_type` varchar(2) NOT NULL DEFAULT '0' COMMENT '商品参加活动类型 0：默认',
@@ -159,13 +160,13 @@ CREATE TABLE `tp5_xgoods` (
 -- ----------------------------
 -- Records of tp5_xgoods
 -- ----------------------------
-INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '8', '/cms/images/goods/teaImg.png', '0', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"></p>', '11.55', '8.90', '11', '0000-00-00 00:00:00', '2019-03-27 10:03:59', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '12', '2019-03-11 18:03:26', '2019-03-27 11:17:00', '0', '0');
-INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '0', '<p>似懂非懂</p>', '89.00', '68.98', '23', '2019-03-12 17:03:39', '2019-03-27 11:16:58', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '2', '<p>地方</p>', '5.60', '4.22', '5', '2019-03-14 11:03:58', '2019-03-27 10:03:09', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('5', '萨缪尔红酒', '10', '/cms/images/goods/redWine.png', '1', '<p>ddd</p>', '4.33', '3.22', '1', '2019-03-18 17:03:17', '2019-03-27 15:14:17', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('7', '卡通鲨 连衣裙SR', '9', '/cms/images/goods/dress3.png', '0', '<p>trt</p>', '55.33', '55.22', '345', '2019-03-19 10:03:48', '2019-03-27 11:17:25', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;&nbsp;</p>', '56.99', '55.99', '12', '2019-03-11 18:03:26', '2019-03-27 11:03:35', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '8', '/cms/images/goods/teaImg.png', '0', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"><br/></p>', '11.55', '8.90', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '391', '0000-00-00 00:00:00', '2019-05-05 18:05:52', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '', '12', '2019-03-11 18:03:26', '2019-03-27 11:17:00', '0', '0');
+INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '0', '<p>似懂非懂</p>', '89.00', '68.98', '', '23', '2019-03-12 17:03:39', '2019-03-27 11:16:58', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '2', '<p>不苦，有点甜...</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-05-05 18:05:04', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('5', '萨缪尔红酒', '8', '/cms/images/goods/redWine.png', '1', '<p>ddd</p>', '4.33', '3.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '15', '2019-03-18 17:03:17', '2019-05-05 18:05:03', '0', '0');
+INSERT INTO `tp5_xgoods` VALUES ('7', '卡通鲨 连衣裙SR', '9', '/cms/images/goods/dress3.png', '0', '<p>有点意思！</p>', '55.33', '55.22', '[{\"spec_id\":\"17\",\"spec_info\":[{\"spec_name\":\"蓝色\",\"spec_id\":\"20\",\"specFstID\":\"17\"},{\"spec_name\":\"银色\",\"spec_id\":\"19\",\"specFstID\":\"17\"}],\"spec_name\":\"颜色\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '30', '2019-03-19 10:03:48', '2019-05-05 18:05:27', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;&nbsp;</p>', '56.99', '55.99', '[{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '70', '2019-03-11 18:03:26', '2019-05-05 18:05:08', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xnav_menus
@@ -182,14 +183,14 @@ CREATE TABLE `tp5_xnav_menus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `type` tinyint(2) DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tp5_xnav_menus
 -- ----------------------------
 INSERT INTO `tp5_xnav_menus` VALUES ('0', '根级菜单', '0', '', '/cms/images/icon/menu_icon.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('2', '菜单管理', '1', 'cms/menu/index', '/cms/images/icon/menu_list.png', '1', '0', '2018-02-11 21:02:43', '0');
-INSERT INTO `tp5_xnav_menus` VALUES ('3', '内容管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('3', '列表管理', '0', '', '/cms/images/icon/desktop.png', '1', '1', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('4', '今日赠言', '3', 'cms/todayWord/index', '/cms/images/icon/diplom.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('5', '文章列表', '3', 'cms/article/index', '/cms/images/icon/adaptive.png', '1', '0', '2018-02-11 21:02:43', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('1', '管理分配', '0', '', '/cms/images/icon/manage.png', '1', '3', '2018-02-11 21:02:43', '0');
@@ -210,9 +211,9 @@ INSERT INTO `tp5_xnav_menus` VALUES ('40', '分页获取管理员数据', '6', '
 INSERT INTO `tp5_xnav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('43', '分页获取文章数据', '5', 'cms/article/ajaxOpForPage', '/', '1', '0', '2018-11-24 16:28:33', '1');
-INSERT INTO `tp5_xnav_menus` VALUES ('48', '产品分类', '3', 'cms/category/index', '/cms/images/icon/goods_category.png', '1', '0', '2019-03-11 11:41:24', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('48', '产品分类', '49', 'cms/category/index', '/cms/images/icon/goods_category.png', '1', '0', '2019-03-11 11:41:24', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('49', '商品管理', '0', '', '/cms/images/icon/goods_manager.png', '1', '0', '2019-03-11 15:03:47', '0');
-INSERT INTO `tp5_xnav_menus` VALUES ('50', '商品列表', '3', 'cms/goods/index', '/cms/images/icon/goods.png', '1', '0', '2019-03-11 15:04:20', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('50', '商品列表', '49', 'cms/goods/index', '/cms/images/icon/goods.png', '1', '0', '2019-03-11 15:04:20', '0');
 INSERT INTO `tp5_xnav_menus` VALUES ('51', '添加产品分类', '48', 'cms/category/add', '/', '1', '0', '2019-03-11 15:16:11', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('52', '修改产品分类', '48', 'cms/category/edit', '/', '1', '0', '2019-03-11 15:16:11', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('53', '删除产品分类', '48', 'cms/category/del', '/', '1', '0', '2019-03-11 15:16:11', '1');
@@ -223,6 +224,13 @@ INSERT INTO `tp5_xnav_menus` VALUES ('57', '分页获取产品分类数据', '48
 INSERT INTO `tp5_xnav_menus` VALUES ('58', 'ajax 更改上下架状态', '50', 'cms/goods/ajaxPutaway', '/', '1', '0', '2019-03-19 16:40:41', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('59', 'ajax 首页显示状态修改', '48', 'cms/category/ajaxForShow', '/', '1', '0', '2019-03-21 11:52:13', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('60', 'ajax 删除上传的图片', '50', 'cms/goods/ajaxDelUploadImg', '/', '1', '0', '2019-03-21 18:07:22', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('66', 'ajax 根据分类获取参加活动的商品', '50', 'cms/goods/ajaxGetCatGoodsForActivity', '/', '1', '0', '2019-03-30 12:00:17', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('67', '属性列表', '49', 'cms/specInfo/index', '/cms/images/icon/spec.png', '1', '0', '2019-03-31 17:07:25', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('68', '属性添加', '67', 'cms/specInfo/add', '/', '1', '0', '2019-03-31 17:07:51', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('69', '属性修改', '67', 'cms/specInfo/edit', '/', '1', '0', '2019-03-31 17:08:14', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('70', 'ajax 根据商品分类ID查询 父级属性', '67', 'cms/specInfo/ajaxGetSpecInfoFstByCat', '/', '1', '0', '2019-03-31 18:07:57', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('71', '分页获取属性数据', '67', 'cms/specInfo/ajaxOpForPage', '/', '1', '0', '2019-04-01 19:05:16', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('72', 'ajax 根据父级属性ID查询次级属性', '67', 'cms/specInfo/ajaxGetSpecInfoBySpecFst', '/', '1', '0', '2019-04-04 10:50:43', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xphotos
@@ -246,6 +254,117 @@ INSERT INTO `tp5_xphotos` VALUES ('3', '/cms/images/headshot/user3.png');
 INSERT INTO `tp5_xphotos` VALUES ('1', '/cms/images/headshot/user1.png');
 INSERT INTO `tp5_xphotos` VALUES ('9', '/cms/images/headshot/user9.png');
 INSERT INTO `tp5_xphotos` VALUES ('5', '/cms/images/headshot/user5.png');
+
+-- ----------------------------
+-- Table structure for tp5_xskus
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xskus`;
+CREATE TABLE `tp5_xskus` (
+  `sku_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `spec_info` varchar(300) NOT NULL COMMENT '对应的商品 sku属性信息，以逗号隔开。举例：12,15,23',
+  `spec_name` varchar(300) NOT NULL COMMENT 'sku 规格描述，仅供展示',
+  `selling_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品售价',
+  `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
+  `sold_num` int(11) NOT NULL DEFAULT '0' COMMENT '销量',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态  0:显示（正常） -1：删除（失效）',
+  PRIMARY KEY (`sku_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COMMENT='商品 SKU 库存表\r\n\r\n用于存储商品不同属性搭配的数目、价格等';
+
+-- ----------------------------
+-- Records of tp5_xskus
+-- ----------------------------
+INSERT INTO `tp5_xskus` VALUES ('19', '2', '14,18', 'L(建议100-110斤),蓝色', '10.20', '5', '2', '2019-04-20 16:33:02', '0');
+INSERT INTO `tp5_xskus` VALUES ('20', '2', '15,16', 'L(建议100-110斤),银色', '20.00', '1', '42', '2019-04-20 16:33:08', '0');
+INSERT INTO `tp5_xskus` VALUES ('21', '2', '14,16', '2XL(建议120-130斤),蓝色', '30.00', '6', '12', '2019-04-20 16:33:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('22', '2', '15,18', '2XL(建议120-130斤),银色', '12.00', '7', '42', '2019-04-20 16:33:06', '0');
+INSERT INTO `tp5_xskus` VALUES ('23', '48', '14,20', 'XL(建议110-120斤),蓝色', '2.00', '122', '21', '2019-04-08 20:31:28', '-1');
+INSERT INTO `tp5_xskus` VALUES ('24', '48', '14,19', 'XL(建议110-120斤),银色', '10.00', '41', '11', '2019-04-08 20:31:28', '-1');
+INSERT INTO `tp5_xskus` VALUES ('25', '48', '4,9', '小号,NB78片', '10.00', '30', '1', '2019-04-08 21:31:00', '-1');
+INSERT INTO `tp5_xskus` VALUES ('26', '48', '4,10', '小号,XL42片', '20.00', '41', '2', '2019-04-08 21:31:00', '-1');
+INSERT INTO `tp5_xskus` VALUES ('27', '48', '3,9', '中号,NB78片', '40.00', '2', '2', '2019-04-08 21:31:00', '-1');
+INSERT INTO `tp5_xskus` VALUES ('28', '48', '3,10', '中号,XL42片', '50.00', '110', '2', '2019-04-08 21:31:00', '-1');
+INSERT INTO `tp5_xskus` VALUES ('29', '48', '5', '特大号', '110.00', '110', '11', '2019-04-11 17:04:48', '0');
+INSERT INTO `tp5_xskus` VALUES ('30', '48', '4', '小号', '120.00', '12', '1112', '2019-04-11 17:04:48', '0');
+INSERT INTO `tp5_xskus` VALUES ('31', '49', '5', '特大号', '10.00', '11', '1', '2019-05-05 15:05:11', '0');
+INSERT INTO `tp5_xskus` VALUES ('32', '49', '4', '小号', '20.00', '11', '22', '2019-05-05 15:05:11', '0');
+INSERT INTO `tp5_xskus` VALUES ('33', '13', '4,9', '小号,NB78片', '120.00', '11', '11', '2019-04-12 08:04:24', '0');
+INSERT INTO `tp5_xskus` VALUES ('34', '13', '4,8', '小号,体验装L4片', '10.00', '10', '22', '2019-04-26 12:05:56', '0');
+INSERT INTO `tp5_xskus` VALUES ('35', '13', '4,7', '小号,体验装S4片', '20.00', '10', '2', '2019-04-26 12:05:54', '0');
+INSERT INTO `tp5_xskus` VALUES ('36', '13', '3,9', '中号,NB78片', '30.00', '41', '2', '2019-04-12 08:04:25', '0');
+INSERT INTO `tp5_xskus` VALUES ('37', '13', '3,8', '中号,体验装L4片', '40.00', '32', '1', '2019-04-12 08:04:25', '0');
+INSERT INTO `tp5_xskus` VALUES ('38', '13', '3,7', '中号,体验装S4片', '101.02', '21', '1', '2019-04-09 12:57:29', '0');
+INSERT INTO `tp5_xskus` VALUES ('39', '5', '12', 'M(建议90-100斤)', '0.00', '3', '0', '2019-05-05 18:20:04', '-1');
+INSERT INTO `tp5_xskus` VALUES ('40', '5', '15', '2XL(建议120-130斤)', '0.00', '34', '0', '2019-05-05 18:20:04', '-1');
+INSERT INTO `tp5_xskus` VALUES ('41', '7', '20,16', '蓝色,S(建议80-90斤左右)', '55.00', '3', '3', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('42', '7', '20,12', '蓝色,M(建议90-100斤)', '34.00', '2', '1', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('43', '7', '20,13', '蓝色,L(建议100-110斤)', '12.00', '3', '1', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('44', '7', '20,14', '蓝色,XL(建议110-120斤)', '11.00', '5', '1', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('45', '7', '19,16', '银色,S(建议80-90斤左右)', '11.00', '6', '1', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('46', '7', '19,12', '银色,M(建议90-100斤)', '12.00', '3', '2', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('47', '7', '19,13', '银色,L(建议100-110斤)', '14.00', '6', '3', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('48', '7', '19,14', '银色,XL(建议110-120斤)', '22.00', '2', '2', '2019-05-05 18:05:28', '0');
+INSERT INTO `tp5_xskus` VALUES ('49', '4', '60', '小杯', '12.00', '22', '1', '2019-05-05 18:05:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('50', '4', '61', '中杯', '15.00', '20', '4', '2019-05-05 18:05:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('51', '4', '62', '大杯', '18.00', '30', '6', '2019-05-05 18:05:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('52', '5', '61', '中杯', '15.00', '15', '11', '2019-05-05 18:05:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('53', '1', '60', '小杯', '22.00', '133', '11', '2019-05-05 18:05:52', '0');
+INSERT INTO `tp5_xskus` VALUES ('54', '1', '61', '中杯', '25.00', '125', '22', '2019-05-05 18:05:52', '0');
+INSERT INTO `tp5_xskus` VALUES ('55', '1', '62', '大杯', '28.00', '133', '12', '2019-05-05 18:05:52', '0');
+INSERT INTO `tp5_xskus` VALUES ('56', '8', '16', 'S(建议80-90斤左右)', '124.00', '13', '1', '2019-05-05 18:05:08', '0');
+INSERT INTO `tp5_xskus` VALUES ('57', '8', '12', 'M(建议90-100斤)', '124.00', '22', '2', '2019-05-05 18:05:08', '0');
+INSERT INTO `tp5_xskus` VALUES ('58', '8', '13', 'L(建议100-110斤)', '124.00', '23', '1', '2019-05-05 18:05:08', '0');
+INSERT INTO `tp5_xskus` VALUES ('59', '8', '14', 'XL(建议110-120斤)', '124.00', '12', '1', '2019-05-05 18:05:08', '0');
+
+-- ----------------------------
+-- Table structure for tp5_xspec_infos
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xspec_infos`;
+CREATE TABLE `tp5_xspec_infos` (
+  `spec_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spec_name` varchar(50) NOT NULL COMMENT '属性名称，例如：颜色、红色',
+  `cat_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID ,主要用于父级ID=0的记录',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级ID  0：初级分类',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除，发布后不要随意删除',
+  `list_order` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序标识，越大越靠前',
+  `mark_msg` varchar(100) NOT NULL COMMENT '备注信息 主要为了区分识别，可不填',
+  PRIMARY KEY (`spec_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='商品属性细则表\r\n\r\n一般只存储两级属性，注意 parent_id = 0 表示初级数据\r\n同时，注意添加后不要修改和删除';
+
+-- ----------------------------
+-- Records of tp5_xspec_infos
+-- ----------------------------
+INSERT INTO `tp5_xspec_infos` VALUES ('0', '根级属性', '0', '0', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('1', '号码', '3', '0', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('2', '大号', '3', '1', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('3', '中号', '3', '1', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('4', '小号', '3', '1', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('5', '特大号', '3', '1', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('6', '规格', '3', '0', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('7', '体验装S4片', '3', '6', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('8', '体验装L4片', '3', '6', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('9', 'NB78片', '3', '6', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('10', 'XL42片', '3', '6', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('11', '尺码', '9', '0', '1', '0', '连衣裙专用');
+INSERT INTO `tp5_xspec_infos` VALUES ('12', 'M(建议90-100斤)', '9', '11', '1', '9', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('13', 'L(建议100-110斤)', '9', '11', '1', '8', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('14', 'XL(建议110-120斤)', '9', '11', '1', '7', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('15', '2XL(建议120-130斤)', '9', '11', '1', '6', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('16', 'S(建议80-90斤左右)', '9', '11', '1', '10', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('17', '颜色', '9', '0', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('18', '金色', '9', '17', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('19', '银色', '9', '17', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('20', '蓝色', '9', '17', '1', '0', 'xxxxxx');
+INSERT INTO `tp5_xspec_infos` VALUES ('21', '卡其色', '9', '17', '1', '12', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('28', '大小', '9', '0', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('29', '大大大', '9', '28', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('30', '小小小', '9', '28', '1', '0', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('32', 'ddzzz', '113', '17', '-1', '0', 'sdasasaaaa');
+INSERT INTO `tp5_xspec_infos` VALUES ('59', '容量', '8', '0', '1', '0', '咖啡专用');
+INSERT INTO `tp5_xspec_infos` VALUES ('60', '小杯', '8', '59', '1', '3', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('61', '中杯', '8', '59', '1', '2', '');
+INSERT INTO `tp5_xspec_infos` VALUES ('62', '大杯', '8', '59', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for tp5_xtoday_words
@@ -286,7 +405,7 @@ CREATE TABLE `tp5_xupload_imgs` (
   `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '类型 0：商品轮播图（app界面） 1: 评论订单中的图片',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态  1：正常  -1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='上传图片表\r\n\r\n用于保存商品轮播图或者订单评论中需要的图片，注意其type的区分使用';
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='上传图片表\r\n\r\n用于保存商品轮播图或者订单评论中需要的图片，注意其type的区分使用';
 
 -- ----------------------------
 -- Records of tp5_xupload_imgs
@@ -297,6 +416,8 @@ INSERT INTO `tp5_xupload_imgs` VALUES ('3', '20', '/cms/images/goods/dress.png',
 INSERT INTO `tp5_xupload_imgs` VALUES ('4', '18', '/cms/images/goods/teaImg.png', '2019-03-17 20:29:55', '0', '1');
 INSERT INTO `tp5_xupload_imgs` VALUES ('5', '20', '/cms/images/goods/dress2.png', '2019-03-17 20:34:39', '0', '1');
 INSERT INTO `tp5_xupload_imgs` VALUES ('6', '18', '/cms/images/goods/teaImg.png', '2019-03-17 20:29:55', '1', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('27', '8', '/upload/20190505/8401863d46ece8fc86d8a89ac3117d9b.jpg', '2019-05-05 18:05:08', '0', '1');
+INSERT INTO `tp5_xupload_imgs` VALUES ('28', '8', '/upload/20190505/57a30e908393441e8affc9d6de60d289.jpg', '2019-05-05 18:05:08', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xusers

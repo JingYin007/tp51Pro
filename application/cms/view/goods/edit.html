@@ -6,21 +6,7 @@
         <div class="layui-input-inline">
             <input type="text" name="goods_name" required lay-verify="required"
                    value="{$good['goods_name']}"
-                   placeholder="请输入标题" autocomplete="off" class="layui-input input-title-mz">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属分类：</label>
-        <div class="layui-input-block">
-            <select name="cat_id" lay-verify="required">
-                <option value="{$good['cat_id']}">{$good['cat_name']}</option>
-                {volist name="categoryList" id="vo"}
-                {if($vo['cat_id'] != $good['cat_id'] && $vo['cat_id']!=$good['cat_id'])}
-                <option value="{$vo['cat_id']}">{$vo['cat_name']}</option>
-                {/if}
-                {/volist}
-            </select>
+                   placeholder="请输入商品名称" autocomplete="off" class="layui-input input-title-mz">
         </div>
     </div>
 
@@ -48,7 +34,7 @@
                     <img src="{$slide.picture}" alt="{$slide.picture}" title="点击删除"
                          class="layui-upload-img"
                          upload_img_id="{$slide.upload_img_id}"
-                         onclick="delMultipleImgs(this)">
+                         onclick="delMultipleImgs(this,1)">
                     {/volist}
                 </div>
             </blockquote>
@@ -82,25 +68,14 @@
                    value="{$good['reference_price']}" required lay-verify="required"
                    autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">参考价两位小数：12.50)</div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">售价：</label>
+
+        <label class="layui-form-label">售卖价：</label>
         <div class="layui-input-inline">
             <input type="number" name="selling_price"
                    value="{$good['selling_price']}" required lay-verify="required"
                    autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">(售价 两位小数：12.50)</div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">库存：</label>
-        <div class="layui-input-inline">
-            <input type="number" name="stock"
-                   value="{$good['stock']}" required lay-verify="required"
-                   autocomplete="off" class="layui-input">
-        </div>
-        <div class="layui-form-mid layui-word-aux">库存为整数</div>
+        <div class="layui-form-mid layui-word-aux">(价格 两位小数：12.50)</div>
     </div>
 
     <div class="layui-form-item">
@@ -112,22 +87,110 @@
         </div>
         <div class="layui-form-mid layui-word-aux">(数字越大，排序越靠前)</div>
     </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属分类：</label>
+        <div class="layui-input-inline">
+            <select id="toSelCatID" lay-filter="toSelCatID" name="cat_id" lay-verify="required">
+                <option value="{$good['cat_id']}">{$good['cat_name']}</option>
+                {volist name="categoryList" id="vo"}
+                {if($vo['cat_id'] != $good['cat_id'] && $vo['cat_id']!=$good['cat_id'])}
+                <option value="{$vo['cat_id']}">{$vo['cat_name']}</option>
+                {/if}
+                {/volist}
+            </select>
+        </div>
 
+        <label class="layui-form-label">添加属性：</label>
+        <div class="layui-input-inline">
+            <select id="toSelSpecFst" lay-filter="toSelSpecFst"
+                    lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+            </select>
+        </div>
+    </div>
+    <blockquote class="layui-elem-quote layui-quote-nm block-goods-sku" style="margin-top: 10px;">
+        <button type="button" class="layui-btn layui-btn-normal">销售信息：</button>
+        <table class="layui-table" lay-size="sm">
+            <colgroup>
+                <col width="150">
+                <col>
+            </colgroup>
+            <thead>
+            <tr class="tr-specInfo-key">
+                <th>属性名称</th>
+                <th>属性赋值</th>
+            </tr>
+            </thead>
+            <tbody class="tbody-specInfo-value">
 
+            </tbody>
+        </table>
+
+        <button type="button" class="layui-btn layui-btn-danger">销售规格：</button>
+        <table class="layui-table" lay-size="sm">
+            <colgroup>
+                <col width="150">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+            </colgroup>
+            <thead>
+            <tr class="tr-specInfo-key">
+                <th>规格信息</th>
+                <th>销售价格</th>
+                <th>库存量(件)</th>
+                <th>已售量(件)</th>
+            </tr>
+            </thead>
+            <tbody class="tbody-specInfo-msg">
+            {volist name="good.sku_arr" id="sku"}
+            <tr>
+                <td>{$sku.spec_name}
+                    <input type="hidden" name="sku_arr[{$sku.spec_info}][spec_id]"
+                           value="{$sku.spec_info}">
+                    <input type="hidden" name="sku_arr[{$sku.spec_info}][spec_name]"
+                           value="{$sku.spec_name}">
+                </td>
+                <td>
+                    <input type="number" name="sku_arr[{$sku.spec_info}][selling_price]"
+                           value="{$sku.selling_price}" required="" class="layui-input">
+                </td>
+                <td>
+                    <input type="number" name="sku_arr[{$sku.spec_info}][stock]"
+                           onblur="onblur_sku_stock()"
+                           value="{$sku.stock}" required="" class="layui-input input-sku-stock">
+                </td>
+                <td>
+                    <input type="number" name="sku_arr[{$sku.spec_info}][sold_num]"
+                           value="{$sku.sold_num}" required="" class="layui-input">
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <input type="hidden" class="attr_info" name="attr_info" value="{$good['attr_info']}">
+    </blockquote>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">库存：</label>
+        <div class="layui-input-inline">
+            <input type="number" name="stock" readonly
+                   value="{$good['stock']}" required lay-verify="required"
+                   autocomplete="off" class="layui-input input-goods_stock">
+        </div>
+    </div>
     <div class="layui-form-item layui-form-text ">
         <label class="layui-form-label">商品详情：</label>
         <div class="layui-input-block div-article-content">
             <script id="ue-container" name="details" type="text/plain">
                     {php}echo htmlspecialchars_decode($good['details']);{/php}
-
-
             </script>
         </div>
     </div>
     {:token()}
     <div class="layui-form-item">
         <div class="layui-input-block div-form-op">
-            <button class="layui-btn" type="button" onclick="editArticle({$good['goods_id']})">提交</button>
+            <button class="layui-btn" type="button" onclick="editGoods({$good['goods_id']})">提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
         </div>
     </div>
@@ -135,89 +198,23 @@
 {/block}
 
 {block name='single-content'}
+<script src="__CMS__/js/goods.js"></script>
 <script src="__CMS__/js/moZhang.js"></script>
 {include file='layouts/ueditor-js'}
 <script>
+    var arrSpecFull = [];
+    var multiple_images = [];
+
+    function makeSaleGoodsMsg() {
+        goToMakeSaleGoodsMsg(arrSpecFull);
+    }
+
     //修改按钮的点击事件
-    function editArticle(id) {
+    function editGoods(id) {
         var toUrl = "{:url('cms/goods/edit',['id'=>'AID'])}";
         toUrl = toUrl.replace('AID', id);
         var postData = $(".form-opArticle").serialize();
         ToPostPopupsDeal(toUrl, postData);
-    }
-
-    var multiple_images = [];
-    layui.use('upload', function () {
-        var upload = layui.upload;
-        //普通图片上传
-        var uploadInst = upload.render({
-            elem: '.btn_upload_img'
-            , type: 'images'
-            , exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
-            //,auto:false //选择图片后是否直接上传
-            //,accept:'images' //上传文件类型
-            , url: '/api/upload/img_file'
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('.img-upload-preview').attr('src', result); //图片链接（base64）
-                });
-            }
-            , done: function (res) {
-                dialog.tip(res.message);
-                //如果上传成功
-                if (res.status == 1) {
-                    $('.menu-icon').val(res.data.url);
-                }
-            }
-            , error: function () {
-                //演示失败状态，并实现重传
-                return layer.msg('上传失败,请重新上传');
-            }
-        });
-
-        //多图片上传
-        upload.render({
-            elem: '#multiple-img-upload'
-            , url: '/api/upload/img_file'
-            , multiple: true
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#div-multiple-img-upload-preview')
-                        .append('<img src="' + result + '" alt="' + file.name
-                            + '" title="点击删除" upload_img_id="0" class="layui-upload-img" onclick="delMultipleImgs(this)">')
-                });
-            }
-            , done: function (res) {
-                //如果上传成功
-                if (res.status == 1) {
-                    //追加图片成功追加文件名至图片容器
-                    multiple_images.push(res.data.url);
-                    $('.multiple-show-img').val(multiple_images);
-                } else {
-                    dialog.tip(res.message);
-                }
-            }
-        });
-    });
-
-    //单击图片删除图片 【注册全局函数】
-    function delMultipleImgs(this_img) {
-        //获取下标
-        var subscript = $("#div-multiple-img-upload-preview img").index(this_img);
-        //删除图片
-        this_img.remove();
-        //删除数组
-        multiple_images.splice(subscript, 1);
-        //重新排序
-        multiple_images.sort();
-        $('.multiple-show-img').val(multiple_images);
-        //TODO 此时判断是否当前的图片拥有 upload_img_id 属性，如果有，ajax 进行数据库删除操作
-        ajax_del_upload_img(this_img)
-        //console.log("multiple_images",multiple_images);
-        //返回
-        return;
     }
 
     /**
@@ -225,21 +222,30 @@
      * @param this_img
      */
     function ajax_del_upload_img(this_img) {
-        var upload_img_id = $(this_img).attr("upload_img_id");
-        if (upload_img_id > 0) {
-            var toUrl = "{:url('cms/goods/ajaxDelUploadImg')}";
-            $.post(
-                toUrl,
-                {upload_img_id: upload_img_id},
-                function (result) {
-                    if (result.status = 0) {
-                        layer.msg(result.message);
-                    }
-                }, "JSON");
-        } else {
-            //此时，不作处理
-        }
+        var toUrl = "{:url('cms/goods/ajaxDelUploadImg')}";
+        goToAjax_del_upload_img(toUrl, this_img);
     }
+
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('select(toSelCatID)', function (data) {
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/specInfo/ajaxGetSpecInfoFstByCat')}";
+            goToToSelCatID(toUrl, data, form);
+        });
+        //点击获取子级属性信息
+        form.on('select(toSelSpecFst)', function (data) {
+            //初始化 商品选择下拉列表
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/specInfo/ajaxGetSpecInfoBySpecFst')}";
+            goToToSelSpecFst(toUrl, data, form);
+        });
+
+        form.on('checkbox(cbSpecInfo)', function (data) {
+            goToCbSpecInfo(data);
+        });
+    });
+
 </script>
 {/block}
 

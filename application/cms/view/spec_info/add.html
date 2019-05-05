@@ -1,0 +1,98 @@
+{extend name="layouts/cms"}
+{block name='body-content'}
+<form class="layui-form form-opArticle layui-form-pane">
+    <div class="layui-form-item">
+        <label class="layui-form-label">属性名称：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="spec_name" required lay-verify="required"
+                   value=""
+                   placeholder="请输入名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">属性分类：</label>
+        <div class="layui-input-inline">
+            <select id="toSelCatID" lay-filter="toSelCatID" name="toSelCatID">
+                <option value="">选择分类</option>
+                {volist name="categoryList" id="cl"}
+                <option value="{$cl.cat_id}">{$cl.cat_name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select id="toSelSpecFst" lay-filter="toSelSpecFst" name="specFstID"
+                    lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+            </select>
+        </div>
+        <div class="layui-form-mid layui-word-aux">(不做选择，默认为父级属性)</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline">
+            <input type="number" name="list_order" value="0" required lay-verify="required"
+                   autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">(数字越大，排序越靠前)</div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注信息：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="mark_msg"
+                   placeholder="请输入...(建议五字以内)" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">(主要为了区分识别，可不填)</div>
+    </div>
+    {:token()}
+    <div class="layui-form-item">
+        <div class="layui-input-block div-form-op">
+            <button class="layui-btn" type="button" onclick="addSpecInfo()">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
+        </div>
+    </div>
+</form>
+
+{/block}
+
+{block name='single-content'}
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('select(toSelCatID)', function (data) {
+            //初始化 商品选择下拉列表
+            var seledCatID = data.value;
+            $("#toSelSpecFst").html("<option value=\"\">直接选择或搜索选择</option>");
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/specInfo/ajaxGetSpecInfoFstByCat')}";
+            $.post(
+                toUrl,
+                {seledCatID: seledCatID},
+                function (result) {
+                    if (result.status > 0) {
+                        var replaceHtml = "";
+                        $.each(result.data, function (i, e) {
+                            replaceHtml += " <option value=\"" + e.spec_id + "\">" + e.spec_name +e.mark_msg+"</option>"
+                        });
+                        $("#toSelSpecFst").append(replaceHtml);
+                        form.render();
+                    } else {
+                        //失败
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
+        });
+    });
+
+
+    //修改按钮的点击事件
+    function addSpecInfo() {
+        var toUrl = "{:url('cms/specInfo/add')}";
+        var postData = $(".form-opArticle").serialize();
+        ToPostPopupsDeal(toUrl, postData);
+    }
+</script>
+{/block}

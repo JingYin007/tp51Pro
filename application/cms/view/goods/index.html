@@ -16,7 +16,7 @@
         </div>
 
         <div class="layui-input-inline" style="width: 100px">
-            <select name="CatType" lay-filter="SelStatus">
+            <select name="CatType">
                 <option value="0">全部分类</option>
                 {volist name="categoryList" id="cl"}
                 <option value="{$cl.cat_id}" {$CatType==$cl.cat_id?"selected":""}>{$cl.cat_name}</option>
@@ -30,6 +30,13 @@
             <input type="hidden" name="curr_page" class="curr_page" value="1">
             <input type="text" value="{$search}" name="str_search" placeholder="请输入商品名称"
                    class="layui-input search_input">
+        </div>
+        <div class="layui-input-inline" style="width: 120px">
+            <select name="OrderType">
+                <option value="D" {$OrderType=="D"?"selected":""}>▼更新时间</option>
+                <option value="S" {$OrderType=="S"?"selected":""}>▲库存多少</option>
+                <option value="W" {$OrderType=="W"?"selected":""}>▼排序权重</option>
+            </select>
         </div>
         <button class="layui-btn-warm btn-search-mz">
             <i class="layui-icon">&#xe615;</i>
@@ -178,7 +185,7 @@
     //添加导航菜单
     function addGoods() {
         var toUrl = "{:url('cms/goods/add')}";
-        ToOpenPopups(toUrl, '✚ 商品添加', '', '76%');
+        ToOpenPopups(toUrl, '✚ 商品添加', '90%', '96%');
     }
 
     //根据菜单ID修改菜单信息
