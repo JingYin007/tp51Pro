@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-05-05 18:26:16
+Date: 2019-05-06 09:46:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,15 +21,15 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `tp5_xadmins`;
 CREATE TABLE `tp5_xadmins` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `user_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '管理员昵称',
-  `picture` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '管理员头像',
-  `password` varchar(120) COLLATE utf8_unicode_ci NOT NULL DEFAULT '87d9bb400c0634691f0e3baaf1e2fd0d' COMMENT '管理员登录密码',
+  `user_name` varchar(50) NOT NULL DEFAULT '' COMMENT '管理员昵称',
+  `picture` varchar(255) NOT NULL DEFAULT '' COMMENT '管理员头像',
+  `password` varchar(120) NOT NULL DEFAULT '87d9bb400c0634691f0e3baaf1e2fd0d' COMMENT '管理员登录密码',
   `role_id` int(11) NOT NULL DEFAULT '0' COMMENT '角色ID',
   `created_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
-  `content` varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '世界上没有两片完全相同的叶子！' COMMENT '备注信息',
+  `content` varchar(500) NOT NULL DEFAULT '世界上没有两片完全相同的叶子！' COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xadmins
@@ -44,12 +44,12 @@ INSERT INTO `tp5_xadmins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuH
 DROP TABLE IF EXISTS `tp5_xadmin_roles`;
 CREATE TABLE `tp5_xadmin_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '角色称呼',
-  `nav_menu_ids` text COLLATE utf8_unicode_ci NOT NULL COMMENT '权限下的菜单ID',
+  `user_name` varchar(50) NOT NULL DEFAULT '' COMMENT '角色称呼',
+  `nav_menu_ids` text NOT NULL COMMENT '权限下的菜单ID',
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xadmin_roles
@@ -63,14 +63,14 @@ INSERT INTO `tp5_xadmin_roles` VALUES ('2', '初级管理员', '1|6|2|3|4|5|', '
 DROP TABLE IF EXISTS `tp5_xarticles`;
 CREATE TABLE `tp5_xarticles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Article 主键',
-  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '作者ID',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序标识 越大越靠前',
-  `content` text COLLATE utf8_unicode_ci NOT NULL COMMENT '文章内容',
+  `content` text NOT NULL COMMENT '文章内容',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xarticles
@@ -88,12 +88,12 @@ CREATE TABLE `tp5_xarticle_points` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID 标识',
   `article_id` int(11) DEFAULT NULL COMMENT '文章标识',
   `view` int(11) NOT NULL DEFAULT '0' COMMENT '文章浏览量',
-  `keywords` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '关键词',
-  `picture` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文章配图',
-  `abstract` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '文章摘要',
+  `keywords` varchar(30) NOT NULL DEFAULT '' COMMENT '关键词',
+  `picture` varchar(100) DEFAULT NULL COMMENT '文章配图',
+  `abstract` varchar(255) DEFAULT NULL COMMENT '文章摘要',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xarticle_points
@@ -118,7 +118,7 @@ CREATE TABLE `tp5_xcategorys` (
   `after_sale` text NOT NULL COMMENT '售后保障',
   PRIMARY KEY (`cat_id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
 
 -- ----------------------------
 -- Records of tp5_xcategorys
@@ -155,7 +155,7 @@ CREATE TABLE `tp5_xgoods` (
   `act_type` varchar(2) NOT NULL DEFAULT '0' COMMENT '商品参加活动类型 0：默认',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态 -1：删除 0：待上架 1：已上架 2：预售 ',
   PRIMARY KEY (`goods_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='商品表\r\n\r\n注意：status 的规定，app 上只显示上架的产品哦';
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COMMENT='商品表\r\n\r\n注意：status 的规定，app 上只显示上架的产品哦';
 
 -- ----------------------------
 -- Records of tp5_xgoods
@@ -174,16 +174,16 @@ INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images
 DROP TABLE IF EXISTS `tp5_xnav_menus`;
 CREATE TABLE `tp5_xnav_menus` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'navMenu 主键',
-  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '菜单名称',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级菜单ID',
-  `action` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'action地址（etc:admin/home）',
-  `icon` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义图标样式',
+  `action` varchar(100) NOT NULL DEFAULT '' COMMENT 'action地址（etc:admin/home）',
+  `icon` varchar(100) NOT NULL DEFAULT '' COMMENT '自定义图标样式',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
   `list_order` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序标识，越大越靠前',
   `created_at` timestamp NULL DEFAULT NULL,
   `type` tinyint(2) DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xnav_menus
@@ -238,9 +238,9 @@ INSERT INTO `tp5_xnav_menus` VALUES ('72', 'ajax 根据父级属性ID查询次�
 DROP TABLE IF EXISTS `tp5_xphotos`;
 CREATE TABLE `tp5_xphotos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '图片存放位置',
+  `picture` varchar(255) DEFAULT NULL COMMENT '图片存放位置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xphotos
@@ -262,15 +262,15 @@ DROP TABLE IF EXISTS `tp5_xskus`;
 CREATE TABLE `tp5_xskus` (
   `sku_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
-  `spec_info` varchar(300) NOT NULL COMMENT '对应的商品 sku属性信息，以逗号隔开。举例：12,15,23',
-  `spec_name` varchar(300) NOT NULL COMMENT 'sku 规格描述，仅供展示',
+  `spec_info` varchar(300) CHARACTER SET utf8 NOT NULL COMMENT '对应的商品 sku属性信息，以逗号隔开。举例：12,15,23',
+  `spec_name` varchar(300) CHARACTER SET utf8 NOT NULL COMMENT 'sku 规格描述，仅供展示',
   `selling_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品售价',
   `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `sold_num` int(11) NOT NULL DEFAULT '0' COMMENT '销量',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态  0:显示（正常） -1：删除（失效）',
   PRIMARY KEY (`sku_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COMMENT='商品 SKU 库存表\r\n\r\n用于存储商品不同属性搭配的数目、价格等';
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COMMENT='商品 SKU 库存表\r\n\r\n用于存储商品不同属性搭配的数目、价格等';
 
 -- ----------------------------
 -- Records of tp5_xskus
@@ -323,14 +323,14 @@ INSERT INTO `tp5_xskus` VALUES ('59', '8', '14', 'XL(建议110-120斤)', '124.00
 DROP TABLE IF EXISTS `tp5_xspec_infos`;
 CREATE TABLE `tp5_xspec_infos` (
   `spec_id` int(11) NOT NULL AUTO_INCREMENT,
-  `spec_name` varchar(50) NOT NULL COMMENT '属性名称，例如：颜色、红色',
+  `spec_name` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '属性名称，例如：颜色、红色',
   `cat_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类ID ,主要用于父级ID=0的记录',
   `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父级ID  0：初级分类',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除，发布后不要随意删除',
   `list_order` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序标识，越大越靠前',
-  `mark_msg` varchar(100) NOT NULL COMMENT '备注信息 主要为了区分识别，可不填',
+  `mark_msg` varchar(100) CHARACTER SET utf8 NOT NULL COMMENT '备注信息 主要为了区分识别，可不填',
   PRIMARY KEY (`spec_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='商品属性细则表\r\n\r\n一般只存储两级属性，注意 parent_id = 0 表示初级数据\r\n同时，注意添加后不要修改和删除';
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性细则表\r\n\r\n一般只存储两级属性，注意 parent_id = 0 表示初级数据\r\n同时，注意添加后不要修改和删除';
 
 -- ----------------------------
 -- Records of tp5_xspec_infos
@@ -372,13 +372,13 @@ INSERT INTO `tp5_xspec_infos` VALUES ('62', '大杯', '8', '59', '1', '1', '');
 DROP TABLE IF EXISTS `tp5_xtoday_words`;
 CREATE TABLE `tp5_xtoday_words` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `word` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '摘句内容，不要太长',
-  `from` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '出处',
-  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '插图',
+  `word` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '摘句内容，不要太长',
+  `from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '出处',
+  `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '插图',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xtoday_words
@@ -400,12 +400,12 @@ DROP TABLE IF EXISTS `tp5_xupload_imgs`;
 CREATE TABLE `tp5_xupload_imgs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_id` int(11) NOT NULL DEFAULT '0' COMMENT '当type=0时，对应商品ID；当type=1时，对应评论订单ID',
-  `picture` varchar(255) NOT NULL COMMENT '存储的图片路径',
+  `picture` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '存储的图片路径',
   `add_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '类型 0：商品轮播图（app界面） 1: 评论订单中的图片',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态  1：正常  -1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='上传图片表\r\n\r\n用于保存商品轮播图或者订单评论中需要的图片，注意其type的区分使用';
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COMMENT='上传图片表\r\n\r\n用于保存商品轮播图或者订单评论中需要的图片，注意其type的区分使用';
 
 -- ----------------------------
 -- Records of tp5_xupload_imgs
@@ -425,12 +425,12 @@ INSERT INTO `tp5_xupload_imgs` VALUES ('28', '8', '/upload/20190505/57a30e908393
 DROP TABLE IF EXISTS `tp5_xusers`;
 CREATE TABLE `tp5_xusers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `msg` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注信息',
+  `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注信息',
   `reg_time` int(10) unsigned zerofill DEFAULT '0000000000' COMMENT '注册时间',
   `type` tinyint(4) DEFAULT '0' COMMENT '0:普通用户 1：内部员工',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp5_xusers
