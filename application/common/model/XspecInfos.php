@@ -1,5 +1,7 @@
 <?php
+
 namespace app\common\model;
+
 use app\common\validate\XspecInfo;
 use think\Db;
 use \think\Model;
@@ -10,6 +12,7 @@ class XspecInfos extends BaseModel
     // 设置当前模型对应的完整数据表名称
     protected $autoWriteTimestamp = 'datetime';
     protected $validate;
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -24,19 +27,20 @@ class XspecInfos extends BaseModel
      * @param int $specFstID
      * @return array
      */
-    public function getCmsSpecInfoForPage($curr_page,$limit = 1,$search = null,$catID = null,$specFstID = null){
-        $where = [['s1.status','=',1],
-            ['s1.cat_id','=',$catID],
-            ['s1.parent_id','=',$specFstID],
-            ['s1.spec_id','<>',0]];
+    public function getCmsSpecInfoForPage($curr_page, $limit = 1, $search = null, $catID = null, $specFstID = null)
+    {
+        $where = [['s1.status', '=', 1],
+            ['s1.cat_id', '=', $catID],
+            ['s1.parent_id', '=', $specFstID],
+            ['s1.spec_id', '<>', 0]];
         $res = $this
             ->alias("s1")
             ->field('s1.*,s2.spec_name parent_name')
-            ->join("xspec_infos s2","s1.parent_id = s2.spec_id")
+            ->join("xspec_infos s2", "s1.parent_id = s2.spec_id")
             ->where($where)
-            ->whereLike('s1.spec_name','%'.$search.'%')
-            ->order(['s1.list_order'=>'desc','s1.spec_id'=>'desc'])
-            ->limit($limit*($curr_page - 1),$limit)
+            ->whereLike('s1.spec_name', '%' . $search . '%')
+            ->order(['s1.list_order' => 'desc', 's1.spec_id' => 'desc'])
+            ->limit($limit * ($curr_page - 1), $limit)
             ->select();
 //        foreach ($res as $key => $v){
 //
@@ -51,17 +55,18 @@ class XspecInfos extends BaseModel
      * @param int $specFstID
      * @return float|string
      */
-    public function getCmsSpecInfoCount($search = null,$catID = 0,$specFstID = 0){
-        $where = [['s1.status','=',1],
-            ['s1.cat_id','=',$catID],
-            ['s1.parent_id','=',$specFstID],
-            ['s1.spec_id','<>',0]];
+    public function getCmsSpecInfoCount($search = null, $catID = 0, $specFstID = 0)
+    {
+        $where = [['s1.status', '=', 1],
+            ['s1.cat_id', '=', $catID],
+            ['s1.parent_id', '=', $specFstID],
+            ['s1.spec_id', '<>', 0]];
         $count = $this
             ->alias("s1")
             ->field('s1.*,s2.spec_name parent_name')
-            ->join("xspec_infos s2","s1.parent_id = s2.spec_id")
+            ->join("xspec_infos s2", "s1.parent_id = s2.spec_id")
             ->where($where)
-            ->whereLike('s1.spec_name','%'.$search.'%')
+            ->whereLike('s1.spec_name', '%' . $search . '%')
             ->count();
         return $count;
     }
@@ -71,13 +76,14 @@ class XspecInfos extends BaseModel
      * @param $data
      * @return array
      */
-    public function addSpecInfo($data){
+    public function addSpecInfo($data)
+    {
         $addData = [
-            'spec_name' => isset($data['spec_name'])?$data['spec_name']:'',
+            'spec_name' => isset($data['spec_name']) ? $data['spec_name'] : '',
             'parent_id' => intval($data['specFstID']),
             'cat_id' => intval($data['toSelCatID']),
             'list_order' => intval($data['list_order']),
-            'mark_msg' => isset($data['mark_msg'])?$data['mark_msg']:'',
+            'mark_msg' => isset($data['mark_msg']) ? $data['mark_msg'] : '',
         ];
         $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
         $validateRes = $this->validate($this->validate, $addData, $tokenData);
@@ -95,10 +101,11 @@ class XspecInfos extends BaseModel
      * @param $id
      * @return array
      */
-    public function getCmsSpecInfoByID($id){
+    public function getCmsSpecInfoByID($id)
+    {
         $res = $this
             ->field('*')
-            ->where('spec_id',$id)
+            ->where('spec_id', $id)
             ->find()
             ->toArray();
         return $res;
@@ -109,7 +116,8 @@ class XspecInfos extends BaseModel
      * @param $input
      * @return array
      */
-    public function updateCmsSpecInfoData($input){
+    public function updateCmsSpecInfoData($input)
+    {
 
         $id = $input['id'];
         $opTag = isset($input['tag']) ? $input['tag'] : 'edit';
@@ -120,13 +128,13 @@ class XspecInfos extends BaseModel
             $validateRes = ['tag' => 1, 'message' => '删除成功'];
         } else {
             $saveData = [
-                'spec_name' => isset($input['spec_name'])?$input['spec_name']:'',
+                'spec_name' => isset($input['spec_name']) ? $input['spec_name'] : '',
                 //'parent_id' => intval($input['specFstID']),
                 'cat_id' => intval($input['toSelCatID']),
                 'list_order' => intval($input['list_order']),
-                'mark_msg' => isset($input['mark_msg'])?$input['mark_msg']:'',
+                'mark_msg' => isset($input['mark_msg']) ? $input['mark_msg'] : '',
             ];
-            if (intval($input['specFstID'])){
+            if (intval($input['specFstID'])) {
                 $saveData['parent_id'] = intval($input['specFstID']);
             }
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
@@ -147,17 +155,18 @@ class XspecInfos extends BaseModel
      * @param int $seledCatID
      * @return array
      */
-    public function getSpecInfoFstByCat($seledCatID = 0){
+    public function getSpecInfoFstByCat($seledCatID = 0)
+    {
         $specList = $this
             ->field("spec_id,spec_name,mark_msg")
-            ->where([['parent_id','=',0],['cat_id','=',intval($seledCatID)]])
+            ->where([['parent_id', '=', 0], ['cat_id', '=', intval($seledCatID)]])
             ->select();
-        foreach ($specList as $key=>$value){
-            if ($value && $value['mark_msg']){
-                $specList[$key]['mark_msg'] = "【".$value['mark_msg']."】";
+        foreach ($specList as $key => $value) {
+            if ($value && $value['mark_msg']) {
+                $specList[$key]['mark_msg'] = "【" . $value['mark_msg'] . "】";
             }
         }
-        return $specList?$specList->toArray():[];
+        return $specList ? $specList->toArray() : [];
     }
 
     /**
@@ -165,22 +174,23 @@ class XspecInfos extends BaseModel
      * @param int $specFstID
      * @return array
      */
-    public function getSpecInfoBySpecFst($specFstID = 0){
-        $where = [['s1.status','=',1],
-            ['s1.parent_id','=',$specFstID],
-            ['s1.parent_id','<>',0]];
+    public function getSpecInfoBySpecFst($specFstID = 0)
+    {
+        $where = [['s1.status', '=', 1],
+            ['s1.parent_id', '=', $specFstID],
+            ['s1.parent_id', '<>', 0]];
         $specList = $this
             ->alias("s1")
             ->field('s1.*')
             ->where($where)
-            ->order(['s1.list_order'=>'desc','s1.spec_id'=>'desc'])
+            ->order(['s1.list_order' => 'desc', 's1.spec_id' => 'desc'])
             ->select();
-        foreach ($specList as $key=>$value){
-            if ($value && $value['mark_msg']){
-                $specList[$key]['mark_msg'] = "【".$value['mark_msg']."】";
+        foreach ($specList as $key => $value) {
+            if ($value && $value['mark_msg']) {
+                $specList[$key]['mark_msg'] = "【" . $value['mark_msg'] . "】";
             }
         }
-        return isset($specList)?$specList->toArray():[];
+        return isset($specList) ? $specList->toArray() : [];
     }
 }
 
