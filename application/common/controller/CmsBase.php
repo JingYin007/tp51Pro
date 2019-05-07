@@ -5,6 +5,7 @@
  * Date: 2018/11/23
  * Time: 11:23
  */
+
 namespace app\common\controller;
 
 use app\common\model\Xadmins;
@@ -32,19 +33,22 @@ class CmsBase extends Base
     /**
      * 进行权限控制
      */
-    public function initAuth(){
+    public function initAuth()
+    {
         $authFlag = false;
         $hasCmsAID = Session::has('cmsMoTzxxAID');
-        if (!$hasCmsAID){
+        if (!$hasCmsAID) {
             $message = "You are offline,please logon again!";
-        }else{
+        } else {
             $cmsAID = Session::get('cmsMoTzxxAID');
             //TODO 判断当前用户是否具有此操作权限
             $checkAuth = $this->checkCmsAdminAuth($cmsAID);
             $authFlag = $checkAuth;
-            $message = $checkAuth?"权限正常":"Sorry,You don't have permission!";
+            $message = $checkAuth ? "权限正常" : "Sorry,You don't have permission!";
         }
-        if (!$authFlag) {return showMsg($authFlag,$message);};
+        if (!$authFlag) {
+            return showMsg($authFlag, $message);
+        };
     }
 
     /**
@@ -55,13 +59,14 @@ class CmsBase extends Base
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function checkCmsAdminAuth($adminID = 0){
+    public function checkCmsAdminAuth($adminID = 0)
+    {
         $action = trim(strtolower(request()->action()));
         $request_url = trim(strtolower($_SERVER["REQUEST_URI"]));
-        $authUrl = explode($action,$request_url)[0].$action;
+        $authUrl = explode($action, $request_url)[0] . $action;
         //对待检测的URL 忽略大小写
         $adminModel = new Xadmins();
-        $checkTag = $adminModel->checkAdminAuth($adminID,$authUrl);
+        $checkTag = $adminModel->checkAdminAuth($adminID, $authUrl);
         return $checkTag;
     }
 

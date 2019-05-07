@@ -32,8 +32,8 @@ use think\Db;
 
 class Category extends CmsBase
 {
-    private $model;
-    private $page_limit;
+    protected $model;
+    protected $page_limit;
 
     public function __construct()
     {

@@ -9,9 +9,10 @@ use think\Request;
 
 class NavMenu extends CmsBase
 {
-    private $menuModel;
+    protected $menuModel;
     //定义每页的记录数
-    private $page_limit;
+    protected $page_limit;
+
     public function __construct()
     {
         parent::__construct();
@@ -24,10 +25,11 @@ class NavMenu extends CmsBase
      * @param Request $request
      * @return \think\response\View
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $search = $request->param('str_search');
         $record_num = $this->menuModel->getNavMenusCount($search);
-        $list = $this->menuModel->getNavMenusForPage(1,$this->page_limit,$search);
+        $list = $this->menuModel->getNavMenusForPage(1, $this->page_limit, $search);
         return view('index',
             [
                 'menus' => $list,
@@ -41,14 +43,15 @@ class NavMenu extends CmsBase
      * ajax 获取当前页面数据
      * @param Request $request
      */
-    public function ajaxOpForPage(Request $request){
-        if ($request->isPost()){
-            $curr_page = $request->post('curr_page',1);
+    public function ajaxOpForPage(Request $request)
+    {
+        if ($request->isPost()) {
+            $curr_page = $request->post('curr_page', 1);
             $search = $request->post('str_search');
-            $list = $this->menuModel->getNavMenusForPage($curr_page,$this->page_limit,$search);
-            return showMsg(1,'success',$list);
-        }else{
-            return showMsg(0,'sorry，请求不合法');
+            $list = $this->menuModel->getNavMenusForPage($curr_page, $this->page_limit, $search);
+            return showMsg(1, 'success', $list);
+        } else {
+            return showMsg(0, 'sorry，请求不合法');
         }
     }
 
@@ -57,15 +60,16 @@ class NavMenu extends CmsBase
      * @param Request $request
      * @return \think\response\View|void
      */
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $rootMenus = $this->menuModel->getNavMenus();
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $input = $request->param();
             $opRes = $this->menuModel->addNavMenu($input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('add',[
-                'rootMenus'=>$rootMenus,
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('add', [
+                'rootMenus' => $rootMenus,
             ]);
         }
     }
@@ -76,15 +80,16 @@ class NavMenu extends CmsBase
      * @param $id 菜单ID
      * @return \think\response\View|void
      */
-    public function auth(Request $request,$id){
+    public function auth(Request $request, $id)
+    {
         $authMenus = $this->menuModel->getAuthChildNavMenus($id);
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $input = $request->param();
-            $opRes = $this->menuModel->addNavMenu($input,$id);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('auth',[
-                'authMenus'=>$authMenus,
+            $opRes = $this->menuModel->addNavMenu($input, $id);
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('auth', [
+                'authMenus' => $authMenus,
                 'parent_id' => $id
             ]);
         }
@@ -96,17 +101,18 @@ class NavMenu extends CmsBase
      * @param $id 菜单ID
      * @return \think\response\View|void
      */
-    public function edit(Request $request,$id){
+    public function edit(Request $request, $id)
+    {
         $rootMenus = $this->menuModel->getNavMenus();
-        if($id == 0) $id=$request->param('id');
+        if ($id == 0) $id = $request->param('id');
         $menuData = $this->menuModel->getNavMenuByID($id);
-        if ($request->isPost()){
+        if ($request->isPost()) {
             //TODO 修改对应的菜单
             $input = $request->post();
-            $opRes = $this->menuModel->editNavMenu($input['id'],$input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('edit',[
+            $opRes = $this->menuModel->editNavMenu($input['id'], $input);
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('edit', [
                 'rootMenus' => $rootMenus,
                 'menuData' => $menuData
             ]);

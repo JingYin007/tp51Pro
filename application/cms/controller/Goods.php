@@ -9,9 +9,9 @@ use think\Request;
 
 class Goods extends CmsBase
 {
-    private $model;
-    private $categoryModel;
-    private $page_limit;
+    protected $model;
+    protected $categoryModel;
+    protected $page_limit;
 
     public function __construct()
     {

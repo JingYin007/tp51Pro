@@ -60,12 +60,13 @@ class Xskus extends BaseModel
      * @param int $goodsID
      * @return array
      */
-    public function getSKUDataByGoodsID($goodsID = 0){
+    public function getSKUDataByGoodsID($goodsID = 0)
+    {
         $skuData = $this
             ->field("*")
-            ->where([["goods_id",'=',intval($goodsID)],["status",'=',0]])
+            ->where([["goods_id", '=', intval($goodsID)], ["status", '=', 0]])
             ->select();
-        return isset($skuData)?$skuData->toArray():[];
+        return isset($skuData) ? $skuData->toArray() : [];
     }
 
 }

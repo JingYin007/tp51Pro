@@ -10,9 +10,9 @@ use think\Db;
 
 class SpecInfo extends CmsBase
 {
-    private $model;
-    private $page_limit;
-    private $categoryModel;
+    protected $model;
+    protected $page_limit;
+    protected $categoryModel;
 
     public function __construct()
     {

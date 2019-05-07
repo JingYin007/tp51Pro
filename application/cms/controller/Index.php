@@ -1,5 +1,7 @@
 <?php
+
 namespace app\cms\controller;
+
 use app\common\model\XnavMenus;
 use app\common\model\Xadmins;
 use think\facade\Session;
@@ -11,16 +13,18 @@ use think\Request;
  * Date: 2018/1/23
  * Time: 15:54
  */
-class Index{
-    private $menuModel;
-    private $adminModel;
+class Index
+{
+    protected $menuModel;
+    protected $adminModel;
     protected $cmsAID;
+
     public function __construct()
     {
         $this->menuModel = new XnavMenus();
         $this->adminModel = new Xadmins();
         $this->cmsAID = Session::get('cmsMoTzxxAID');
-        if (!$this->cmsAID){
+        if (!$this->cmsAID) {
             return redirect('cms/login/index');
         }
     }
@@ -29,19 +33,20 @@ class Index{
      * 后台首页
      * @return \think\response\View
      */
-    public function index(){
+    public function index()
+    {
         //获取 登录的管理员有效期ID
         $menuList = $this->menuModel->getNavMenusShow($this->cmsAID);
-        if (!$this->cmsAID || !$menuList){
+        if (!$this->cmsAID || !$menuList) {
             //TODO 页面跳转至登录页
             return redirect('cms/login/index');
-        }else{
+        } else {
             $adminInfo = $this->adminModel->getAdminData($this->cmsAID);
             $data = [
                 'menus' => $menuList,
                 'admin' => $adminInfo,
             ];
-            return view('index',$data);
+            return view('index', $data);
         }
     }
 
@@ -49,7 +54,8 @@ class Index{
      * 首页显示 可自定义呗
      * @return \think\response\View
      */
-    public function home(){
+    public function home()
+    {
         return view('home');
     }
 
@@ -59,18 +65,19 @@ class Index{
      * @param $id
      * @return \think\response\View|void
      */
-    public function admin(Request $request,$id){
+    public function admin(Request $request, $id)
+    {
         $adminModel = new Xadmins();
-        if ($request->isGet()){
+        if ($request->isGet()) {
             $adminData = $adminModel->getAdminData($id);
-            return view('admin',[
+            return view('admin', [
                 'admin' => $adminData,
             ]);
-        }else{
+        } else {
             //当前用户对个人账号的修改
             $input = $request->post();
-            $opRes = $adminModel->editCurrAdmin($id,$input,$this->cmsAID);
-            return showMsg($opRes['tag'],$opRes['message']);
+            $opRes = $adminModel->editCurrAdmin($id, $input, $this->cmsAID);
+            return showMsg($opRes['tag'], $opRes['message']);
         }
     }
 }

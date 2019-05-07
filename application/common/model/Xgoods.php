@@ -25,7 +25,7 @@ class Xgoods extends BaseModel
     }
 
     /**
-     * 后台获取文章数据列表
+     * 后台获取 商品数据列表
      * @param $curr_page
      * @param int $limit
      * @param null $search
@@ -35,7 +35,7 @@ class Xgoods extends BaseModel
      * @return array
      */
     public function getCmsGoodsForPage($curr_page, $limit = 1, $search = null,
-                                       $SelStatus = "Down", $CatType = 0,$OrderType="D")
+                                       $SelStatus = "Down", $CatType = 0, $OrderType = "D")
     {
         $status = $SelStatus == "Down" ? 0 : 1;
         $where = [["g.status", '=', $status]];
@@ -48,7 +48,7 @@ class Xgoods extends BaseModel
             $order["g.updated_at"] = "desc";
         } elseif ($OrderType == "S") {
             $order["g.stock"] = "asc";
-        }else{
+        } else {
             $order["g.list_order"] = "desc";
         }
 
@@ -72,7 +72,7 @@ class Xgoods extends BaseModel
     }
 
     /**
-     * 后台获取文章总数
+     * 后台获取 商品总数
      * @param null $search
      * @param string $SelStatus
      * @return float|string
@@ -99,7 +99,7 @@ class Xgoods extends BaseModel
     }
 
     /**
-     * 根据文章ID 获取文章内容
+     * 根据商品ID 获取商品内容
      * @param $id
      * @return array
      */
@@ -132,7 +132,7 @@ class Xgoods extends BaseModel
     }
 
     /**
-     * 更新文章内容
+     * 更新商品内容
      * @param $input
      * @return array
      */
@@ -173,7 +173,7 @@ class Xgoods extends BaseModel
                     uploadSlideShow($slide_show, $id);
                     //TODO 此时进行 sku库存信息的上传
                     $skuModle = new Xskus();
-                    $sku_arr = isset($input['sku_arr'])?$input['sku_arr']:[];
+                    $sku_arr = isset($input['sku_arr']) ? $input['sku_arr'] : [];
                     $skuModle->opSKUforGoodsByID($id, $sku_arr);
                 }
             }
@@ -192,7 +192,7 @@ class Xgoods extends BaseModel
         $goods_id = isset($goods_id) ? intval($goods_id) : 0;
         $saveTag = $this
             ->where('goods_id', $goods_id)
-            ->update(['status' => $okStatus,'updated_at' => date('Y-m-d H:m:s', time())]);
+            ->update(['status' => $okStatus, 'updated_at' => date('Y-m-d H:m:s', time())]);
         if (!$saveTag) {
             $message = "状态更改失败";
         }
@@ -200,7 +200,7 @@ class Xgoods extends BaseModel
     }
 
     /**
-     * 进行新文章的添加操作
+     * 进行新商品的添加操作
      * @param $data
      * @return array
      */
@@ -235,13 +235,12 @@ class Xgoods extends BaseModel
                 uploadSlideShow($slide_show, $goodsId);
                 //TODO 此时进行 sku库存信息的上传
                 $skuModle = new Xskus();
-                $sku_arr = isset($data['sku_arr'])?$data['sku_arr']:[];
+                $sku_arr = isset($data['sku_arr']) ? $data['sku_arr'] : [];
                 $skuModle->opSKUforGoodsByID($goodsId, $sku_arr);
             }
         }
         return $validateRes;
     }
-
 
 
     /**

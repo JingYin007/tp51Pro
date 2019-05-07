@@ -8,9 +8,9 @@ use think\Request;
 
 class TodayWord extends CmsBase
 {
-    //
-    private $model;
-    private $page_limit;
+    protected $model;
+    protected $page_limit;
+
     public function __construct()
     {
         parent::__construct();
@@ -23,9 +23,10 @@ class TodayWord extends CmsBase
      * @param Request $request
      * @return \think\response\View
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $search = $request->get('str_search');
-        $list = $this->model->getTodayWordsForPage(1,$this->page_limit,$search);
+        $list = $this->model->getTodayWordsForPage(1, $this->page_limit, $search);
         $record_num = $this->model->getTodayWordsCount($search);
 
         return view('index',
@@ -42,12 +43,13 @@ class TodayWord extends CmsBase
      * @param Request $request
      * @return \think\response\View|void
      */
-    public function add(Request $request){
-        if ($request->isPost()){
+    public function add(Request $request)
+    {
+        if ($request->isPost()) {
             $input = $request->post();
             $opRes = $this->model->addTodayWord($input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
             return view('add');
         }
     }
@@ -58,16 +60,17 @@ class TodayWord extends CmsBase
      * @param $id 赠言ID
      * @return \think\response\View|void
      */
-    public function edit(Request $request,$id){
+    public function edit(Request $request, $id)
+    {
         $opID = intval($id);
         $todayWordData = $this->model->getTodayWord($opID);
-        if ($request->isPost()){
+        if ($request->isPost()) {
             //TODO 修改对应的菜单
             $input = $request->post();
-            $opRes = $this->model->editTodayWord($opID,$input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('edit',[
+            $opRes = $this->model->editTodayWord($opID, $input);
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('edit', [
                 'todayWordData' => $todayWordData
             ]);
         }
@@ -77,13 +80,14 @@ class TodayWord extends CmsBase
      * ajax 获取新一页的赠言数据
      * @param Request $request
      */
-    public function ajaxOpForPage(Request $request){
-        if ($request->isPost()){
-            $curr_page = $request->post('curr_page',1);
-            $list = $this->model->getTodayWordsForPage($curr_page,$this->page_limit);
-            return showMsg(1,'success',$list);
-        }else{
-            return showMsg(0,'请求不合法');
+    public function ajaxOpForPage(Request $request)
+    {
+        if ($request->isPost()) {
+            $curr_page = $request->post('curr_page', 1);
+            $list = $this->model->getTodayWordsForPage($curr_page, $this->page_limit);
+            return showMsg(1, 'success', $list);
+        } else {
+            return showMsg(0, '请求不合法');
         }
     }
 }

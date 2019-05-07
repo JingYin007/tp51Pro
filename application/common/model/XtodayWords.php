@@ -37,18 +37,18 @@ class XtodayWords extends BaseModel
             $res = $this
                 ->where('id', $id)
                 ->find();
-        }else{
+        } else {
             //此處 隨機取出一條數據
             $allRes = $this
                 ->field("id")
-                ->where("status",1)
+                ->where("status", 1)
                 ->select()
                 ->toArray();
             $arrIDs = [];
-            foreach ($allRes as $key => $value){
-                array_push($arrIDs,$value['id']);
+            foreach ($allRes as $key => $value) {
+                array_push($arrIDs, $value['id']);
             }
-            $randID = array_rand($arrIDs,1);
+            $randID = array_rand($arrIDs, 1);
             $res = $this
                 //TODO 这个　rand() 有时候不好用
                 //->order("rand()")
@@ -66,8 +66,8 @@ class XtodayWords extends BaseModel
     {
         $res = $this
             ->field('id')
-            ->where("status",1)
-            ->whereLike('from','%'.$search.'%')
+            ->where("status", 1)
+            ->whereLike('from', '%' . $search . '%')
             ->count();
         return $res;
     }
@@ -78,13 +78,13 @@ class XtodayWords extends BaseModel
      * @param $limit 本页要获取的记录条数
      * @return mixed
      */
-    public function getTodayWordsForPage($curr_page, $limit,$search = null)
+    public function getTodayWordsForPage($curr_page, $limit, $search = null)
     {
         $res = $this
             ->field('*')
             ->order('id desc')
-            ->where('status',1)
-            ->whereLike('from','%'.$search.'%')
+            ->where('status', 1)
+            ->whereLike('from', '%' . $search . '%')
             ->limit($limit * ($curr_page - 1), $limit)
             ->select()
             ->toArray();
@@ -150,7 +150,7 @@ class XtodayWords extends BaseModel
             ];
             $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
             $validateRes = $this->validate($this->validate, $saveData, $tokenData);
-            if ($validateRes['tag']){
+            if ($validateRes['tag']) {
                 $saveTag = $this
                     ->where('id', $id)
                     ->update($saveData);

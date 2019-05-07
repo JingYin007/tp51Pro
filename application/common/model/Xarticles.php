@@ -1,20 +1,23 @@
 <?php
+
 namespace app\common\model;
+
 use app\common\validate\Xarticle;
 use think\Db;
 use \think\Model;
+
 /**
  * Created by PhpStorm.
  * User: moTzxx
  * Date: 2018/1/11
  * Time: 16:45
  */
-
 class Xarticles extends BaseModel
 {
     // 设置当前模型对应的完整数据表名称
     protected $autoWriteTimestamp = 'datetime';
     protected $validate;
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -25,13 +28,14 @@ class Xarticles extends BaseModel
      * 获取所有的文章
      * @return array
      */
-    public function getArticleList(){
+    public function getArticleList()
+    {
         $data = $this
             ->field("a.*,ap.picture,ap.abstract")
             ->alias('a')//给主表取别名
-            ->join('xarticle_points ap','ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
-            ->where('a.id','>',0)
-            ->where('ap.status',1)
+            ->join('xarticle_points ap', 'ap.article_id = a.id')//给你要关联的表取别名,并让两个值关联
+            ->where('a.id', '>', 0)
+            ->where('ap.status', 1)
             ->select()
             ->toArray();
         //$data = array_merge($data,$data,$data,$data,$data,$data,$data);
@@ -42,13 +46,14 @@ class Xarticles extends BaseModel
      * 获取所要推荐的文章
      * @return array
      */
-    public function getRecommendList(){
+    public function getRecommendList()
+    {
         $res = $this
             ->field('a.title,a.id')
             ->alias('a')
-            ->join('xarticle_points ap','ap.article_id = a.id')
-            ->order('ap.view','desc')
-            ->where('ap.status',1)
+            ->join('xarticle_points ap', 'ap.article_id = a.id')
+            ->order('ap.view', 'desc')
+            ->where('ap.status', 1)
             ->limit(6)
             ->select()
             ->toArray();
@@ -59,10 +64,11 @@ class Xarticles extends BaseModel
      * 获取所有的文章首页图片
      * @return array
      */
-    public function getPhotos(){
+    public function getPhotos()
+    {
         $res = Db::name('xphotos')
             ->field('picture')
-            ->order("id","asc")
+            ->order("id", "asc")
             ->limit(9)
             ->select();
         return $res;
@@ -76,15 +82,15 @@ class Xarticles extends BaseModel
     public function getInfoByID($id)
     {
         $res = [];
-        if(is_numeric($id)){
+        if (is_numeric($id)) {
             $res = $this
                 ->alias('a')
-                ->join('xarticle_points ap','ap.article_id = a.id')
+                ->join('xarticle_points ap', 'ap.article_id = a.id')
                 ->field('a.*')
-                ->where('a.id = '.$id)
+                ->where('a.id = ' . $id)
                 ->find();
         }
-        isset($res)?$res->toArray():[];
+        isset($res) ? $res->toArray() : [];
         return $res;
     }
 
@@ -95,20 +101,21 @@ class Xarticles extends BaseModel
      * @param null $search
      * @return array
      */
-    public function getCmsArticlesForPage($curr_page,$limit = 1,$search = null){
+    public function getCmsArticlesForPage($curr_page, $limit = 1, $search = null)
+    {
         $res = $this
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
-            ->join('xarticle_points ap','ap.article_id = a.id')
-            ->where("ap.status",1)
-            ->whereLike('a.title','%'.$search.'%')
-            ->order(['a.list_order'=>'desc','a.id'=>'desc'])
-            ->limit($limit*($curr_page - 1),$limit)
+            ->join('xarticle_points ap', 'ap.article_id = a.id')
+            ->where("ap.status", 1)
+            ->whereLike('a.title', '%' . $search . '%')
+            ->order(['a.list_order' => 'desc', 'a.id' => 'desc'])
+            ->limit($limit * ($curr_page - 1), $limit)
             ->select();
-        foreach ($res as $key => $v){
-            if ($v['status'] == 1){
+        foreach ($res as $key => $v) {
+            if ($v['status'] == 1) {
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
-            }else{
+            } else {
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-cyan\">删除</span>";
             }
         }
@@ -120,27 +127,30 @@ class Xarticles extends BaseModel
      * @param null $search
      * @return int|string
      */
-    public function getCmsArticlesCount($search = null){
+    public function getCmsArticlesCount($search = null)
+    {
         $count = $this
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
-            ->join('xarticle_points ap','ap.article_id = a.id')
-            ->where("ap.status",1)
-            ->whereLike('a.title','%'.$search.'%')
+            ->join('xarticle_points ap', 'ap.article_id = a.id')
+            ->where("ap.status", 1)
+            ->whereLike('a.title', '%' . $search . '%')
             ->count();
         return $count;
     }
+
     /**
      * 根据文章ID 获取文章内容
      * @param $id
      * @return array
      */
-    public function getCmsArticleByID($id){
+    public function getCmsArticleByID($id)
+    {
         $res = $this
             ->alias('a')
             ->field('a.*,title,status,picture,abstract')
-            ->join('xarticle_points ap','ap.article_id = a.id')
-            ->where('a.id',$id)
+            ->join('xarticle_points ap', 'ap.article_id = a.id')
+            ->where('a.id', $id)
             ->find()
             ->toArray();
         return $res;
@@ -151,7 +161,8 @@ class Xarticles extends BaseModel
      * @param $input
      * @return array
      */
-    public function updateCmsArticleData($input){
+    public function updateCmsArticleData($input)
+    {
 
         $id = $input['id'];
         $opTag = isset($input['tag']) ? $input['tag'] : 'edit';
@@ -164,7 +175,7 @@ class Xarticles extends BaseModel
             $saveData = [
                 'title' => $input['title'],
                 'list_order' => $input['list_order'],
-                'content' => isset($input['content'])?$input['content']:'',
+                'content' => isset($input['content']) ? $input['content'] : '',
                 'updated_at' => date('Y-m-d H:m:s', time())
             ];
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
@@ -195,12 +206,13 @@ class Xarticles extends BaseModel
      * @return array
      */
 
-    public function addArticle($data){
+    public function addArticle($data)
+    {
 
         $addData = [
             'title' => $data['title'],
             'list_order' => $data['list_order'],
-            'content' => isset($data['content'])?$data['content']:'',
+            'content' => isset($data['content']) ? $data['content'] : '',
             'user_id' => 1,
             'created_at' => date('Y-m-d H:m:s', time()),
             'updated_at' => date('Y-m-d H:m:s', time())

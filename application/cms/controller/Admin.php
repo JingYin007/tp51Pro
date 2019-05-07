@@ -10,10 +10,11 @@ use think\Request;
 
 class Admin extends CmsBase
 {
-    private $model;
-    private $ar_model;
-    private $menuModel;
-    private $page_limit;
+    protected $model;
+    protected $ar_model;
+    protected $menuModel;
+    protected $page_limit;
+
     public function __construct()
     {
         parent::__construct();
@@ -28,9 +29,10 @@ class Admin extends CmsBase
      * @param Request $request
      * @return \think\response\View
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $list = $this->model
-            ->getAdminsForPage(1,$this->page_limit);
+            ->getAdminsForPage(1, $this->page_limit);
         $search = $request->param('str_search');
         $record_num = $this->model->getAdminsCount();
 
@@ -48,15 +50,16 @@ class Admin extends CmsBase
      * @param Request $request
      * @return \think\response\View|void
      */
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $adminRoles = $this->ar_model->getNormalRoles();
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $input = $request->post();
             $opRes = $tag = $this->model->addAdmin($input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('add',[
-                'adminRoles'=>$adminRoles
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('add', [
+                'adminRoles' => $adminRoles
             ]);
         }
     }
@@ -66,15 +69,16 @@ class Admin extends CmsBase
      * @param $id 标识ID
      * @return \think\response\View|void
      */
-    public function edit(Request $request,$id){
+    public function edit(Request $request, $id)
+    {
         $adminRoles = $this->ar_model->getNormalRoles();
         $adminData = $this->model->getAdminData($id);
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $input = $request->param();
-            $opRes = $this->model->editAdmin($id,$input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
-            return view('edit',[
+            $opRes = $this->model->editAdmin($id, $input);
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
+            return view('edit', [
                 'admin' => $adminData,
                 'adminRoles' => $adminRoles
             ]);
@@ -85,13 +89,14 @@ class Admin extends CmsBase
      * 分页获取数据
      * @param Request $request
      */
-    public function ajaxOpForPage(Request $request){
-        if ($request->isPost()){
-            $curr_page = $request->post('curr_page',1);
-            $list = $this->model->getAdminsForPage($curr_page,$this->page_limit);
-            return showMsg(1,'success',$list);
-        }else{
-            return showMsg(0,'sorry，请求不合法');
+    public function ajaxOpForPage(Request $request)
+    {
+        if ($request->isPost()) {
+            $curr_page = $request->post('curr_page', 1);
+            $list = $this->model->getAdminsForPage($curr_page, $this->page_limit);
+            return showMsg(1, 'success', $list);
+        } else {
+            return showMsg(0, 'sorry，请求不合法');
         }
 
     }
@@ -102,9 +107,10 @@ class Admin extends CmsBase
      * 读取角色列表
      * @return \think\response\View
      */
-    public function role(){
+    public function role()
+    {
         $adminRoles = $this->ar_model->getAllRoles();
-        return view('role',[
+        return view('role', [
             'roles' => $adminRoles
         ]);
 
@@ -115,16 +121,17 @@ class Admin extends CmsBase
      * @param Request $request
      * @return \think\response\View|void
      */
-    public function addRole(Request $request){
-        if ($request->isPost()){
+    public function addRole(Request $request)
+    {
+        if ($request->isPost()) {
             $input = $request->post();
             $opRes = $this->ar_model->addRole($input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
             //TODO 获取所有可以分配的权限菜单
             $viewMenus = $this->menuModel->getNavMenus();
-            return view('add_role',[
-                'menus'=>$viewMenus,
+            return view('add_role', [
+                'menus' => $viewMenus,
             ]);
         }
     }
@@ -135,25 +142,24 @@ class Admin extends CmsBase
      * @param $id
      * @return \think\response\View|void
      */
-    public function editRole(Request $request,$id){
+    public function editRole(Request $request, $id)
+    {
         $roleData = $this->ar_model->getRoleData($id);
-        if ($request->isPost()){
+        if ($request->isPost()) {
             $input = $request->param();
-            $opRes = $this->ar_model->editRole($id,$input);
-            return showMsg($opRes['tag'],$opRes['message']);
-        }else{
+            $opRes = $this->ar_model->editRole($id, $input);
+            return showMsg($opRes['tag'], $opRes['message']);
+        } else {
             //TODO 获取所有可以分配的权限菜单
             $viewMenus = $this->menuModel->getNavMenus();
-            $arrMenuSelf = explode('|',$roleData['nav_menu_ids']);
-            return view('edit_role',[
+            $arrMenuSelf = explode('|', $roleData['nav_menu_ids']);
+            return view('edit_role', [
                 'role' => $roleData,
                 'menus' => $viewMenus,
                 'menuSelf' => $arrMenuSelf,
             ]);
         }
     }
-
-
 
 
 }

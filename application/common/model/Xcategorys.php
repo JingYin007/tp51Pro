@@ -1,8 +1,11 @@
 <?php
+
 namespace app\common\model;
+
 use app\common\validate\Xcategory;
 use think\Db;
 use \think\Model;
+
 //                                   乐百川
 //
 //                                   _ooOoo_
@@ -33,6 +36,7 @@ class Xcategorys extends BaseModel
     // 设置当前模型对应的完整数据表名称
     protected $autoWriteTimestamp = 'datetime';
     protected $validate;
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -47,28 +51,29 @@ class Xcategorys extends BaseModel
      * @param string $catType 分类级别 F:顶级  S:二级
      * @return array
      */
-    public function getCmsCategoryForPage($curr_page,$limit = 1,$search = null,$catType = "S"){
-        $where = [['status','=',0],['cat_id','<>',0]];
-        if ($catType == "F"){
-            $where[]=['parent_id','=',0];
-        }else{
-            $where[]=['parent_id','>',0];
+    public function getCmsCategoryForPage($curr_page, $limit = 1, $search = null, $catType = "S")
+    {
+        $where = [['status', '=', 0], ['cat_id', '<>', 0]];
+        if ($catType == "F") {
+            $where[] = ['parent_id', '=', 0];
+        } else {
+            $where[] = ['parent_id', '>', 0];
         }
         $res = $this
             ->field('cat_id,cat_name,parent_id,is_show,status,icon,after_sale,list_order')
             ->where($where)
-            ->whereLike('cat_name','%'.$search.'%')
-            ->order(['list_order'=>'desc','cat_id'=>'desc'])
-            ->limit($limit*($curr_page - 1),$limit)
+            ->whereLike('cat_name', '%' . $search . '%')
+            ->order(['list_order' => 'desc', 'cat_id' => 'desc'])
+            ->limit($limit * ($curr_page - 1), $limit)
             ->select();
-        foreach ($res as $key => $v){
-            if ($v['is_show'] == 0){
+        foreach ($res as $key => $v) {
+            if ($v['is_show'] == 0) {
                 $res[$key]['status_checked'] = "";
-            }else{
+            } else {
                 $res[$key]['status_checked'] = "checked";
             }
             $parent = $this->getCmsCategoryByID($v['parent_id']);
-            $res[$key]['parent_name'] = isset($parent)?$parent['cat_name']:'';
+            $res[$key]['parent_name'] = isset($parent) ? $parent['cat_name'] : '';
         }
         return $res->toArray();
     }
@@ -79,17 +84,18 @@ class Xcategorys extends BaseModel
      * @param string $catType
      * @return float|string
      */
-    public function getCmsCategoryCount($search = null,$catType = "S"){
-        $where = [['status','=',0],['cat_id','<>',0]];
-        if ($catType == "F"){
-            $where[]=['parent_id','=',0];
-        }else{
-            $where[]=['parent_id','>',0];
+    public function getCmsCategoryCount($search = null, $catType = "S")
+    {
+        $where = [['status', '=', 0], ['cat_id', '<>', 0]];
+        if ($catType == "F") {
+            $where[] = ['parent_id', '=', 0];
+        } else {
+            $where[] = ['parent_id', '>', 0];
         }
         $count = $this
             ->field('cat_id')
             ->where($where)
-            ->whereLike('cat_name','%'.$search.'%')
+            ->whereLike('cat_name', '%' . $search . '%')
             ->count();
         return $count;
     }
@@ -100,14 +106,15 @@ class Xcategorys extends BaseModel
      * @return array
      */
 
-    public function addCategory($data){
+    public function addCategory($data)
+    {
         $addData = [
             'cat_name' => $data['cat_name'],
             'parent_id' => $data['parent_id'],
             'is_show' => $data['is_show'],
             'icon' => $data['icon'],
             'list_order' => $data['list_order'],
-            'after_sale' => isset($data['after_sale'])?$data['after_sale']:'',
+            'after_sale' => isset($data['after_sale']) ? $data['after_sale'] : '',
         ];
         $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
         $validateRes = $this->validate($this->validate, $addData, $tokenData);
@@ -125,10 +132,11 @@ class Xcategorys extends BaseModel
      * @param $id
      * @return array
      */
-    public function getCmsCategoryByID($id){
+    public function getCmsCategoryByID($id)
+    {
         $res = $this
             ->field('*')
-            ->where('cat_id',$id)
+            ->where('cat_id', $id)
             ->find()
             ->toArray();
         return $res;
@@ -139,7 +147,8 @@ class Xcategorys extends BaseModel
      * @param $input
      * @return array
      */
-    public function updateCmsCategoryData($input){
+    public function updateCmsCategoryData($input)
+    {
 
         $id = $input['id'];
         $opTag = isset($input['tag']) ? $input['tag'] : 'edit';
@@ -155,7 +164,7 @@ class Xcategorys extends BaseModel
                 'is_show' => $input['is_show'],
                 'icon' => $input['icon'],
                 'list_order' => $input['list_order'],
-                'after_sale' => isset($input['after_sale'])?$input['after_sale']:'',
+                'after_sale' => isset($input['after_sale']) ? $input['after_sale'] : '',
             ];
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
             $validateRes = $this->validate($this->validate, $saveData, $tokenData);
@@ -179,13 +188,14 @@ class Xcategorys extends BaseModel
      * @param int $level
      * @return array
      */
-    public function digui($data,$parent_id=0,$level=0){
+    public function digui($data, $parent_id = 0, $level = 0)
+    {
         static $arr = array();
-        foreach($data as $k=>$v){
-            if(($v['cat_id']!=0) && ($v['parent_id'] == $parent_id)){
+        foreach ($data as $k => $v) {
+            if (($v['cat_id'] != 0) && ($v['parent_id'] == $parent_id)) {
                 $v['level'] = $level;
                 $arr[] = $v;
-                $this->digui($data,$v['cat_id'],$level+1);
+                $this->digui($data, $v['cat_id'], $level + 1);
             }
         }
         return $arr;
@@ -197,20 +207,21 @@ class Xcategorys extends BaseModel
      * @param int $tag 1：顶级分类  2：二级分类
      * @return array
      */
-    public function getCategoryList($tag = 1){
-        if ($tag == 1){
-            $map[] = ['parent_id','=',0];
-        }else{
-            $map[] = ['parent_id','<>',0];
+    public function getCategoryList($tag = 1)
+    {
+        if ($tag == 1) {
+            $map[] = ['parent_id', '=', 0];
+        } else {
+            $map[] = ['parent_id', '<>', 0];
         }
-        $map[] = ['status','=',0];
+        $map[] = ['status', '=', 0];
         $res = $this
             ->field('cat_id,cat_name')
             ->where($map)
-            ->order("cat_id",'asc')
+            ->order("cat_id", 'asc')
             ->select();
 
-        return isset($res)?$res->toArray():[];
+        return isset($res) ? $res->toArray() : [];
     }
 
     /**
@@ -219,19 +230,18 @@ class Xcategorys extends BaseModel
      * @param int $okStatus
      * @return array
      */
-    public function updateForShow($cat_id = 0,$okStatus = 0){
+    public function updateForShow($cat_id = 0, $okStatus = 0)
+    {
         $message = "Success";
-        $cat_id = isset($cat_id)?intval($cat_id):0;
+        $cat_id = isset($cat_id) ? intval($cat_id) : 0;
         $saveTag = $this
-            ->where('cat_id',$cat_id)
-            ->update(['is_show'=>$okStatus]);
-        if (!$saveTag){
+            ->where('cat_id', $cat_id)
+            ->update(['is_show' => $okStatus]);
+        if (!$saveTag) {
             $message = "状态更改失败";
         }
-        return ['tag'=>$saveTag,'message'=>$message];
+        return ['tag' => $saveTag, 'message' => $message];
     }
-
-
 
 
 }
