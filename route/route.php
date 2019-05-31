@@ -33,7 +33,9 @@ Route::any('cms/menu/edit/:id','cms/navMenu/edit');
 Route::any('cms/menu/auth/:id','cms/navMenu/auth');
 Route::post('cms/menu/ajaxOpForPage','cms/navMenu/ajaxOpForPage');
 
-
+/**
+ * 今日赠言管理
+ */
 Route::get('cms/todayWord/index','cms/todayWord/index');
 Route::any('cms/todayWord/add','cms/todayWord/add');
 Route::any('cms/todayWord/edit/:id','cms/todayWord/edit');
@@ -61,6 +63,7 @@ Route::post('cms/admin/ajaxOpForPage', 'cms/admin/ajaxOpForPage');
 Route::any('cms/admin/role','cms/admin/role');
 Route::any('cms/admin/addRole','cms/admin/addRole');
 Route::any('cms/admin/editRole/:id', 'cms/admin/editRole');
+
 /**
  * 登录管理
  */
@@ -68,7 +71,6 @@ Route::get('cms/login/index','cms/login/index');
 Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
 Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
-
 
 /**
  * 网站业务
