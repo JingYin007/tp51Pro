@@ -22,3 +22,5 @@ Container::get('app')
     ->bind('index')
     ->run()
     ->send();
+
+//阅读源码 提供技能 加嘞个油！
