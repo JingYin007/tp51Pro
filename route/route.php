@@ -24,7 +24,9 @@ Route::get('cms/index/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
 Route::any('cms/index/admin/:id','cms/index/admin');
 
-
+/**
+ * 后台导航菜单管理
+ */
 Route::get('cms/menu/index','cms/navMenu/index');
 Route::any('cms/menu/add','cms/navMenu/add');
 Route::any('cms/menu/edit/:id','cms/navMenu/edit');
@@ -37,21 +39,31 @@ Route::any('cms/todayWord/add','cms/todayWord/add');
 Route::any('cms/todayWord/edit/:id','cms/todayWord/edit');
 Route::post('cms/todayWord/ajaxOpForPage','cms/todayWord/ajaxOpForPage');
 
+/**
+ * 文章管理
+ */
 Route::get('cms/article/index','cms/article/index');
 Route::any('cms/article/add','cms/article/add');
 Route::any('cms/article/edit/:id','cms/article/edit');
 Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
 
-
+/**
+ * 管理员
+ */
 Route::any('cms/admin/index','cms/admin/index');
 Route::any('cms/admin/add','cms/admin/add');
 Route::any('cms/admin/edit/:id', 'cms/admin/edit');
 Route::post('cms/admin/ajaxOpForPage', 'cms/admin/ajaxOpForPage');
 
+/**
+ * 角色管理
+ */
 Route::any('cms/admin/role','cms/admin/role');
 Route::any('cms/admin/addRole','cms/admin/addRole');
 Route::any('cms/admin/editRole/:id', 'cms/admin/editRole');
-
+/**
+ * 登录管理
+ */
 Route::get('cms/login/index','cms/login/index');
 Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
