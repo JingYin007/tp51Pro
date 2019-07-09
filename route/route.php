@@ -89,7 +89,17 @@ Route::post('cms/specInfo/ajaxOpForPage','cms/specInfo/ajaxOpForPage');
 Route::post('cms/specInfo/ajaxGetSpecInfoFstByCat','cms/specInfo/ajaxGetSpecInfoFstByCat');
 Route::post('cms/specInfo/ajaxGetSpecInfoBySpecFst','cms/specInfo/ajaxGetSpecInfoBySpecFst');
 
+//活动管理
+Route::get('cms/activity/index','cms/activity/index');
+Route::any('cms/activity/add','cms/activity/add');
+Route::any('cms/activity/edit/:id','cms/activity/edit');
+Route::post('cms/activity/ajaxOpForPage','cms/activity/ajaxOpForPage');
+Route::post('cms/activity/ajaxForShow','cms/activity/ajaxForShow');
 
+//用户管理
+Route::get('cms/users/index','cms/users/index');
+Route::post('cms/users/ajaxOpForPage','cms/users/ajaxOpForPage');
+Route::post('cms/users/ajaxUpdateUserStatus','cms/users/ajaxUpdateUserStatus');
 /**
  * 工具类
  */

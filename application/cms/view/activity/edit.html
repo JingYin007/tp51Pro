@@ -1,0 +1,193 @@
+{extend name='layouts/cms'}
+{block name='body-content'}
+<form class="layui-form form-opArticle layui-form-paneX">
+    <div class="layui-form-item">
+        <label class="layui-form-label">活动标题：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" required lay-verify="required"
+                   value="{$actData['title']}"
+                   placeholder="请输入活动标题" autocomplete="off" class="layui-input input-title-mz">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">活动配图：</label>
+        <div class="layui-upload layui-input-inline">
+            <button type="button" class="layui-btn btn_upload_icon">
+                <i class="layui-icon">&#xe67c;</i>上传配图
+            </button>
+            <img class="layui-upload-img img-upload-preview-medium img-upload-icon"
+                 src="{$actData['act_img']}">
+            <input type="hidden" name="act_img" class="upload-icon" value="{$actData['act_img']}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关联URL：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="app_url" required lay-verify="required"
+                   placeholder="请输入APP 活动图对应路径"
+                   value="{$actData['app_url']}"
+                   autocomplete="off" class="layui-input input-title-mz">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">活动类型：</label>
+        <div class="layui-input-inline">
+            <select name="act_type" lay-verify="required">
+                <option value="1" {eq name="actData:act_type" value="1" }selected{
+                /eq} >首页活动</option>
+                <option value="2" {eq name="actData:act_type" value="2" }selected{
+                /eq} >其他活动</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">前端显示：</label>
+        <div class="layui-input-block">
+            <input type="checkbox" {$actData['is_show']==1?"checked":""} name="is_show"
+            lay-skin="switch" lay-filter="switchTest" lay-text="显示|隐藏">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序：</label>
+        <div class="layui-input-inline">
+            <input type="number" name="list_order"
+                   value="{$actData['list_order']}" required lay-verify="required"
+                   placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">(数字越大，排序越靠前)</div>
+    </div>
+
+    <div class="layui-form-item" pane="">
+        <label class="layui-form-label">已选商品:</label>
+        <div class="layui-input-block div-actGoods">
+            {volist name="actGoods" id="aGoods"}
+            <input type="checkbox" name="aGoods[]" value="{$aGoods.goods_id}" lay-skin="primary"
+                   title="{$aGoods.goods_name}" checked="">
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item" pane="">
+        <label class="layui-form-label">搜索商品:</label>
+        <div class="layui-input-inline">
+            <select id="toSelCatID" lay-filter="toSelCatID"
+                    lay-verify="required" lay-search="">
+                <option value="">选择分类或搜索</option>
+                {volist name="categoryList" id="cl"}
+                <option value="{$cl.cat_id}">{$cl.cat_name}</option>
+                {/volist}
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <select id="toSelGoodsID" lay-filter="toSelGoodsID"
+                    lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="{$actData['id']}">
+    {:token()}
+    <div class="layui-form-item">
+        <div class="layui-input-block div-form-op">
+            <button class="layui-btn" type="button" onclick="editActivity({$actData['id']})">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
+        </div>
+    </div>
+</form>
+
+{/block}
+{block name='single-content'}
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    //修改按钮的点击事件
+    function editActivity(id) {
+        var toUrl = "{:url('cms/activity/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        var postData = $(".form-opArticle").serialize();
+        ToPostPopupsDeal(toUrl, postData);
+    }
+
+    layui.use(['upload'], function () {
+        var upload = layui.upload;
+        var tag_token = $(".tag_token").val();
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '.btn_upload_icon'
+            , type: 'images'
+            , exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
+            //,auto:false //选择图片后是否直接上传
+            //,accept:'images' //上传文件类型
+            , url: '/api/upload/img_file'
+            , data: {'_token': tag_token}
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('.img-upload-icon').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                dialog.tip(res.message);
+                //如果上传成功
+                if (res.status == 1) {
+                    $('.upload-icon').val(res.data.url);
+                }
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                return layer.msg('上传失败,请重新上传');
+            }
+        });
+    });
+
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('select(toSelCatID)', function (data) {
+            //初始化 商品选择下拉列表
+            $("#toSelGoodsID").html("<option value=\"\">直接选择或搜索选择</option>");
+            var seledCatID = data.value;
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/goods/ajaxGetCatGoodsForActivity')}";
+            $.post(
+                toUrl,
+                {seledCatID: seledCatID},
+                function (result) {
+                    if (result.status > 0) {
+                        var replaceHtml = "";
+                        $.each(result.data, function (i, e) {
+                            replaceHtml += " <option title=" + e.goods_name + " value=\"" + e.goods_id + "\">" + e.goods_name + "</option>"
+                        });
+                        $("#toSelGoodsID").append(replaceHtml);
+                        form.render();
+                    } else {
+                        //失败
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
+        });
+        /**
+         * toSelGoodsID 下拉列表触发事件
+         */
+        form.on('select(toSelGoodsID)', function (data) {
+            var indexGID = data.elem.selectedIndex;
+            var goodsID = data.value;
+            var goodsName = data.elem[indexGID].title;
+            var appendStr = "<input type=\"checkbox\" name=\"aGoods[]\" value=\"" + goodsID + "\" lay-skin=\"primary\"\n" +
+                "                   title=\"" + goodsName + "\" checked=\"\">";
+            $(".div-actGoods").append(appendStr);
+            form.render();
+        });
+    });
+
+</script>
+{/block}
+
+
+
+

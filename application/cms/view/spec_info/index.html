@@ -9,9 +9,9 @@
 </div>
 <div class="layui-inline layui-form">
     <form class="form-search " action="{:url('cms/specInfo/index')}" method="get">
-        <div class="layui-input-inline" style="width: 100px">
-            <select id="toSelCatID" lay-filter="toSelCatID" name="catID">
-                <option value="">选择分类</option>
+        <div class="layui-input-inline" style="width: 160px">
+            <select id="toSelCatID" lay-filter="toSelCatID" lay-verify="required" lay-search="" name="catID">
+                <option value="">选择分类或搜索</option>
                 {volist name="categoryList" id="cl"}
                 <option value="{$cl.cat_id}" {$catID==$cl.cat_id?"selected":""}>{$cl.cat_name}</option>
                 {/volist}
@@ -21,7 +21,7 @@
         <div class="layui-input-inline">
             <select id="toSelSpecFst" lay-filter="toSelSpecFst" name="specFstID"
                     lay-verify="required" lay-search="">
-                <option value="">直接选择或搜索选择</option>
+                <option value="">直接选择或搜索</option>
             </select>
         </div>
 
