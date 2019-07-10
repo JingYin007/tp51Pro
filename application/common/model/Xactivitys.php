@@ -93,7 +93,8 @@ class Xactivitys extends BaseModel
     {
         $addData = [
             'title' => isset($data['title']) ? $data['title'] : '',
-            'app_url' => isset($data['app_url']) ? $data['app_url'] : '',
+            'act_url' => isset($data['act_url']) ? $data['act_url'] : '',
+            'act_tag' => isset($data['act_tag']) ? $data['act_tag'] : '',
             'act_img' => isset($data['act_img']) ? $data['act_img'] : '/',
             'list_order' => isset($data['list_order']) ? intval($data['list_order']) : 0,
             'is_show' => isset($data['is_show']) ? 1 : 0,
@@ -130,7 +131,8 @@ class Xactivitys extends BaseModel
         } else {
             $saveData = [
                 'title' => isset($data['title']) ? $data['title'] : '',
-                'app_url' => isset($data['app_url']) ? $data['app_url'] : '',
+                'act_url' => isset($data['act_url']) ? $data['act_url'] : '',
+                'act_tag' => isset($data['act_tag']) ? $data['act_tag'] : '',
                 'act_img' => isset($data['act_img']) ? $data['act_img'] : '/',
                 'list_order' => isset($data['list_order']) ? intval($data['list_order']) : 0,
                 'is_show' => isset($data['is_show']) ? 1 : 0,

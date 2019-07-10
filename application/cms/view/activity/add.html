@@ -22,6 +22,15 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">标识TAG：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="app_tag" required lay-verify="required"
+                   placeholder="请输入唯一标识字符串(建议大写)"
+                   autocomplete="off" class="layui-input input-title-mz">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">关联URL：</label>
         <div class="layui-input-inline">
             <input type="text" name="app_url" required lay-verify="required"
@@ -66,8 +75,7 @@
     <div class="layui-form-item" pane="">
         <label class="layui-form-label">搜索商品:</label>
         <div class="layui-input-inline">
-            <select id="toSelCatID" lay-filter="toSelCatID"
-                    lay-verify="required" lay-search="">
+            <select id="toSelCatID" lay-filter="toSelCatID">
                 <option value="">选择分类</option>
                 {volist name="categoryList" id="cl"}
                 <option value="{$cl.cat_id}">{$cl.cat_name}</option>

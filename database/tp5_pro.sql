@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-09 18:06:13
+Date: 2019-07-10 16:06:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,21 +23,23 @@ CREATE TABLE `tp5_xactivitys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL COMMENT '活动推荐标题 ，可用于产品详情页广告位',
   `act_img` varchar(500) NOT NULL DEFAULT '0' COMMENT '活动图片',
-  `app_url` varchar(100) NOT NULL DEFAULT '0' COMMENT '链接',
+  `act_url` varchar(100) NOT NULL DEFAULT '0' COMMENT '链接',
+  `act_tag` varchar(100) NOT NULL DEFAULT '' COMMENT '唯一标识字符串 建议大写',
   `act_type` smallint(6) NOT NULL DEFAULT '1' COMMENT '活动类型,1：为首页活动  2:其他活动',
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序，数字越大越靠前',
   `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否在 app 首页显示  0：不显示  1：显示',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT 'app前端显示状态 0：正常，-1已删除',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '文章更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `act_tag` (`act_tag`) USING BTREE COMMENT '唯一标识索引'
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='活动表\r\n\r\n一般用于显示app首页上的活动专栏，注意status的规定';
 
 -- ----------------------------
 -- Records of tp5_xactivitys
 -- ----------------------------
-INSERT INTO `tp5_xactivitys` VALUES ('1', '特价商品推荐', '/cms/images/imgOne.png', '这只是一个链接而已，很多种类的...', '2', '1', '1', '0', '2019-07-09 17:46:19');
-INSERT INTO `tp5_xactivitys` VALUES ('2', '春季特惠商品', '/cms/images/imgTwo.png', 'http://www.hello.com/imissyou.html', '1', '2', '0', '0', '2019-07-09 17:46:50');
-INSERT INTO `tp5_xactivitys` VALUES ('3', '生活专区推荐', '/cms/images/imgThree.png', 'page/inded/ssss_des', '1', '3', '1', '0', '2019-07-09 17:56:07');
+INSERT INTO `tp5_xactivitys` VALUES ('1', '特价商品推荐', '/cms/images/imgOne.png', 'page/index/spring.xml', 'TJSPTJ', '2', '1', '1', '0', '2019-07-10 15:59:21');
+INSERT INTO `tp5_xactivitys` VALUES ('2', '春季特惠商品', '/cms/images/imgTwo.png', 'http://www.hello.com/imissyou.html', 'CJTHSPA', '1', '2', '0', '0', '2019-07-10 16:03:16');
+INSERT INTO `tp5_xactivitys` VALUES ('3', '生活专区推荐', '/cms/images/imgThree.png', 'page/index/live', 'SHZQTJA', '1', '3', '1', '0', '2019-07-10 16:00:12');
 
 -- ----------------------------
 -- Table structure for tp5_xact_goods

@@ -26,6 +26,7 @@
         <col width="5%">
         <col width="10%">
         <col width="15%">
+        <col width="10%">
         <col width="15%">
         <col width="10%">
         <col width="10%">
@@ -38,6 +39,7 @@
         <th>ID</th>
         <th>活动标题</th>
         <th>活动配图</th>
+        <th>标识字符串</th>
         <th>关联URL</th>
         <th>活动类型</th>
         <th>更新时间</th>
@@ -52,7 +54,8 @@
         <td>{$vo['id']}</td>
         <td>{$vo['title']}</td>
         <td class="td-activity"><img src="{$vo['act_img']}"></td>
-        <td>{$vo['app_url']}</td>
+        <td>{$vo['act_tag']}</td>
+        <td>{$vo['act_url']}</td>
         <td>{php} echo $vo['type_tip']{/php}</td>
         <td>{$vo['updated_at']}</td>
         <td>
