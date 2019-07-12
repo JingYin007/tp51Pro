@@ -28,7 +28,6 @@
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="multiple-img-upload">多图片上传</button>
             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                预览：
                 <div class="layui-upload-list" id="div-multiple-img-upload-preview">
                     {volist name="$good.arr_slide_show" id="slide"}
                     <img src="{$slide.picture}" alt="{$slide.picture}" title="点击删除"
@@ -38,6 +37,15 @@
                     {/volist}
                 </div>
             </blockquote>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">提示语：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="tip_word" required lay-verify="required"
+                   value="{$good['tip_word']}"
+                   placeholder="请输入购买提示语，一句话为宜" autocomplete="off" class="layui-input input-title-mz">
         </div>
     </div>
 
@@ -90,7 +98,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所属分类：</label>
         <div class="layui-input-inline">
-            <select id="toSelCatID" lay-filter="toSelCatID" name="cat_id" lay-verify="required">
+            <select id="toSelCatID" lay-filter="toSelCatID" lay-search="" name="cat_id" lay-verify="required">
                 <option value="{$good['cat_id']}">{$good['cat_name']}</option>
                 {volist name="categoryList" id="vo"}
                 {if($vo['cat_id'] != $good['cat_id'] && $vo['cat_id']!=$good['cat_id'])}
@@ -127,9 +135,11 @@
         </table>
 
         <button type="button" class="layui-btn layui-btn-danger">销售规格：</button>
+
         <table class="layui-table" lay-size="sm">
             <colgroup>
                 <col width="150">
+                <col width="200">
                 <col width="100">
                 <col width="100">
                 <col width="100">
@@ -137,19 +147,34 @@
             <thead>
             <tr class="tr-specInfo-key">
                 <th>规格信息</th>
+                <th>规格配图</th>
                 <th>销售价格</th>
                 <th>库存量(件)</th>
                 <th>已售量(件)</th>
             </tr>
             </thead>
             <tbody class="tbody-specInfo-msg">
-            {volist name="good.sku_arr" id="sku"}
+            {volist name="good.sku_arr" id="sku" empty="(暂时没有数据)"}
             <tr>
                 <td>{$sku.spec_name}
                     <input type="hidden" name="sku_arr[{$sku.spec_info}][spec_id]"
                            value="{$sku.spec_info}">
                     <input type="hidden" name="sku_arr[{$sku.spec_info}][spec_name]"
                            value="{$sku.spec_name}">
+                </td>
+                <td>
+                    <div class="layui-upload layui-input-inline">
+                        <button type="button" class="layui-btn btn_sku_upload_img"
+                         lay-data="{sku_index:{$i}}">
+                            <i class="layui-icon">&#xe67c;</i>
+                        </button>
+                        <img class="layui-upload-img sku-img-upload-preview-{$i}
+                             img-upload-preview-medium img-upload-view"
+                             src="{$sku.sku_img}">
+                        <input type="hidden" class="input-sku-img-{$i}"
+                               name="sku_arr[{$sku.spec_info}][sku_img]"
+                               value="{$sku.sku_img}" required="" class="layui-input">
+                    </div>
                 </td>
                 <td>
                     <input type="number" name="sku_arr[{$sku.spec_info}][selling_price]"
@@ -184,6 +209,7 @@
         <div class="layui-input-block div-article-content">
             <script id="ue-container" name="details" type="text/plain">
                     {php}echo htmlspecialchars_decode($good['details']);{/php}
+
             </script>
         </div>
     </div>

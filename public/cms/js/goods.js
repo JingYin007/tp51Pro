@@ -122,6 +122,20 @@ function goToMakeSaleGoodsMsg(arrSpecFull) {
             "<input type='hidden' name=\"sku_arr[" + e.spec_id + "][spec_id]\" value='" + e.spec_id + "'>" +
             "<input type='hidden' name=\"sku_arr[" + e.spec_id + "][spec_name]\" value='" + e.spec_name + "'>" +
             "                </td>\n" +
+            "<td>\n" +
+            "                    <div class=\"layui-upload layui-input-inline\">\n" +
+            "                        <button type=\"button\" class=\"layui-btn btn_sku_upload_img\"\n" +
+            "                         lay-data=\"{sku_index:"+i+"}\">\n" +
+            "                            <i class=\"layui-icon\">&#xe67c;新</i>\n" +
+            "                        </button>\n" +
+            "                        <img class=\"layui-upload-img sku-img-upload-preview-"+ i +" img-upload-preview-medium img-upload-view\"\n" +
+            "                             src=\"\">\n" +
+            "                        <input type=\"hidden\" class=\"input-sku-img-"+ i +"\"\n" +
+            "                               name=\"sku_arr["+ e.spec_id + "][sku_img]\"\n" +
+            "                               value=\"\" required=\"\" class=\"layui-input\">\n" +
+            "                    </div>\n" +
+            "                </td>"+
+
             "                <td>\n" +
             "                    <input type=\"number\" name=\"sku_arr[" + e.spec_id + "][selling_price]\"\n" +
             "                           value=\"0.00\" required class=\"layui-input\">\n" +
@@ -136,6 +150,36 @@ function goToMakeSaleGoodsMsg(arrSpecFull) {
             "                </td>\n" +
             "            </tr>";
         $(".tbody-specInfo-msg").append(eachHtml);
+    });
+    layui.use(['form', 'upload'], function() {
+        var upload = layui.upload;
+        upload.render({
+            elem: '.btn_sku_upload_img'
+            , type: 'images'
+            , exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
+            //,auto:false //选择图片后是否直接上传
+            ,accept:'images' //上传文件类型
+            , url: '/api/upload/img_file'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                var sku_index = this.sku_index;
+                obj.preview(function (index, file, result) {
+                    $('.sku-img-upload-preview-'+sku_index).attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                dialog.tip(res.message);
+                //如果上传成功
+                if (res.status == 1) {
+                    var sku_index = this.sku_index;
+                    $('.input-sku-img-'+sku_index).val(res.data.url);
+                }
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                return layer.msg('上传失败,请重新上传');
+            }
+        });
     });
     //console.log('attr_info_json',JSON.stringify(arrSpecFull));
     $(".attr_info").val(JSON.stringify(arrSpecFull));
@@ -313,7 +357,7 @@ function goToAjax_del_upload_img(toUrl,this_img) {
 
 layui.use('upload', function () {
     var upload = layui.upload;
-    //普通图片上传
+    //商品缩略图片上传
     var uploadInst = upload.render({
         elem: '.btn_upload_img'
         , type: 'images'
@@ -362,6 +406,35 @@ layui.use('upload', function () {
             } else {
                 dialog.tip(res.message);
             }
+        }
+    });
+
+    //sku 商品单一图片上传
+    upload.render({
+        elem: '.btn_sku_upload_img'
+        , type: 'images'
+        , exts: 'jpg|png|gif' //设置一些后缀，用于演示前端验证和后端的验证
+        //,auto:false //选择图片后是否直接上传
+        ,accept:'images' //上传文件类型
+        , url: '/api/upload/img_file'
+        , before: function (obj) {
+            //预读本地文件示例，不支持ie8
+            var sku_index = this.sku_index;
+            obj.preview(function (index, file, result) {
+                $('.sku-img-upload-preview-'+sku_index).attr('src', result); //图片链接（base64）
+            });
+        }
+        , done: function (res) {
+            dialog.tip(res.message);
+            //如果上传成功
+            if (res.status == 1) {
+                var sku_index = this.sku_index;
+                $('.input-sku-img-'+sku_index).val(res.data.url);
+            }
+        }
+        , error: function () {
+            //演示失败状态，并实现重传
+            return layer.msg('上传失败,请重新上传');
         }
     });
 });

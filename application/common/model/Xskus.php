@@ -25,6 +25,7 @@ class Xskus extends BaseModel
             if ($value) {
                 $spec_info = isset($value['spec_id']) ? $value['spec_id'] : '';
                 $spec_name = isset($value['spec_name']) ? $value['spec_name'] : '';
+                $sku_img = isset($value['sku_img']) ? $value['sku_img'] : '';
                 $selling_price = isset($value['selling_price']) ? $value['selling_price'] : '0.00';
                 $stock = isset($value['stock']) ? intval($value['stock']) : 0;
                 $sold_num = isset($value['sold_num']) ? intval($value['sold_num']) : 0;
@@ -37,6 +38,7 @@ class Xskus extends BaseModel
                         ->where([['spec_info', '=', $spec_info], ['goods_id', '=', $goodsID]])
                         ->update([
                             'status' => 0,
+                            'sku_img' => $sku_img,
                             'selling_price' => $selling_price,
                             'stock' => $stock,
                             'sold_num' => $sold_num,
@@ -45,6 +47,7 @@ class Xskus extends BaseModel
                     $this->insert([
                         'goods_id' => $goodsID,
                         'spec_info' => $spec_info,
+                        'sku_img' => $sku_img,
                         'spec_name' => $spec_name,
                         'selling_price' => $selling_price,
                         'stock' => $stock,
