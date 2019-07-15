@@ -39,7 +39,7 @@ class Xactivitys extends BaseModel
     }
 
     /**
-     * 获取 符合条件的 菜单数量
+     * 获取 符合条件的 活动数量
      * @param null $search
      * @return int|string
      */
@@ -54,7 +54,7 @@ class Xactivitys extends BaseModel
     }
 
     /**
-     * 分页获取 菜单数据
+     * 分页获取 活动数据
      * @param $curr_page
      * @param $limit
      * @param null $search
@@ -85,7 +85,7 @@ class Xactivitys extends BaseModel
     }
 
     /**
-     * 添加菜单数据
+     * 添加活动数据
      * @param $data
      * @return array
      */
@@ -114,7 +114,7 @@ class Xactivitys extends BaseModel
     }
 
     /**
-     * 更新菜单数据
+     * 更新活动数据
      * @param $id
      * @param $data
      * @return array
