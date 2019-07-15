@@ -22,7 +22,7 @@ class Activity extends CmsBase
     }
 
     /**
-     * 菜单导航列表页
+     * 商品活动列表页
      * @param Request $request
      * @return \think\response\View
      */
@@ -55,7 +55,7 @@ class Activity extends CmsBase
     }
 
     /**
-     * 增加新导航标题 功能
+     * 增加新活动标题 功能
      * @param Request $request
      * @return \think\response\View|void
      */
@@ -72,7 +72,7 @@ class Activity extends CmsBase
     }
 
     /**
-     * 编辑导航菜单数据
+     * 编辑活动数据
      * @param Request $request
      * @param $id 菜单ID
      * @return \think\response\View|void
