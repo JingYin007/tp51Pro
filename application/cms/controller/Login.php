@@ -7,6 +7,11 @@ use app\common\model\XnavMenus;
 use think\facade\Session;
 use think\Request;
 
+/**
+ * 登录管理类
+ * Class Login
+ * @package app\cms\Controller
+ */
 class Login
 {
     protected $adminModel;

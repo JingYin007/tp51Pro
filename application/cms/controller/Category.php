@@ -7,29 +7,11 @@ use app\common\model\Xcategorys;
 use think\Request;
 use think\Db;
 
-//
-//                                   _ooOoo_
-//                                  o8888888o
-//                                  88" . "88
-//                                  (| -_- |)
-//                                  0\  =  /0
-//                                ___/'---'\___
-//                              .' \\|     |// '.
-//                             / \\|||  :  |||// \
-//                            / _||||| -:- |||||- \
-//                           |    | \\\ - /// |    \
-//                           | .-\  ''\---/''  /-. |
-//                           \ . -\___ '-' ___/- . /
-//                         ___'. .'   /--.--\  '. .'___
-//                       /."" '< '.___\_<|>_/___.' >' "".\
-//                      | | :  `- \'.;'\ _ /';.'/ -`  : | |
-//                      \  \ '_.   \_ __\ /__ _/   .-` /  /
-//                  =====`-.____`.___ \_____/ ___.-`___.-'=====
-//                                   '=-----='
-//                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//                            佛祖保佑        永无Bug
-//
-
+/**
+ * 商品分类
+ * Class Category
+ * @package app\cms\Controller
+ */
 class Category extends CmsBase
 {
     protected $model;
@@ -43,7 +25,7 @@ class Category extends CmsBase
     }
 
     /**
-     * 获取文章列表数据
+     * 获取商品分类列表数据
      * @param Request $request
      * @return \think\response\View
      */
@@ -101,7 +83,7 @@ class Category extends CmsBase
     }
 
     /**
-     * 更新文章数据
+     * 更新分类数据
      * @param Request $request
      * @param $id 文章ID
      * @return \think\response\View|void

@@ -7,6 +7,11 @@ use app\common\model\XnavMenus;
 use think\facade\Session;
 use think\Request;
 
+/**
+ * 菜单导航类
+ * Class NavMenu
+ * @package app\cms\Controller
+ */
 class NavMenu extends CmsBase
 {
     protected $menuModel;

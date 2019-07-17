@@ -7,6 +7,11 @@ use app\common\model\Xcategorys;
 use app\common\model\Xgoods;
 use think\Request;
 
+/**
+ * 商品操作类
+ * Class Goods
+ * @package app\cms\Controller
+ */
 class Goods extends CmsBase
 {
     protected $model;
@@ -50,6 +55,7 @@ class Goods extends CmsBase
     }
 
     /**
+     * 分页获取数据
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request)
@@ -69,7 +75,7 @@ class Goods extends CmsBase
     }
 
     /**
-     * 添加文章
+     * 添加商品
      * @param Request $request
      * @return \think\response\View|void
      */
@@ -86,7 +92,7 @@ class Goods extends CmsBase
     }
 
     /**
-     * 更新文章数据
+     * 更新商品数据
      * @param Request $request
      * @param $id 文章ID
      * @return \think\response\View|void

@@ -8,6 +8,11 @@ use app\common\model\XspecInfos;
 use think\Request;
 use think\Db;
 
+/**
+ * 属性类
+ * Class SpecInfo
+ * @package app\cms\Controller
+ */
 class SpecInfo extends CmsBase
 {
     protected $model;
@@ -48,6 +53,7 @@ class SpecInfo extends CmsBase
     }
 
     /**
+     * 分页获取数据
      * @param Request $request
      */
     public function ajaxOpForPage(Request $request)
