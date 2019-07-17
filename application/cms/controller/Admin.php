@@ -8,6 +8,11 @@ use app\common\model\Xadmins;
 use app\common\model\XnavMenus;
 use think\Request;
 
+/**
+ * 后台管理员
+ * Class Admin
+ * @package app\cms\Controller
+ */
 class Admin extends CmsBase
 {
     protected $model;

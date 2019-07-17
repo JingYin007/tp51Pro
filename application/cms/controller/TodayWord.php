@@ -6,6 +6,11 @@ use app\common\controller\CmsBase;
 use app\common\model\XtodayWords;
 use think\Request;
 
+/**
+ * 今日赠言类
+ * Class TodayWord
+ * @package app\cms\Controller
+ */
 class TodayWord extends CmsBase
 {
     protected $model;

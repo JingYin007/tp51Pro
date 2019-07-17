@@ -13,6 +13,11 @@ use app\common\controller\CmsBase;
 use app\common\model\Xusers;
 use think\Request;
 
+/**
+ * 用户管理类
+ * Class Users
+ * @package app\cms\Controller
+ */
 class Users extends CmsBase
 {
     protected $model;

@@ -7,6 +7,11 @@ use app\common\model\Xactivitys;
 use app\common\model\Xcategorys;
 use think\Request;
 
+/**
+ * 产品活动类
+ * Class Activity
+ * @package app\cms\Controller
+ */
 class Activity extends CmsBase
 {
     private $actModel;

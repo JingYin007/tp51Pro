@@ -6,6 +6,11 @@ use app\common\controller\CmsBase;
 use app\common\model\Xarticles;
 use think\Request;
 
+/**
+ * 文章管理类
+ * Class Article
+ * @package app\cms\Controller
+ */
 class Article extends CmsBase
 {
     protected $model;
