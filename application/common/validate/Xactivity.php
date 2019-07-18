@@ -37,6 +37,7 @@ class Xactivity extends Validate
      */
     protected $scene = [
         'default' => ['title', 'act_img', 'act_url', 'act_tag'],
+        'update' => ['title', 'act_img', 'act_url'],
         'token' => ['__token__'],
     ];
 }

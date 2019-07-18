@@ -139,7 +139,7 @@ class Xactivitys extends BaseModel
                 'act_type' => isset($data['act_type']) ? $data['act_type'] : 2,
             ];
             $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
-            $validateRes = $this->validate($this->validate, $saveData, $tokenData);
+            $validateRes = $this->validate($this->validate, $saveData, $tokenData,'update');
             if ($validateRes['tag']) {
                 $this
                     ->where('id', $id)
