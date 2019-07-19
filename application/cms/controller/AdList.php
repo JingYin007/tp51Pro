@@ -34,7 +34,7 @@ class AdList extends CmsBase
         $list = $this->adModel->getAdsForPage(1,$this->page_limit,$search);
         return view('index',
             [
-                'acts' => $list,
+                'ads' => $list,
                 'search' => $search,
                 'record_num' => $record_num,
                 'page_limit' => $this->page_limit,
@@ -86,7 +86,7 @@ class AdList extends CmsBase
             return showMsg($opRes['tag'],$opRes['message']);
         }else{
             return view('edit',[
-                'actData'   => $actData,
+                'adData'   => $actData,
             ]);
         }
     }

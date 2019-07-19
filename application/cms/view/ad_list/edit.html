@@ -5,7 +5,7 @@
         <label class="layui-form-label">广告标题：</label>
         <div class="layui-input-inline">
             <input type="text" name="ad_name" required lay-verify="required"
-                   value="{$actData['ad_name']}"
+                   value="{$adData['ad_name']}"
                    placeholder="请输入广告标题" autocomplete="off" class="layui-input input-title-mz">
         </div>
     </div>
@@ -16,8 +16,8 @@
                 <i class="layui-icon">&#xe67c;</i>上传配图
             </button>
             <img class="layui-upload-img img-upload-preview-medium img-upload-icon"
-                 src="{$actData['original_img']}">
-            <input type="hidden" name="original_img" class="upload-icon" value="{$actData['original_img']}">
+                 src="{$adData['original_img']}">
+            <input type="hidden" name="original_img" class="upload-icon" value="{$adData['original_img']}">
         </div>
     </div>
 
@@ -26,7 +26,7 @@
         <div class="layui-input-inline">
             <input type="text" name="ad_tag" required lay-verify="required"
                    placeholder="唯一标识字符串(建议大写)"
-                   value="{$actData['ad_tag']}"
+                   value="{$adData['ad_tag']}"
                    autocomplete="off" class="layui-input input-title-mz">
         </div>
     </div>
@@ -36,7 +36,7 @@
         <div class="layui-input-inline">
             <input type="text" name="ad_url" required lay-verify="required"
                    placeholder="请输入AD活动图对应路径"
-                   value="{$actData['ad_url']}"
+                   value="{$adData['ad_url']}"
                    autocomplete="off" class="layui-input input-title-mz">
         </div>
     </div>
@@ -45,9 +45,9 @@
         <label class="layui-form-label">广告类型：</label>
         <div class="layui-input-inline">
             <select name="ad_type" lay-verify="required">
-                <option value="0" {eq name="actData:ad_type" value="0" }selected{/eq} >首页幻灯片</option>
-                <option value="1" {eq name="actData:ad_type" value="1" }selected{/eq} >首页倒计时</option>
-                <option value="2" {eq name="actData:ad_type" value="2" }selected{/eq} >其他类型</option>
+                <option value="0" {eq name="adData:ad_type" value="0" }selected{/eq} >首页幻灯片</option>
+                <option value="1" {eq name="adData:ad_type" value="1" }selected{/eq} >首页倒计时</option>
+                <option value="2" {eq name="adData:ad_type" value="2" }selected{/eq} >其他类型</option>
             </select>
         </div>
     </div>
@@ -57,14 +57,14 @@
             <label class="layui-form-label">开始时间：</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="startTime"
-                       name="start_time" value="{$actData.start_time}" placeholder="yyyy-MM-dd HH:mm:ss">
+                       name="start_time" value="{$adData.start_time}" placeholder="yyyy-MM-dd HH:mm:ss">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">结束时间</label>
             <div class="layui-input-inline">
                 <input type="text" class="layui-input" id="endTime"
-                       name="end_time" value="{$actData.end_time}" placeholder="yyyy-MM-dd HH:mm:ss">
+                       name="end_time" value="{$adData.end_time}" placeholder="yyyy-MM-dd HH:mm:ss">
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">前端显示：</label>
         <div class="layui-input-block">
-            <input type="checkbox" {$actData['is_show']==1?"checked":""} name="is_show"
+            <input type="checkbox" {$adData['is_show']==1?"checked":""} name="is_show"
             lay-skin="switch" lay-filter="switchTest" lay-text="显示|隐藏">
         </div>
     </div>
@@ -81,17 +81,17 @@
         <label class="layui-form-label">排序：</label>
         <div class="layui-input-inline">
             <input type="number" name="list_order"
-                   value="{$actData['list_order']}" required lay-verify="required"
+                   value="{$adData['list_order']}" required lay-verify="required"
                    placeholder="" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">(数字越大，排序越靠前)</div>
     </div>
 
-    <input type="hidden" name="id" value="{$actData['id']}">
+    <input type="hidden" name="id" value="{$adData['id']}">
     {:token()}
     <div class="layui-form-item">
         <div class="layui-input-block div-form-op">
-            <button class="layui-btn" type="button" onclick="editAdvertisement({$actData['id']})">提交</button>
+            <button class="layui-btn" type="button" onclick="editAdvertisement({$adData['id']})">提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">放弃</button>
         </div>
     </div>
