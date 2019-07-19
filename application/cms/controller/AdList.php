@@ -6,6 +6,11 @@ use app\common\controller\CmsBase;
 use app\common\model\XadLists;
 use think\Request;
 
+/**
+ * 广告管理处理类
+ * Class AdList
+ * @package app\cms\Controller
+ */
 class AdList extends CmsBase
 {
     private $adModel;
@@ -19,7 +24,7 @@ class AdList extends CmsBase
     }
 
     /**
-     * 菜单导航列表页
+     * 广告列表页
      * @param Request $request
      * @return \think\response\View
      */
@@ -52,7 +57,7 @@ class AdList extends CmsBase
     }
 
     /**
-     * 增加新导航标题 功能
+     * 增加广告功能
      * @param Request $request
      * @return \think\response\View|void
      */
@@ -67,16 +72,15 @@ class AdList extends CmsBase
     }
 
     /**
-     * 编辑导航菜单数据
+     * 编辑数据
      * @param Request $request
-     * @param $id 菜单ID
+     * @param $id 广告ID
      * @return \think\response\View|void
      */
     public function edit(Request $request,$id){
         if($id == 0) $id = $request->param('id');
         $actData = $this->adModel->getAdByID($id);
         if ($request->isPost()){
-            //TODO 修改对应的菜单
             $input = $request->post();
             $opRes = $this->adModel->editAdvertisement($input['id'],$input);
             return showMsg($opRes['tag'],$opRes['message']);
