@@ -9,7 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 /**
- * 前台页面
+ * 前台页面  仅作简单展示
  */
 Route::get('/','index/index/index');
 Route::get('article/:id','index/index/article');
@@ -19,7 +19,6 @@ Route::get('/index/contact','index/index/contact');
 /**
  * 后台 CMS配置
  */
-
 Route::rule('cmsx','cms/index/index');
 Route::get('cms/index/index','cms/index/index');
 Route::get('cms/home','cms/index/home');
@@ -61,10 +60,10 @@ Route::any('cms/login/logout','cms/login/logout');
 Route::post('cms/login/ajaxLogin','cms/login/ajaxLogin');
 Route::post('cms/login/ajaxCheckLoginStatus','cms/login/ajaxCheckLoginStatus');
 
+
 /**
  * 网站业务
  */
-
 //分类管理
 Route::get('cms/category/index','cms/category/index');
 Route::any('cms/category/add','cms/category/add');
@@ -117,6 +116,7 @@ Route::post('cms/users/ajaxUpdateUserStatus','cms/users/ajaxUpdateUserStatus');
  */
 Route::post('api/upload/img_file','api/upload/img_file');
 Route::any('api/upload/test','api/upload/test');
+
 
 /**
  * Uni API 接口类，用于 uniApp 开发学习
