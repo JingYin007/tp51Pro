@@ -96,6 +96,13 @@ Route::any('cms/activity/edit/:id','cms/activity/edit');
 Route::post('cms/activity/ajaxOpForPage','cms/activity/ajaxOpForPage');
 Route::post('cms/activity/ajaxForShow','cms/activity/ajaxForShow');
 
+//广告管理
+Route::any('cms/adList/index','cms/adList/index');
+Route::any('cms/adList/add','cms/adList/add');
+Route::any('cms/adList/edit/:id','cms/adList/edit');
+Route::post('cms/adList/ajaxOpForPage','cms/adList/ajaxOpForPage');
+Route::post('cms/adList/ajaxForShow','cms/adList/ajaxForShow');
+
 //用户管理
 Route::get('cms/users/index','cms/users/index');
 Route::post('cms/users/ajaxOpForPage','cms/users/ajaxOpForPage');

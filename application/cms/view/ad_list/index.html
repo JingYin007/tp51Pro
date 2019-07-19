@@ -1,0 +1,181 @@
+{extend name="layouts/cms"}
+
+{block name="body-content"}
+
+<button class="layui-btn layui-btn-normal"
+        onclick="addAdvertisement()">
+    <i class="layui-icon">&#xe608;</i> 添加广告
+</button>
+<div class="layui-inline">
+    <div class="layui-input-inline">
+        <form class="form-search" action="{:url('cms/adList/index')}" method="get">
+            <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
+            <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
+            <input type="hidden" name="curr_page" class="curr_page" value="1">
+            <input type="text" value="{$search}" name="str_search" placeholder="请输入标题或标识字符"
+                   class="layui-input search_input">
+        </form>
+    </div>
+    <button class="layui-btn-warm btn-search-mz">
+        <i class="layui-icon">&#xe615;</i>
+    </button>
+</div>
+
+<table class="layui-table table-body" lay-even="" lay-skin="row">
+    <colgroup>
+        <col width="5%">
+        <col width="8%">
+        <col width="15%">
+        <col width="8%">
+        <col width="18%">
+        <col width="16%">
+        <col width="10%">
+        <col width="10%">
+        <col width="5%">
+        <col width="10%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>标题</th>
+        <th>配图</th>
+        <th>标识</th>
+        <th>关联URL</th>
+        <th>起始 —— 结束</th>
+        <th>广告类型</th>
+        <th>前端显示</th>
+        <th>排序</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody class="tbody-activitys layui-form">
+    {volist name="acts" id="vo"}
+    <tr class="tr-act-{$vo['id']}">
+        <td>{$vo['id']}</td>
+        <td>{$vo['ad_name']}</td>
+        <td class="td-activity"><img src="{$vo['original_img']}"></td>
+        <td>{$vo['ad_tag']}</td>
+        <td>{$vo['ad_url']}</td>
+        <td>{$vo['start_time']}<hr/>{$vo.end_time}</td>
+        <td>{php} echo $vo['type_tip']{/php}</td>
+        <td>
+            <input type="checkbox" class="switch_checked" lay-filter="switchActID"
+                   switch_act_id="{$vo['id']}" {$vo['status_checked']}
+            lay-skin="switch" lay-text="显示|隐藏">
+        </td>
+        <td>{$vo['list_order']}</td>
+        <td>
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm"
+                        onclick="editAdvertisement('{$vo['id']}')">
+                    <i class="layui-icon">&#xe642;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm"
+                        onclick="delAdvertisement('{$vo['id']}')">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+</table>
+<div id="demo2-1"></div>
+<style>
+    .layui-table img {
+        max-width: 80%;
+    }
+</style>
+{/block}
+
+{block name="single-content"}
+<script src="__CMS__/js/adlists.js"></script>
+<script src="__CMS__/js/moZhang.js"></script>
+<script>
+    //根据广告ID 删除记录
+    function delAdvertisement(id) {
+        var toUrl = "{:url('cms/adList/edit',['id'=>'AID'])}";
+        toUrl = toUrl.replace('AID', id);
+        ToDelItem(id, toUrl, '.tr-act-' + id);
+    }
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage;
+        var page_limit = $(".page_limit").val();
+        var record_num = $(".record_num").val();
+        laypage.render({
+            elem: 'demo2-1'
+            , limit: page_limit
+            , count: record_num
+            , layout: ['count', 'prev', 'page', 'next', 'refresh', 'skip']
+            , jump: function (obj, first) {
+                //obj包含了当前分页的所有参数
+                //首次不执行
+                if (!first) {
+                    //layer.msg(obj.curr);
+                    ajaxOpForPage(obj.curr);
+                }
+            }
+            , theme: '#FF5722'
+        });
+    });
+    layui.use(['form'], function () {
+        var form = layui.form;
+        form.on('switch(switchActID)', function (data) {
+            //开关是否开启，true或者false
+            var checked = data.elem.checked;
+            var okStatus = 0;
+            if (checked) {
+                okStatus = 1
+            }
+            //获取所需属性值
+            var switch_act_id = data.elem.attributes['switch_act_id'].nodeValue;
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/adList/ajaxForShow')}";
+            toUrl = toUrl.replace('AID', switch_act_id);
+            $.post(
+                toUrl,
+                {act_id: switch_act_id, okStatus: okStatus},
+                function (result) {
+                    if (result.status > 0) {
+                        data.elem.checked = checked;
+                        form.render();
+                    } else {
+                        //失败
+                        data.elem.checked = !checked;
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
+        });
+    });
+</script>
+<script>
+
+    $(".btn-search-mz").on('click', function () {
+        $(".form-search").submit();
+    });
+
+    //通过ajax 获取分页数据
+    function ajaxOpForPage(curr_page) {
+        var toUrl = "{:url('cms/adList/ajaxOpForPage')}";
+        $(".curr_page").val(curr_page);
+        var postData = $(".form-search").serialize();
+        ToAjaxOpForPageAdvertisement(toUrl, postData);
+    }
+
+    //添加新广告
+    function addAdvertisement() {
+        var toUrl = "{:url('cms/adList/add')}";
+        ToOpenPopups(toUrl, '✚ 添加广告', '55%', '65%');
+    }
+
+    //根据广告ID修改信息
+    function editAdvertisement(id) {
+        var toUrl = "{:url('cms/adList/edit',['id'=>'NMID'])}";
+        toUrl = toUrl.replace("NMID", id);
+        ToOpenPopups(toUrl, '✎ 广告修改', '55%', '65%');
+    }
+
+</script>
+
+{/block}
