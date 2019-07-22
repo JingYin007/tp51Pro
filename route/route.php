@@ -42,6 +42,7 @@ Route::get('cms/article/index','cms/article/index');
 Route::any('cms/article/add','cms/article/add');
 Route::any('cms/article/edit/:id','cms/article/edit');
 Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
+Route::post('cms/article/ajaxForRecommend','cms/article/ajaxForRecommend');
 
 //管理员
 Route::any('cms/admin/index','cms/admin/index');

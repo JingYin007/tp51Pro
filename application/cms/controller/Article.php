@@ -96,4 +96,14 @@ class Article extends CmsBase
             return view('edit', $data);
         }
     }
+
+    /**
+     * ajax 更改文章推荐标记
+     * @param Request $request
+     */
+    public function ajaxForRecommend(Request $request)
+    {
+        $opRes = $this->model->updateForRecommend($request->post('article_id'), $request->post('okStatus'));
+        return showMsg($opRes['tag'], $opRes['message']);
+    }
 }

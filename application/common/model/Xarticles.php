@@ -105,7 +105,7 @@ class Xarticles extends BaseModel
     {
         $res = $this
             ->alias('a')
-            ->field('a.id,title,a.updated_at,status,picture,abstract')
+            ->field('a.id,title,a.updated_at,status,picture,abstract,recommend,a.list_order')
             ->join('xarticle_points ap', 'ap.article_id = a.id')
             ->where("ap.status","<>", -1)
             ->whereLike('a.title', '%' . $search . '%')
@@ -117,6 +117,11 @@ class Xarticles extends BaseModel
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-blue\">正常</span>";
             } else {
                 $res[$key]['status_tip'] = "<span class=\"layui-badge layui-bg-cyan\">隐藏</span>";
+            }
+            if ($v['recommend'] == 0) {
+                $res[$key]['status_checked'] = "";
+            } else {
+                $res[$key]['status_checked'] = "checked";
             }
         }
         return $res->toArray();
@@ -235,5 +240,24 @@ class Xarticles extends BaseModel
             $validateRes['message'] = $tag ? '添加成功' : '添加失败';
         }
         return $validateRes;
+    }
+
+    /**
+     * 更改推荐状态
+     * @param int $article_id
+     * @param int $okStatus
+     * @return array
+     */
+    public function updateForRecommend($article_id = 0, $okStatus = 0)
+    {
+        $message = "Success";
+        $article_id = isset($article_id) ? intval($article_id) : 0;
+        $saveTag = Db::name('xarticle_points')
+            ->where('article_id', $article_id)
+            ->update(['recommend' => $okStatus]);
+        if (!$saveTag) {
+            $message = "状态更改失败";
+        }
+        return ['tag' => $saveTag, 'message' => $message];
     }
 }

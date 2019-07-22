@@ -28,6 +28,8 @@
         <col width="10%">
         <col width="30%">
         <col width="10%">
+        <col width="8%">
+        <col width="5%">
         <col width="10%">
         <col width="15%">
     </colgroup>
@@ -38,11 +40,13 @@
         <th>图片</th>
         <th>摘要</th>
         <th>更新时间</th>
+        <th>排序</th>
+        <th>推荐</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
     </thead>
-    <tbody class="tbody-articles">
+    <tbody class="tbody-articles layui-form">
     {volist name="articles" id="vo"}
     <tr class="tr-article-{$vo['id']}">
         <td>{$vo['id']}</td>
@@ -54,6 +58,12 @@
             <p class="p-article-abstract">{$vo['abstract']}</p>
         </td>
         <td>{$vo['updated_at']}</td>
+        <td>{$vo.list_order}</td>
+        <td>
+            <input type="checkbox" class="switch_checked" lay-filter="switchArticleID"
+                   switch_article_id="{$vo['id']}" {$vo['status_checked']}
+            lay-skin="switch" lay-text="推荐|NO">
+        </td>
         <td>{php} echo $vo['status_tip']{/php}</td>
         <td>
             <div class="layui-btn-group">
@@ -78,7 +88,7 @@
 <script src="__CMS__/js/articles.js"></script>
 <script src="__CMS__/js/moZhang.js"></script>
 <script>
-    layui.use(['laypage', 'layer'], function () {
+    layui.use(['laypage','form', 'layer'], function () {
         var laypage = layui.laypage;
         var page_limit = $(".page_limit").val();
         var record_num = $(".record_num").val();
@@ -96,6 +106,33 @@
                 }
             }
             , theme: '#FF5722'
+        });
+        var form = layui.form;
+        form.on('switch(switchArticleID)', function (data) {
+            //开关是否开启，true或者false
+            var checked = data.elem.checked;
+            var okStatus = 0;
+            if (checked) {
+                okStatus = 1
+            }
+            //获取所需属性值
+            var switch_article_id = data.elem.attributes['switch_article_id'].nodeValue;
+            //TODO 此时进行ajax的服务器访问，如果返回数据正常，则进行后面代码的调用
+            var toUrl = "{:url('cms/article/ajaxForRecommend')}";
+            $.post(
+                toUrl,
+                {article_id: switch_article_id, okStatus: okStatus},
+                function (result) {
+                    if (result.status > 0) {
+                        data.elem.checked = checked;
+                        form.render();
+                    } else {
+                        //失败
+                        data.elem.checked = !checked;
+                        form.render();
+                        layer.msg(result.message);
+                    }
+                }, "JSON");
         });
     });
 </script>
