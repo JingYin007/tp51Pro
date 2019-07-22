@@ -23,7 +23,6 @@ function ToAjaxOpForPageArticles(toUrl,postData) {
                         "                <td><input type=\"checkbox\" class=\"switch_checked\" lay-filter=\"switchArticleID\"\n" +
                         "switch_article_id=\""+e.id+"\" lay-skin=\"switch\""+e.status_checked+" lay-text=\"推荐|NO\">"+
                         "                </td>\n" +
-                        "                <td>"+e.updated_at +"</td>\n" +
                         "                <td>" +e.status_tip +"</td>\n" +
                         "                <td>\n" +
                         "                    <div class=\"layui-btn-group\">\n" +
