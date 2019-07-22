@@ -133,7 +133,7 @@ class Xarticles extends BaseModel
             ->alias('a')
             ->field('a.id,title,a.updated_at,status,picture,abstract')
             ->join('xarticle_points ap', 'ap.article_id = a.id')
-            ->where("ap.status", 1)
+            ->where("ap.status","<>", -1)
             ->whereLike('a.title', '%' . $search . '%')
             ->count();
         return $count;
