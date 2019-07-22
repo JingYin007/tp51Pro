@@ -19,6 +19,11 @@ function ToAjaxOpForPageArticles(toUrl,postData) {
                         "                <td class=\"td-article\"><img src='"+e.picture+"'></td>\n" +
                         "                <td> <p class=\"p-article-abstract\">"+e.abstract+"</p></td>\n" +
                         "                <td>"+e.updated_at +"</td>\n" +
+                        "                <td>"+e.list_order +"</td>\n" +
+                        "                <td><input type=\"checkbox\" class=\"switch_checked\" lay-filter=\"switchArticleID\"\n" +
+                        "switch_article_id=\""+e.id+"\" lay-skin=\"switch\""+e.status_checked+" lay-text=\"推荐|NO\">"+
+                        "                </td>\n" +
+                        "                <td>"+e.updated_at +"</td>\n" +
                         "                <td>" +e.status_tip +"</td>\n" +
                         "                <td>\n" +
                         "                    <div class=\"layui-btn-group\">\n" +
@@ -35,6 +40,7 @@ function ToAjaxOpForPageArticles(toUrl,postData) {
                         "            </tr>";
                 });
                 $(".tbody-articles").html(str_html);
+                layui.form.render();//细节！这个好像要渲染一下！
             }else{
                 //失败
                 layer.msg(result.message);
