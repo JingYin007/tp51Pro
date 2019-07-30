@@ -130,6 +130,7 @@ class Xactivitys extends BaseModel
             $validateRes['message'] = $tag ? '删除成功' : '已删除';
         } else {
             $saveData = [
+                'id' => $id,
                 'title' => isset($data['title']) ? $data['title'] : '',
                 'act_url' => isset($data['act_url']) ? $data['act_url'] : '',
                 'act_tag' => isset($data['act_tag']) ? $data['act_tag'] : '',
