@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-22 16:48:50
+Date: 2019-07-30 19:08:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,8 +30,9 @@ CREATE TABLE `tp5_xactivitys` (
   `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否在 app 首页显示  0：不显示  1：显示',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT 'app前端显示状态 0：正常，-1已删除',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '文章更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `act_tag` (`act_tag`) USING BTREE COMMENT '唯一标识索引'
+  PRIMARY KEY (`id`,`act_tag`),
+  UNIQUE KEY `act_tag` (`act_tag`) USING BTREE COMMENT '唯一标识索引',
+  KEY `select` (`id`,`title`,`act_url`) USING BTREE COMMENT '便于查询'
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='活动表\r\n\r\n一般用于显示app首页上的活动专栏，注意status的规定';
 
 -- ----------------------------
@@ -120,7 +121,7 @@ CREATE TABLE `tp5_xadmin_roles` (
 -- ----------------------------
 -- Records of tp5_xadmin_roles
 -- ----------------------------
-INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|73|4|5|49|48|50|67|61|76|', '2019-07-19 18:16:00', '1');
+INSERT INTO `tp5_xadmin_roles` VALUES ('1', '终级管理员', '1|7|6|2|3|73|4|5|93|49|48|50|67|61|76|', '2019-07-30 18:08:27', '1');
 INSERT INTO `tp5_xadmin_roles` VALUES ('2', '初级管理员', '1|6|2|3|4|5|', '2018-02-11 21:02:43', '1');
 
 -- ----------------------------
@@ -230,6 +231,33 @@ INSERT INTO `tp5_xcategorys` VALUES ('10', '红酒', '4', '1', '1', '-1', '/cms/
 INSERT INTO `tp5_xcategorys` VALUES ('0', '根级分类', '0', '0', '0', '0', '', '');
 
 -- ----------------------------
+-- Table structure for tp5_xconfigs
+-- ----------------------------
+DROP TABLE IF EXISTS `tp5_xconfigs`;
+CREATE TABLE `tp5_xconfigs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID标记',
+  `title` varchar(50) NOT NULL COMMENT '配置项标题',
+  `tag` varchar(50) NOT NULL COMMENT '缩写标签 建议使用大写字母',
+  `value` varchar(100) NOT NULL COMMENT '配置项的 取值',
+  `type` varchar(20) NOT NULL COMMENT '配置项类型，分为 text、number、file、checkbox',
+  `tip` varchar(100) NOT NULL COMMENT '配置项提示信息',
+  `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态  -1：删除  0：正常',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`id`,`tag`),
+  UNIQUE KEY `tag` (`tag`) USING BTREE,
+  KEY `selcct` (`id`,`title`,`tag`) USING BTREE COMMENT '便于查询'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='配置表';
+
+-- ----------------------------
+-- Records of tp5_xconfigs
+-- ----------------------------
+INSERT INTO `tp5_xconfigs` VALUES ('1', '我是一个文本', 'WSWENBEN1', 'XXEERRES', 'text', 'HELLO,不要乱改！', '0', '0', '2019-07-30 18:09:23');
+INSERT INTO `tp5_xconfigs` VALUES ('2', '我是一个开关', 'SWITCHTOYOU', '1', 'checkbox', 'HAHAHA', '0', '0', '2019-07-30 18:13:34');
+INSERT INTO `tp5_xconfigs` VALUES ('3', '我是一个图片', 'TUPIAN1', '/cms/images/icon/goods_manager.png', 'button', '注意图片不要太大', '3', '0', '2019-07-30 18:21:18');
+INSERT INTO `tp5_xconfigs` VALUES ('4', 'VIP会员费用', 'VIP_MONEY', '199', 'text', 'VIP 就是牛!', '-1', '0', '2019-07-30 18:59:31');
+
+-- ----------------------------
 -- Table structure for tp5_xgoods
 -- ----------------------------
 DROP TABLE IF EXISTS `tp5_xgoods`;
@@ -278,7 +306,7 @@ CREATE TABLE `tp5_xnav_menus` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COMMENT='菜单导航表';
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COMMENT='菜单导航表';
 
 -- ----------------------------
 -- Records of tp5_xnav_menus
@@ -340,6 +368,10 @@ INSERT INTO `tp5_xnav_menus` VALUES ('80', 'ajax 首页显示广告状态修改'
 INSERT INTO `tp5_xnav_menus` VALUES ('79', '分页获取广告数据', '76', 'cms/adList/ajaxOpForPage', '/', '1', '0', '2019-07-19 18:11:06', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('78', '广告修改', '76', 'cms/adList/edit', '/', '1', '0', '2019-07-19 18:11:00', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('92', 'ajax 文章推荐操作', '5', 'cms/article/ajaxForRecommend', '/', '1', '0', '2019-07-22 16:22:01', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('93', '配置列表', '3', 'cms/config/index', '/cms/images/icon/cms_config.png', '1', '0', '2019-07-30 18:06:31', '0');
+INSERT INTO `tp5_xnav_menus` VALUES ('94', '添加配置项', '93', 'cms/config/add', '/', '1', '0', '2019-07-26 15:08:38', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('95', '配置项修改', '93', 'cms/config/edit', '/', '1', '0', '2019-07-29 14:30:13', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('96', '分页获取配置项数据', '93', 'cms/config/ajaxOpForConfigsPage', '/', '1', '0', '2019-07-29 18:59:31', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xphotos
