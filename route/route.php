@@ -44,6 +44,12 @@ Route::any('cms/article/edit/:id','cms/article/edit');
 Route::post('cms/article/ajaxOpForPage','cms/article/ajaxOpForPage');
 Route::post('cms/article/ajaxForRecommend','cms/article/ajaxForRecommend');
 
+//配置信息管理
+Route::get('cms/config/index','cms/config/index');
+Route::any('cms/config/add','cms/config/add');
+Route::any('cms/config/edit/:id','cms/config/edit');
+Route::post('cms/config/ajaxOpForConfigsPage','cms/config/ajaxOpForConfigsPage');
+
 //管理员
 Route::any('cms/admin/index','cms/admin/index');
 Route::any('cms/admin/add','cms/admin/add');
