@@ -13,6 +13,11 @@ use app\common\controller\CmsBase;
 use app\common\model\Xconfigs;
 use think\Request;
 
+/**
+ * 配置项管理类
+ * Class Config
+ * @package app\cms\Controller
+ */
 class Config extends CmsBase
 {
     protected $confModel;
@@ -26,7 +31,7 @@ class Config extends CmsBase
     }
 
     /**
-     * 菜单导航列表页
+     * 数据列表页
      * @param Request $request
      * @return \think\response\View
      */
@@ -98,14 +103,5 @@ class Config extends CmsBase
                 'confData'   => $confData,
             ]);
         }
-    }
-
-    /**
-     * ajax 更改首页显示状态
-     * @param Request $request
-     */
-    public function ajaxForShow(Request $request){
-        $opRes = $this->adModel->updateForShow( $request->post('act_id'),$request->post('okStatus'));
-        return showMsg($opRes['tag'],$opRes['message']);
     }
 }

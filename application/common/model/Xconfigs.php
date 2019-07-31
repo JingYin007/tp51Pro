@@ -8,10 +8,9 @@ use think\Db;
 use \think\Model;
 
 /**
- * Created by PhpStorm.
- * User: moTzxx
- * Date: 2018/1/11
- * Time: 16:45
+ * 配置项目model处理类
+ * Class Xconfigs
+ * @package app\common\model
  */
 class Xconfigs extends BaseModel
 {
@@ -90,6 +89,7 @@ class Xconfigs extends BaseModel
      * @param $curr_page
      * @param $limit
      * @param null $search
+     * @param string $type
      * @return array|\PDOStatement|string|\think\Collection
      */
     public function getConfigsForPage($curr_page, $limit, $search = null, $type = 'text')
@@ -203,24 +203,4 @@ class Xconfigs extends BaseModel
         $validateRes['tag'] = $tag;
         return $validateRes;
     }
-
-    /**
-     * 修改首页显示的状态
-     * @param int $act_id
-     * @param int $okStatus
-     * @return array
-     */
-    public function updateForShow($act_id = 0, $okStatus = 0)
-    {
-        $message = "Success";
-        $act_id = isset($act_id) ? intval($act_id) : 0;
-        $saveTag = $this
-            ->where('id', $act_id)
-            ->update(['is_show' => $okStatus]);
-        if (!$saveTag) {
-            $message = "状态更改失败";
-        }
-        return ['tag' => $saveTag, 'message' => $message];
-    }
-
 }
