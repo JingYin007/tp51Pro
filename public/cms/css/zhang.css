@@ -322,3 +322,13 @@
 }
 
 /*-END--------------用于图片上传的预览效果------------------------*/
+
+.span-FF9233 {
+    color: #FF9233;
+}
+.span-7EC0EE {
+    color: #7EC0EE;
+}
+.tbody-configs td {
+    font-weight: bold;
+}
