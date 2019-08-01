@@ -4,6 +4,7 @@ namespace app\cms\controller;
 
 use app\common\model\XnavMenus;
 use app\common\model\Xadmins;
+use think\facade\Cookie;
 use think\facade\Session;
 use think\Request;
 
@@ -23,7 +24,7 @@ class Index
     {
         $this->menuModel = new XnavMenus();
         $this->adminModel = new Xadmins();
-        $this->cmsAID = Session::get('cmsMoTzxxAID');
+        $this->cmsAID = Cookie::get('cmsMoTzxxAID');
         if (!$this->cmsAID) {
             return redirect('cms/login/index');
         }

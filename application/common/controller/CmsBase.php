@@ -10,6 +10,7 @@ namespace app\common\controller;
 
 use app\common\model\Xadmins;
 use think\Db;
+use think\facade\Cookie;
 use think\facade\Session;
 use think\Request;
 
@@ -36,11 +37,11 @@ class CmsBase extends Base
     public function initAuth()
     {
         $authFlag = false;
-        $hasCmsAID = Session::has('cmsMoTzxxAID');
+        $hasCmsAID = Cookie::has('cmsMoTzxxAID');
         if (!$hasCmsAID) {
             $message = "You are offline,please logon again!";
         } else {
-            $cmsAID = Session::get('cmsMoTzxxAID');
+            $cmsAID = Cookie::get('cmsMoTzxxAID');
             //TODO 判断当前用户是否具有此操作权限
             $checkAuth = $this->checkCmsAdminAuth($cmsAID);
             $authFlag = $checkAuth;

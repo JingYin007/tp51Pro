@@ -4,6 +4,7 @@ namespace app\cms\Controller;
 
 use app\common\model\Xadmins;
 use app\common\model\XnavMenus;
+use think\facade\Cookie;
 use think\facade\Session;
 use think\Request;
 
@@ -29,7 +30,7 @@ class Login
      */
     public function index()
     {
-        if (Session::has('cmsMoTzxxAID')) {
+        if (Cookie::has('cmsMoTzxxAID')) {
             return redirect('cms/index/index');
         } else {
             return view('index');
@@ -42,8 +43,8 @@ class Login
      */
     public function logout()
     {
-        if (Session::has('cmsMoTzxxAID')) {
-            Session::delete('cmsMoTzxxAID');
+        if (Cookie::has('cmsMoTzxxAID')) {
+            Cookie::delete('cmsMoTzxxAID');
         }
         return redirect('cms/login/index');
     }
@@ -58,7 +59,7 @@ class Login
             $input = $request->post();
             $tagRes = $this->adminModel->adminLogin($input);
             if ($tagRes['tag']) {
-                Session::set('cmsMoTzxxAID', $tagRes['tag']);
+                Cookie::set('cmsMoTzxxAID', $tagRes['tag']);
             }
             return showMsg($tagRes['tag'], $tagRes['message']);
         } else {
@@ -73,7 +74,7 @@ class Login
     public function ajaxCheckLoginStatus(Request $request)
     {
         if ($request->isPost()) {
-            $cmsAID = Session::get('cmsMoTzxxAID');
+            $cmsAID = Cookie::get('cmsMoTzxxAID');
             $nav_menu_id = $request->param('nav_menu_id');
             //TODO 判断当前菜单是否属于他的权限内
             $checkTag = $this->navMenuModel->checkNavMenuMan($nav_menu_id, $cmsAID);

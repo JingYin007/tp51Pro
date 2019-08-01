@@ -193,11 +193,10 @@ class Xconfigs extends BaseModel
             $validateRes = $this->validate($this->validate, $saveData, $tokenData);
 
             if ($validateRes['tag']) {
-                $this
+                $tag = $this
                     ->where('id', $id)
                     ->update($saveData);
-                $tag = 1;
-                $validateRes['message'] = $tag ? '配置修改成功' : '数据无变动';
+                $validateRes['message'] = $tag ? '配置修改成功' : 'Sorry，数据无变动';
             }
         }
         $validateRes['tag'] = $tag;
