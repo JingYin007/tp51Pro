@@ -30,7 +30,6 @@ class XadList extends Validate
         'ad_url'          =>  'adURL 路径未添加',
         'ad_tag.require'          =>  '标识字符串未添加',
         'start_time.require'    => '开始时间不能为空',
-        'start_time'    => '开始时间不能为空',
         'end_time'  =>  '结束时间不能早于开始时间',
         '__token__'     =>  'Token非法操作或失效',
     ];
