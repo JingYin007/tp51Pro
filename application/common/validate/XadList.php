@@ -16,7 +16,7 @@ class XadList extends Validate
 
     protected $rule = [
         'ad_name'         =>  'require|max:100',
-        'act_img'         =>  'require',
+        'original_img'         =>  'require',
         'ad_url'         =>  'require',
         'ad_tag'         =>  'require',
         'start_time'         =>  'require',
