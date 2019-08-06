@@ -48,13 +48,13 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tbody class="tbody-activitys layui-form">
+    <tbody class="tbody-ads layui-form">
     {volist name="ads" id="vo"}
-    <tr class="tr-act-{$vo['id']}">
+    <tr class="tr-ad-{$vo['id']}">
         <td>{$vo['id']}</td>
         <td>{$vo['ad_name']}</td>
-        <td class="td-activity"><img src="{$vo['original_img']}"></td>
-        <td>{$vo['ad_tag']}</td>
+        <td><img src="{$vo['original_img']}"></td>
+        <td class="td-ad_tag">{$vo['ad_tag']}</td>
         <td>{$vo['ad_url']}</td>
         <td>{$vo['start_time']}<hr/>{$vo.end_time}</td>
         <td>{php} echo $vo['type_tip']{/php}</td>
@@ -67,11 +67,11 @@
         <td>
             <div class="layui-btn-group">
                 <button class="layui-btn layui-btn-sm"
-                        onclick="editAdvertisement('{$vo['id']}')">
+                        onclick="editAdvertisement('{$vo.id}')">
                     <i class="layui-icon">&#xe642;</i>
                 </button>
                 <button class="layui-btn layui-btn-sm"
-                        onclick="delAdvertisement('{$vo['id']}')">
+                        onclick="delAdvertisement('{$vo.id}')">
                     <i class="layui-icon">&#xe640;</i>
                 </button>
             </div>
@@ -85,6 +85,12 @@
     .layui-table img {
         max-width: 80%;
     }
+    .tbody-ads td{
+        font-weight: bold;
+    }
+    .td-ad_tag{
+        color: #7274A7;
+    }
 </style>
 {/block}
 
@@ -96,7 +102,7 @@
     function delAdvertisement(id) {
         var toUrl = "{:url('cms/adList/edit',['id'=>'AID'])}";
         toUrl = toUrl.replace('AID', id);
-        ToDelItem(id, toUrl, '.tr-act-' + id);
+        ToDelItem(id, toUrl, '.tr-ad-' + id);
     }
     layui.use(['laypage', 'layer'], function () {
         var laypage = layui.laypage;

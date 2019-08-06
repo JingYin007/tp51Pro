@@ -16,8 +16,8 @@ function ToAjaxOpForPageAdvertisement(toUrl,postData) {
                         "<tr class=\"tr-act-"+e.id+"\">\n" +
                         "                <td>"+e.id+"</td>\n" +
                         "                <td>"+e.ad_name+"</td>\n" +
-                        "                <td class=\"td-article\"><img src='"+e.original_img+"'></td>\n" +
-                        "                <td>"+e.ad_tag +"</td>\n" +
+                        "                <td><img src='"+e.original_img+"'></td>\n" +
+                        "                <td class=\"td-ad_tag\">"+e.ad_tag +"</td>\n" +
                         "                <td>"+e.ad_url +"</td>\n" +
                         "                <td>"+e.start_time+"<hr/>"+ e.end_time +"</td>\n" +
                         "                <td>"+e.type_tip +"</td>\n" +
@@ -39,7 +39,7 @@ function ToAjaxOpForPageAdvertisement(toUrl,postData) {
                         "                </td>\n" +
                         "            </tr>";
                 });
-                $(".tbody-activitys").html(str_html);
+                $(".tbody-ads").html(str_html);
                 layui.form.render();//细节！这个好像要渲染一下！
             }else{
                 //失败
