@@ -54,7 +54,7 @@
         <td>{$vo['id']}</td>
         <td>{$vo['title']}</td>
         <td class="td-activity"><img src="{$vo['act_img']}"></td>
-        <td>{$vo['act_tag']}</td>
+        <td class="td-act_tag">{$vo['act_tag']}</td>
         <td>{$vo['act_url']}</td>
         <td>{php} echo $vo['type_tip']{/php}</td>
         <td>{$vo['updated_at']}</td>
@@ -84,6 +84,12 @@
 <style>
     .layui-table img {
         max-width: 80%;
+    }
+    .tbody-activitys td{
+        font-weight: bold;
+    }
+    .td-act_tag{
+        color: #ff7800;
     }
 </style>
 {/block}
