@@ -5,6 +5,7 @@
         <label class="layui-form-label">管理昵称：</label>
         <div class="layui-input-inline">
             <input type="text" name="user_name" required lay-verify="required"
+                   value="{$admin['user_name']}"
                    placeholder="请输入昵称" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">请十个字以内</div>
@@ -16,25 +17,25 @@
                 <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
             <img class="layui-upload-img img-upload-preview-headshot layui-circle"
-                 src="__CMS__/images/headshot/baZhaHei.png">
+                 src="{$admin['picture']}">
         </div>
     </div>
     <input type="hidden" name="picture" class="menu-icon"
-           value="__CMS__/images/headshot/baZhaHei.png">
+           value="{$admin['picture']}">
 
 
     <div class="layui-form-item">
         <label class="layui-form-label">设置密码：</label>
         <div class="layui-input-inline">
-            <input type="password" name="password" required lay-verify="required"
-                   placeholder="请输入密码" autocomplete="off" class="layui-input input-pwd">
+            <input type="password" name="password"
+                   placeholder="输入即代表进行修改" autocomplete="off" class="layui-input input-pwd">
         </div>
         <div class="layui-form-mid layui-word-aux">尽量字母、数字拼套</div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">确认密码：</label>
         <div class="layui-input-inline">
-            <input type="password" required lay-verify="required"
+            <input type="password"
                    placeholder="请确认密码" autocomplete="off" class="layui-input input-pwd-re">
         </div>
         <span class="layui-badge-dot span-dot"></span>
@@ -47,8 +48,11 @@
         <label class="layui-form-label">角色选择：</label>
         <div class="layui-input-block">
             <select name="role_id" lay-verify="required">
+                <option value="{$admin['role_id']}">{$admin['role_name']}</option>
                 {volist name="adminRoles" id="vo"}
+                {if($vo['id']!=$admin['role_id'])}
                 <option value="{$vo['id']}">{$vo['user_name']}</option>
+                {/if}
                 {/volist}
             </select>
         </div>
@@ -56,8 +60,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <input type="radio" name="status" value="1" title="正常" checked>
-            <input type="radio" name="status" value="-1" disabled="" title="无效">
+            <input type="radio" name="status" value="1" title="正常"
+                   {if ($admin['status'] == 1)}
+            checked
+            {/if}>
+            <input type="radio" name="status" value="-1" title="无效"
+                   {if ($admin['status'] == -1)}
+            checked
+            {/if};>
         </div>
     </div>
 
@@ -65,14 +75,14 @@
         <label class="layui-form-label">备注信息：</label>
         <div class="layui-input-block">
                 <textarea placeholder="请输入内容" name="content" required
-                          lay-verify="required" class="layui-textarea"></textarea>
+                          lay-verify="required" class="layui-textarea">{$admin['content']}</textarea>
         </div>
     </div>
     {:token()}
     <div class="layui-form-item">
         <div class="layui-input-block div-form-op">
-            <button class="layui-btn" type="button" onclick="addNewAdmin()"
-                    lay-submit lay-filter="formDemo">添加
+            <button class="layui-btn" type="button" onclick="editAdmin({$admin['id']})"
+                    lay-submit lay-filter="formDemo">提交
             </button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
@@ -85,9 +95,10 @@
 <script src="__CMS__/js/moZhang.js"></script>
 <script>
 
-    function addNewAdmin() {
+    function editAdmin(id) {
         var postData = $(".form-opAdmins").serialize();
-        var toUrl = "{:url('cms/admin/add')}";
+        var toUrl = "{:url('cms/admin/editAdmin',['id'=>'AdminID'])}";
+        toUrl = toUrl.replace('AdminID', id);
         ToPostPopupsDeal(toUrl, postData);
     }
 
@@ -125,7 +136,3 @@
     });
 </script>
 {/block}
-
-
-
-

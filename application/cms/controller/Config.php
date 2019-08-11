@@ -6,7 +6,7 @@
  * Time: 18:34
  */
 
-namespace app\cms\Controller;
+namespace app\cms\controller;
 
 
 use app\common\controller\CmsBase;

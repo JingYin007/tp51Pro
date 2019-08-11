@@ -52,8 +52,8 @@ Route::post('cms/config/ajaxOpForConfigsPage','cms/config/ajaxOpForConfigsPage')
 
 //管理员
 Route::any('cms/admin/index','cms/admin/index');
-Route::any('cms/admin/add','cms/admin/add');
-Route::any('cms/admin/edit/:id', 'cms/admin/edit');
+Route::any('cms/admin/addAdmin','cms/admin/addAdmin');
+Route::any('cms/admin/editAdmin/:id', 'cms/admin/editAdmin');
 Route::post('cms/admin/ajaxOpForPage', 'cms/admin/ajaxOpForPage');
 
 //角色管理

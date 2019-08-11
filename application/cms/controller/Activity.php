@@ -1,6 +1,6 @@
 <?php
 
-namespace app\cms\Controller;
+namespace app\cms\controller;
 
 use app\common\controller\CmsBase;
 use app\common\model\Xactivitys;

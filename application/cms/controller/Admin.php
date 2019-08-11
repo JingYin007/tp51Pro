@@ -1,6 +1,6 @@
 <?php
 
-namespace app\cms\Controller;
+namespace app\cms\controller;
 
 use app\common\controller\CmsBase;
 use app\common\model\XadminRoles;
@@ -55,7 +55,7 @@ class Admin extends CmsBase
      * @param Request $request
      * @return \think\response\View|void
      */
-    public function add(Request $request)
+    public function addAdmin(Request $request)
     {
         $adminRoles = $this->ar_model->getNormalRoles();
         if ($request->isPost()) {
@@ -63,7 +63,7 @@ class Admin extends CmsBase
             $opRes = $tag = $this->model->addAdmin($input);
             return showMsg($opRes['tag'], $opRes['message']);
         } else {
-            return view('add', [
+            return view('add_admin', [
                 'adminRoles' => $adminRoles
             ]);
         }
@@ -74,7 +74,7 @@ class Admin extends CmsBase
      * @param $id 标识ID
      * @return \think\response\View|void
      */
-    public function edit(Request $request, $id)
+    public function editAdmin(Request $request, $id)
     {
         $adminRoles = $this->ar_model->getNormalRoles();
         $adminData = $this->model->getAdminData($id);
@@ -83,7 +83,7 @@ class Admin extends CmsBase
             $opRes = $this->model->editAdmin($id, $input);
             return showMsg($opRes['tag'], $opRes['message']);
         } else {
-            return view('edit', [
+            return view('edit_admin', [
                 'admin' => $adminData,
                 'adminRoles' => $adminRoles
             ]);

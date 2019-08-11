@@ -1,6 +1,6 @@
 <?php
 
-namespace app\cms\Controller;
+namespace app\cms\controller;
 
 use app\common\model\Xadmins;
 use app\common\model\XnavMenus;

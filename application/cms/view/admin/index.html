@@ -96,7 +96,7 @@
 <script>
     //根据菜单ID 删除菜单记录
     function delAdmin(id) {
-        var toUrl = "{:url('cms/admin/edit',['id'=>'AdminID'])}";
+        var toUrl = "{:url('cms/admin/editAdmin',['id'=>'AdminID'])}";
         toUrl = toUrl.replace('AdminID', id);
         ToDelItem(id, toUrl, '.tr-item-' + id);
     }
@@ -116,13 +116,13 @@
 
     //添加导航菜单
     function addAdmins() {
-        var toUrl = "{:url('cms/admin/add')}";
+        var toUrl = "{:url('cms/admin/addAdmin')}";
         ToOpenPopups(toUrl, '✚ 添加管理员', '48%', '65%');
     }
 
     //根据菜单ID修改菜单信息
     function editAdmin(id) {
-        var toUrl = "{:url('cms/admin/edit',['id'=>'AdminID'])}";
+        var toUrl = "{:url('cms/admin/editAdmin',['id'=>'AdminID'])}";
         toUrl = toUrl.replace('AdminID', id);
         ToOpenPopups(toUrl, '✎ 管理员修改', '48%', '65%');
     }
