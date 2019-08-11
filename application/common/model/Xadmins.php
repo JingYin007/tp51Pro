@@ -113,6 +113,7 @@ class Xadmins extends BaseModel
                 'user_name' => $user_name,
                 'picture' => isset($input['picture']) ? $input['picture'] : '',
                 'password' => md5(base64_encode($input['password'])),
+                're_password' => md5(base64_encode($input['re_password'])),
                 'created_at' => date("Y-m-d H:i:s", time()),
                 'role_id' => intval($input['role_id']),
                 'status' => intval($input['status']),
@@ -121,7 +122,7 @@ class Xadmins extends BaseModel
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
             $validateRes = $this->validate($this->validate, $addData, $tokenData);
             if ($validateRes['tag']) {
-                $tag = $this->insert($addData);
+                $tag = $this->allowField(true)->save($addData);
                 $validateRes['tag'] = $tag;
                 $validateRes['message'] = $tag ? '管理员添加成功' : '添加失败';
             }
@@ -194,15 +195,17 @@ class Xadmins extends BaseModel
                     'content' => $input['content'],
                 ];
                 $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
-                $validateRes = $this->validate($this->validate, $saveData, $tokenData);
+                if ($input['password']) {
+                    //TODO 如果输入了新密码
+                    $saveData['password'] = md5(base64_encode($input['password']));
+                    $saveData['re_password'] = md5(base64_encode($input['re_password']));
+                    $validateRes = $this->validate($this->validate, $saveData, $tokenData);
+                } else {
+                    $validateRes = $this->validate($this->validate, $saveData, $tokenData, 'edit_admin_no_pwd');
+                }
+
                 if ($validateRes['tag']) {
-                    if ($input['password']) {
-                        //TODO 如果输入了新密码
-                        $saveData['password'] = md5(base64_encode($input['password']));
-                    }
-                    $tag = $this
-                        ->where('id', $id)
-                        ->update($saveData);
+                    $tag = $this->allowField(true)->save($saveData, ['id' => $id]);
                     $validateRes['tag'] = $tag;
                     $validateRes['message'] = $tag ? '管理员修改成功' : '数据无变动，修改失败';
                 }

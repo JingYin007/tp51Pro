@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-07-30 19:08:35
+Date: 2019-08-11 17:18:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,14 +96,14 @@ CREATE TABLE `tp5_xadmins` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
   `content` varchar(500) NOT NULL DEFAULT '世界上没有两片完全相同的叶子！' COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of tp5_xadmins
 -- ----------------------------
 INSERT INTO `tp5_xadmins` VALUES ('1', 'niuNeng@admin', '/cms/images/headshot/niuNeng.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子1');
-INSERT INTO `tp5_xadmins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei.png', 'db69fc039dcbd2962cb4d28f5891aae1', '2', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
-INSERT INTO `tp5_xadmins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子！');
+INSERT INTO `tp5_xadmins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei.png', 'db69fc039dcbd2962cb4d28f5891aae1', '2', '2019-08-10 14:49:22', '1', '世界上没有两片完全相同的叶子！！');
+INSERT INTO `tp5_xadmins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2019-08-11 17:06:42', '1', '世界上没有两片完全相同的叶子！！！');
 
 -- ----------------------------
 -- Table structure for tp5_xadmin_roles
@@ -149,7 +149,7 @@ CREATE TABLE `tp5_xad_lists` (
 INSERT INTO `tp5_xad_lists` VALUES ('1', '首屏加载倒计时广告', '2019-07-02 00:00:00', '2019-07-06 00:00:00', '1', '/pages/goods/adlike', '/home/images/article2.png', '0', '0', '1', 'DJS');
 INSERT INTO `tp5_xad_lists` VALUES ('2', '首屏广告', '2019-07-01 00:00:00', '2019-07-06 00:00:00', '2', '/goodsearch/index', '/home/images/article1.png', '2', '0', '0', 'SP');
 INSERT INTO `tp5_xad_lists` VALUES ('3', '首屏广告', '2019-07-01 00:00:00', '2019-07-06 00:00:00', '0', '../goodsearch/index', '/home/images/article2.png', '0', '0', '1', 'SP');
-INSERT INTO `tp5_xad_lists` VALUES ('4', '首屏广告', '2019-07-02 00:00:00', '2019-07-11 00:00:00', '2', '../goodsearch/index', '/home/images/article3.png', '0', '0', '1', 'SP');
+INSERT INTO `tp5_xad_lists` VALUES ('4', '首屏广告', '2019-07-02 00:00:00', '2019-07-11 00:00:00', '2', '../goodsearch/index1', '/home/images/article3.png', '0', '0', '1', 'SP');
 
 -- ----------------------------
 -- Table structure for tp5_xarticles
@@ -252,7 +252,7 @@ CREATE TABLE `tp5_xconfigs` (
 -- ----------------------------
 -- Records of tp5_xconfigs
 -- ----------------------------
-INSERT INTO `tp5_xconfigs` VALUES ('1', '我是一个文本', 'WSWENBEN1', 'XXEERRES', 'text', 'HELLO,不要乱改！', '0', '0', '2019-07-30 18:09:23');
+INSERT INTO `tp5_xconfigs` VALUES ('1', '我是一个文本1', 'WSWENBEN1', 'XXEERRES', 'text', 'HELLO,不要乱改！', '0', '0', '2019-07-30 18:09:23');
 INSERT INTO `tp5_xconfigs` VALUES ('2', '我是一个开关', 'SWITCHTOYOU', '1', 'checkbox', 'HAHAHA', '0', '0', '2019-07-30 18:13:34');
 INSERT INTO `tp5_xconfigs` VALUES ('3', '我是一个图片', 'TUPIAN1', '/cms/images/icon/goods_manager.png', 'button', '注意图片不要太大', '3', '0', '2019-07-30 18:21:18');
 INSERT INTO `tp5_xconfigs` VALUES ('4', 'VIP会员费用', 'VIP_MONEY', '199', 'text', 'VIP 就是牛!', '-1', '0', '2019-07-30 18:59:31');
@@ -286,7 +286,7 @@ CREATE TABLE `tp5_xgoods` (
 INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '9', '/cms/images/goods/teaImg.png', 'shijiezhenda', '1', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"><br/></p>', '11.55', '8.90', '[{\"spec_id\":\"28\",\"spec_info\":[{\"spec_name\":\"小小小\",\"spec_id\":\"30\",\"specFstID\":\"28\"},{\"spec_name\":\"大大大\",\"spec_id\":\"29\",\"specFstID\":\"28\"}],\"spec_name\":\"大小\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"},{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '391', '0000-00-00 00:00:00', '2019-07-12 16:07:18', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '只是一件裙子嘛', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '', '12', '2019-03-11 18:03:26', '2019-07-12 17:04:19', '0', '0');
 INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '别激动 ，你穿不下的', '0', '<p>似懂非懂</p>', '89.00', '68.98', '', '23', '2019-03-12 17:03:39', '2019-07-12 17:04:34', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '好咖啡，有精神头', '2', '<p>不苦，有点甜...</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-07-12 17:04:45', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '好咖啡，有精神头', '2', '<p>不苦，有点甜...</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-08-01 10:08:27', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('5', '萨缪尔红酒', '8', '/cms/images/goods/redWine.png', '不给你喝，哈哈哈哈', '1', '<p>ddd</p>', '4.33', '3.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '15', '2019-03-18 17:03:17', '2019-07-12 17:04:51', '0', '0');
 INSERT INTO `tp5_xgoods` VALUES ('7', '卡通鲨 连衣裙SR', '9', '/cms/images/goods/dress3.png', '一条裙子', '0', '<p>有点意思！</p>', '55.33', '55.22', '[{\"spec_id\":\"17\",\"spec_info\":[{\"spec_name\":\"蓝色\",\"spec_id\":\"20\",\"specFstID\":\"17\"},{\"spec_name\":\"银色\",\"spec_id\":\"19\",\"specFstID\":\"17\"}],\"spec_name\":\"颜色\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '30', '2019-03-19 10:03:48', '2019-07-12 17:04:57', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', 'HHEEE', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;&nbsp;</p>', '56.99', '55.99', '[{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '70', '2019-03-11 18:03:26', '2019-07-12 17:05:02', '0', '1');
@@ -328,8 +328,8 @@ INSERT INTO `tp5_xnav_menus` VALUES ('34', '修改今日赠言', '4', 'cms/today
 INSERT INTO `tp5_xnav_menus` VALUES ('35', '分页获取今日赠言数据', '4', 'cms/todayWord/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:38:43', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('36', '添加文章数据', '5', 'cms/article/add', '/', '1', '0', '2018-11-23 20:39:02', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('37', '修改文章数据', '5', 'cms/article/edit', '/', '1', '0', '2018-11-23 20:39:22', '1');
-INSERT INTO `tp5_xnav_menus` VALUES ('38', '添加管理员', '6', 'cms/admin/add', '/', '1', '0', '2018-11-23 20:46:18', '1');
-INSERT INTO `tp5_xnav_menus` VALUES ('39', '修改管理员数据', '6', 'cms/admin/edit', '/', '1', '0', '2018-11-23 20:46:35', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('38', '添加管理员', '6', 'cms/admin/addAdmin', '/', '1', '0', '2019-08-11 17:05:41', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('39', '修改管理员数据', '6', 'cms/admin/editAdmin', '/', '1', '0', '2019-08-11 17:05:46', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('40', '分页获取管理员数据', '6', 'cms/admin/ajaxOpForPage', '/', '1', '0', '2018-11-23 20:48:08', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('41', '增加角色', '7', 'cms/admin/addRole', '/', '1', '0', '2018-11-23 20:48:52', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('42', '修改角色数据', '7', 'cms/admin/editRole', '/', '1', '0', '2018-11-23 20:49:08', '1');
@@ -538,7 +538,7 @@ INSERT INTO `tp5_xtoday_words` VALUES ('4', '人老了的好处，就是可失�
 INSERT INTO `tp5_xtoday_words` VALUES ('5', '到底要怎么才能证明自己成长了 那种事情我也不知道啊 但是只要那一抹笑容尚存 我便心无旁骛 ', '声之形', '/home/images/ps5.png', '1', '2018-11-20 23:23:51');
 INSERT INTO `tp5_xtoday_words` VALUES ('6', '你觉得被圈养的鸟儿为什么无法自由地翱翔天际？是因为鸟笼不是属于它的东西', '东京食尸鬼A', '/home/images/ps6.png', '1', '2018-11-28 19:13:44');
 INSERT INTO `tp5_xtoday_words` VALUES ('7', '我手里拿着刀，没法抱你。我放下刀，没法保护你', '死神', '/home/images/ps7.png', '1', '2018-11-28 19:12:04');
-INSERT INTO `tp5_xtoday_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福                ', '千与千寻', '/home/images/ps8.png', '1', '2019-02-22 18:15:17');
+INSERT INTO `tp5_xtoday_words` VALUES ('8', '不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福!', '千与千寻', '/home/images/ps8.png', '1', '2019-08-11 17:17:06');
 INSERT INTO `tp5_xtoday_words` VALUES ('12', '发个非官方个', 'dfdffdfdf大概', '/cms/images/headshot/wuHuang.png', '-1', '2018-11-20 23:28:36');
 
 -- ----------------------------
