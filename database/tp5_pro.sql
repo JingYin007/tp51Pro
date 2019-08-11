@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-08-11 17:18:23
+Date: 2019-08-11 18:07:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -90,20 +90,21 @@ CREATE TABLE `tp5_xadmins` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_name` varchar(50) NOT NULL DEFAULT '' COMMENT '管理员昵称',
   `picture` varchar(255) NOT NULL DEFAULT '' COMMENT '管理员头像',
-  `password` varchar(120) NOT NULL DEFAULT '87d9bb400c0634691f0e3baaf1e2fd0d' COMMENT '管理员登录密码',
+  `password` varchar(200) NOT NULL DEFAULT '' COMMENT '管理员登录密码',
   `role_id` int(11) NOT NULL DEFAULT '0' COMMENT '角色ID',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态标识',
   `content` varchar(500) NOT NULL DEFAULT '世界上没有两片完全相同的叶子！' COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of tp5_xadmins
 -- ----------------------------
-INSERT INTO `tp5_xadmins` VALUES ('1', 'niuNeng@admin', '/cms/images/headshot/niuNeng.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2018-02-11 21:02:43', '1', '世界上没有两片完全相同的叶子1');
+INSERT INTO `tp5_xadmins` VALUES ('1', 'niuNeng@admin', '/cms/images/headshot/niuNeng.png', '87d9bb400c0634691f0e3baaf1e2fd0d', '1', '2019-08-11 18:06:28', '1', '世界上没有两片完全相同的叶子！');
 INSERT INTO `tp5_xadmins` VALUES ('2', 'baZhaHei@admin', '/cms/images/headshot/baZhaHei.png', 'db69fc039dcbd2962cb4d28f5891aae1', '2', '2019-08-10 14:49:22', '1', '世界上没有两片完全相同的叶子！！');
-INSERT INTO `tp5_xadmins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2019-08-11 17:06:42', '1', '世界上没有两片完全相同的叶子！！！');
+INSERT INTO `tp5_xadmins` VALUES ('3', 'moTzxx@admin', '/cms/images/headshot/wuHuang.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2019-08-11 18:06:38', '1', '世界上没有两片完全相同的叶子！！！');
+INSERT INTO `tp5_xadmins` VALUES ('8', 'moTzxx@admin2', '/cms/images/headshot/baZhaHei.png', 'db69fc039dcbd2962cb4d28f5891aae1', '1', '2019-08-11 18:01:35', '-1', 'eesdff');
 
 -- ----------------------------
 -- Table structure for tp5_xadmin_roles
