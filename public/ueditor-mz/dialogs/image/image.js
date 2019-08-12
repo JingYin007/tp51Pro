@@ -776,6 +776,7 @@
                 prefix = editor.getOpt('imageUrlPrefix');
             for (i = 0; i < this.imageList.length; i++) {
                 data = this.imageList[i];
+                
                 if(data == undefined){
                     continue;
                 }

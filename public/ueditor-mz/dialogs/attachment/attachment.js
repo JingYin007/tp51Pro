@@ -554,6 +554,7 @@
                 prefix = editor.getOpt('fileUrlPrefix');
             for (i = 0; i < this.fileList.length; i++) {
                 data = this.fileList[i];
+
                 if(data == undefined){
                     continue;
                 }
