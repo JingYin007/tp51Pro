@@ -181,7 +181,7 @@ class Xarticles extends BaseModel
                 'title' => $input['title'],
                 'list_order' => $input['list_order'],
                 'content' => isset($input['content']) ? $input['content'] : '',
-                'updated_at' => date('Y-m-d H:m:s', time())
+                'updated_at' => date('Y-m-d H:i:s', time())
             ];
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
             $validateRes = $this->validate($this->validate, $saveData, $tokenData);
@@ -219,8 +219,8 @@ class Xarticles extends BaseModel
             'list_order' => $data['list_order'],
             'content' => isset($data['content']) ? $data['content'] : '',
             'user_id' => 1,
-            'created_at' => date('Y-m-d H:m:s', time()),
-            'updated_at' => date('Y-m-d H:m:s', time())
+            'created_at' => date('Y-m-d H:i:s', time()),
+            'updated_at' => date('Y-m-d H:i:s', time())
         ];
         $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
         $validateRes = $this->validate($this->validate, $addData, $tokenData);

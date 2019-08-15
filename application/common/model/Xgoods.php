@@ -158,7 +158,7 @@ class Xgoods extends BaseModel
                 'attr_info' => isset($input['attr_info']) ? $input['attr_info'] : '',
                 'stock' => isset($input['stock']) ? intval($input['stock']) : 0,
                 'status' => isset($input['status']) ? intval($input['status']) : 0,
-                'updated_at' => date('Y-m-d H:m:s', time())
+                'updated_at' => date('Y-m-d H:i:s', time())
             ];
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
             $validateRes = $this->validate($this->validate, $saveData, $tokenData);
@@ -193,7 +193,7 @@ class Xgoods extends BaseModel
         $goods_id = isset($goods_id) ? intval($goods_id) : 0;
         $saveTag = $this
             ->where('goods_id', $goods_id)
-            ->update(['status' => $okStatus, 'updated_at' => date('Y-m-d H:m:s', time())]);
+            ->update(['status' => $okStatus, 'updated_at' => date('Y-m-d H:i:s', time())]);
         if (!$saveTag) {
             $message = "状态更改失败";
         }
@@ -221,8 +221,8 @@ class Xgoods extends BaseModel
             'attr_info' => isset($data['attr_info']) ? $data['attr_info'] : '',
             'stock' => isset($data['stock']) ? intval($data['stock']) : 0,
             'status' => isset($data['status']) ? intval($data['status']) : 0,
-            'created_at' => date('Y-m-d H:m:s', time()),
-            'updated_at' => date('Y-m-d H:m:s', time())
+            'created_at' => date('Y-m-d H:i:s', time()),
+            'updated_at' => date('Y-m-d H:i:s', time())
         ];
         $tokenData = ['__token__' => isset($data['__token__']) ? $data['__token__'] : '',];
         $validateRes = $this->validate($this->validate, $addData, $tokenData);

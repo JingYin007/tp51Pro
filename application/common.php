@@ -38,7 +38,7 @@ function uploadSlideShow($slide_show = '',$tag_id = 0,$type = 0){
                 'tag_id' => $tag_id,
                 'type'  => $type,
                 'picture' => $value,
-                'add_time' => date('Y-m-d H:m:s', time()),
+                'add_time' => date('Y-m-d H:i:s', time()),
 
             ];
             Db('xupload_imgs')

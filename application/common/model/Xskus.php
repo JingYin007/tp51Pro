@@ -42,7 +42,7 @@ class Xskus extends BaseModel
                             'selling_price' => $selling_price,
                             'stock' => $stock,
                             'sold_num' => $sold_num,
-                            'updated_at' => date('Y-m-d H:m:s', time())]);
+                            'updated_at' => date('Y-m-d H:i:s', time())]);
                 } else {
                     $this->insert([
                         'goods_id' => $goodsID,
@@ -52,7 +52,7 @@ class Xskus extends BaseModel
                         'selling_price' => $selling_price,
                         'stock' => $stock,
                         'sold_num' => $sold_num,
-                        'updated_at' => date('Y-m-d H:m:s', time())]);
+                        'updated_at' => date('Y-m-d H:i:s', time())]);
                 }
             }
         }
