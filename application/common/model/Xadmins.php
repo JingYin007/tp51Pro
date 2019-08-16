@@ -21,9 +21,10 @@ class Xadmins extends BaseModel
      * 分页获取管理员数据
      * @param $curr_page
      * @param $limit
+     * @param null $search
      * @return array
      */
-    public function getAdminsForPage($curr_page, $limit)
+    public function getAdminsForPage($curr_page, $limit,$search = null)
     {
         $where[] = ["a.status",'<>',-1];
         $res = $this
@@ -32,6 +33,7 @@ class Xadmins extends BaseModel
             ->join('xadmin_roles ar', 'a.role_id = ar.id')
             ->order('a.id', 'desc')
             ->where($where)
+            ->whereLike('a.user_name|a.content', '%' . $search . '%')
             ->limit($limit * ($curr_page - 1), $limit)
             ->select()
             ->toArray();
@@ -68,13 +70,15 @@ class Xadmins extends BaseModel
 
     /**
      * 获取后台可显示管理员用户的数目
-     * @return mixed
+     * @param null $search
+     * @return float|string
      */
-    public function getAdminsCount()
+    public function getAdminsCount($search = null)
     {
         $res = $this
             ->field('*')
             ->where([["status",'<>',-1]])
+            ->whereLike('user_name|content', '%' . $search . '%')
             ->count();
         return $res;
     }

@@ -36,10 +36,10 @@ class Admin extends CmsBase
      */
     public function index(Request $request)
     {
-        $list = $this->model
-            ->getAdminsForPage(1, $this->page_limit);
         $search = $request->param('str_search');
-        $record_num = $this->model->getAdminsCount();
+        $list = $this->model
+            ->getAdminsForPage(1, $this->page_limit,$search);
+        $record_num = $this->model->getAdminsCount($search);
 
         return view('index',
             [
