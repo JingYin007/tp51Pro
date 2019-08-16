@@ -74,7 +74,7 @@ class Xadmins extends BaseModel
     {
         $res = $this
             ->field('*')
-            ->where("status", 1)
+            ->where([["status",'<>',-1]])
             ->count();
         return $res;
     }
@@ -274,7 +274,7 @@ class Xadmins extends BaseModel
                     $message = "登录失败，请检查您的信息";
                 }
             } else {
-                $message = "该用户名不存在";
+                $message = "该用户名失效或不存在";
             }
         }
         return [
