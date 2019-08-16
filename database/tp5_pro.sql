@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2019-08-11 18:07:45
+Date: 2019-08-16 09:35:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -287,10 +287,10 @@ CREATE TABLE `tp5_xgoods` (
 INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '9', '/cms/images/goods/teaImg.png', 'shijiezhenda', '1', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"><br/></p>', '11.55', '8.90', '[{\"spec_id\":\"28\",\"spec_info\":[{\"spec_name\":\"小小小\",\"spec_id\":\"30\",\"specFstID\":\"28\"},{\"spec_name\":\"大大大\",\"spec_id\":\"29\",\"specFstID\":\"28\"}],\"spec_name\":\"大小\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"},{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '391', '0000-00-00 00:00:00', '2019-07-12 16:07:18', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '只是一件裙子嘛', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '', '12', '2019-03-11 18:03:26', '2019-07-12 17:04:19', '0', '0');
 INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '别激动 ，你穿不下的', '0', '<p>似懂非懂</p>', '89.00', '68.98', '', '23', '2019-03-12 17:03:39', '2019-07-12 17:04:34', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '好咖啡，有精神头', '2', '<p>不苦，有点甜...</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-08-01 10:08:27', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '好咖啡，有精神头', '2', '<p>不苦，有点甜...&nbsp;</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-08-14 17:08:17', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('5', '萨缪尔红酒', '8', '/cms/images/goods/redWine.png', '不给你喝，哈哈哈哈', '1', '<p>ddd</p>', '4.33', '3.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '15', '2019-03-18 17:03:17', '2019-07-12 17:04:51', '0', '0');
 INSERT INTO `tp5_xgoods` VALUES ('7', '卡通鲨 连衣裙SR', '9', '/cms/images/goods/dress3.png', '一条裙子', '0', '<p>有点意思！</p>', '55.33', '55.22', '[{\"spec_id\":\"17\",\"spec_info\":[{\"spec_name\":\"蓝色\",\"spec_id\":\"20\",\"specFstID\":\"17\"},{\"spec_name\":\"银色\",\"spec_id\":\"19\",\"specFstID\":\"17\"}],\"spec_name\":\"颜色\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '30', '2019-03-19 10:03:48', '2019-07-12 17:04:57', '0', '1');
-INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', 'HHEEE', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;&nbsp;</p>', '56.99', '55.99', '[{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '70', '2019-03-11 18:03:26', '2019-07-12 17:05:02', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('8', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', 'HHEEE', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/>&nbsp;</p><p></p>', '56.99', '55.99', '[{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"},{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"L(建议100-110斤)\",\"spec_id\":\"13\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '70', '2019-03-11 18:03:26', '2019-08-14 18:08:31', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xnav_menus
@@ -307,7 +307,7 @@ CREATE TABLE `tp5_xnav_menus` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '导航类型 0：菜单类  1：权限链接',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COMMENT='菜单导航表';
+) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COMMENT='菜单导航表';
 
 -- ----------------------------
 -- Records of tp5_xnav_menus
@@ -373,6 +373,7 @@ INSERT INTO `tp5_xnav_menus` VALUES ('93', '配置列表', '3', 'cms/config/inde
 INSERT INTO `tp5_xnav_menus` VALUES ('94', '添加配置项', '93', 'cms/config/add', '/', '1', '0', '2019-07-26 15:08:38', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('95', '配置项修改', '93', 'cms/config/edit', '/', '1', '0', '2019-07-29 14:30:13', '1');
 INSERT INTO `tp5_xnav_menus` VALUES ('96', '分页获取配置项数据', '93', 'cms/config/ajaxOpForConfigsPage', '/', '1', '0', '2019-07-29 18:59:31', '1');
+INSERT INTO `tp5_xnav_menus` VALUES ('97', 'ajax 根据分类获取参加活动的商品', '61', 'cms/goods/ajaxGetCatGoodsForActivity', '/', '1', '0', '2019-08-16 09:31:52', '1');
 
 -- ----------------------------
 -- Table structure for tp5_xphotos
@@ -448,17 +449,17 @@ INSERT INTO `tp5_xskus` VALUES ('45', '7', '', '19,16', '银色,S(建议80-90斤
 INSERT INTO `tp5_xskus` VALUES ('46', '7', '', '19,12', '银色,M(建议90-100斤)', '12.00', '3', '2', '2019-05-05 18:05:28', '0');
 INSERT INTO `tp5_xskus` VALUES ('47', '7', '', '19,13', '银色,L(建议100-110斤)', '14.00', '6', '3', '2019-05-05 18:05:28', '0');
 INSERT INTO `tp5_xskus` VALUES ('48', '7', '', '19,14', '银色,XL(建议110-120斤)', '22.00', '2', '2', '2019-05-05 18:05:28', '0');
-INSERT INTO `tp5_xskus` VALUES ('49', '4', '', '60', '小杯', '12.00', '22', '1', '2019-05-05 18:05:04', '0');
-INSERT INTO `tp5_xskus` VALUES ('50', '4', '', '61', '中杯', '15.00', '20', '4', '2019-05-05 18:05:04', '0');
-INSERT INTO `tp5_xskus` VALUES ('51', '4', '', '62', '大杯', '18.00', '30', '6', '2019-05-05 18:05:04', '0');
+INSERT INTO `tp5_xskus` VALUES ('49', '4', '', '60', '小杯', '12.00', '22', '1', '2019-08-14 17:08:17', '0');
+INSERT INTO `tp5_xskus` VALUES ('50', '4', '', '61', '中杯', '15.00', '20', '4', '2019-08-14 17:08:17', '0');
+INSERT INTO `tp5_xskus` VALUES ('51', '4', '', '62', '大杯', '18.00', '30', '6', '2019-08-14 17:08:17', '0');
 INSERT INTO `tp5_xskus` VALUES ('52', '5', '', '61', '中杯', '15.00', '15', '11', '2019-05-05 18:05:04', '0');
 INSERT INTO `tp5_xskus` VALUES ('53', '1', '', '60', '小杯', '22.00', '133', '11', '2019-07-12 16:56:18', '-1');
 INSERT INTO `tp5_xskus` VALUES ('54', '1', '/upload/20190712/6dc805ca6e5628fd9f88e95d980e37db.jpg', '61', '中杯', '25.00', '125', '22', '2019-07-12 16:56:18', '-1');
 INSERT INTO `tp5_xskus` VALUES ('55', '1', '/upload/20190712/6aa9c36bcf13b12d1705fb0cbf9efe09.jpg', '62', '大杯', '28.00', '133', '12', '2019-07-12 16:56:18', '-1');
-INSERT INTO `tp5_xskus` VALUES ('56', '8', '', '16', 'S(建议80-90斤左右)', '124.00', '13', '1', '2019-05-05 18:05:08', '0');
-INSERT INTO `tp5_xskus` VALUES ('57', '8', '', '12', 'M(建议90-100斤)', '124.00', '22', '2', '2019-05-05 18:05:08', '0');
-INSERT INTO `tp5_xskus` VALUES ('58', '8', '', '13', 'L(建议100-110斤)', '124.00', '23', '1', '2019-05-05 18:05:08', '0');
-INSERT INTO `tp5_xskus` VALUES ('59', '8', '', '14', 'XL(建议110-120斤)', '124.00', '12', '1', '2019-05-05 18:05:08', '0');
+INSERT INTO `tp5_xskus` VALUES ('56', '8', '', '16', 'S(建议80-90斤左右)', '124.00', '13', '1', '2019-08-14 18:08:31', '0');
+INSERT INTO `tp5_xskus` VALUES ('57', '8', '', '12', 'M(建议90-100斤)', '124.00', '22', '2', '2019-08-14 18:08:31', '0');
+INSERT INTO `tp5_xskus` VALUES ('58', '8', '', '13', 'L(建议100-110斤)', '124.00', '23', '1', '2019-08-14 18:08:31', '0');
+INSERT INTO `tp5_xskus` VALUES ('59', '8', '', '14', 'XL(建议110-120斤)', '124.00', '12', '1', '2019-08-14 18:08:31', '0');
 INSERT INTO `tp5_xskus` VALUES ('60', '1', '', '30,12', '小小小,M(建议90-100斤)', '0.00', '0', '0', '2019-07-12 16:07:18', '0');
 INSERT INTO `tp5_xskus` VALUES ('61', '1', '', '30,14', '小小小,XL(建议110-120斤)', '0.00', '0', '0', '2019-07-12 16:07:18', '0');
 INSERT INTO `tp5_xskus` VALUES ('62', '1', '/upload/20190712/26b2b9da92187011ec79e1c31390f770.jpg', '30,16', '小小小,S(建议80-90斤左右)', '0.00', '0', '0', '2019-07-12 16:07:18', '0');
