@@ -10,6 +10,7 @@
         <form class="form-search" action="{:url('cms/admin/index')}" method="post">
             <input type="hidden" name="record_num" class="record_num" value="<?php echo $record_num; ?>">
             <input type="hidden" name="page_limit" class="page_limit" value="{$page_limit}">
+            <input type="hidden" name="curr_page" class="curr_page" value="1">
             <input type="text" value="{$search}" name="str_search" placeholder="请输入昵称或备注信息"
                    class="layui-input search_input">
         </form>
