@@ -25,12 +25,13 @@ class Xadmins extends BaseModel
      */
     public function getAdminsForPage($curr_page, $limit)
     {
+        $where[] = ["a.status",'<>',-1];
         $res = $this
             ->alias('a')
             ->field('a.*,ar.user_name role_name')
             ->join('xadmin_roles ar', 'a.role_id = ar.id')
             ->order('a.id', 'desc')
-            ->where("a.status", 1)
+            ->where($where)
             ->limit($limit * ($curr_page - 1), $limit)
             ->select()
             ->toArray();
@@ -40,7 +41,7 @@ class Xadmins extends BaseModel
                 $statusTip = '正常';
                 $statusColor = 'blue';
             } else {
-                $statusTip = '删除';
+                $statusTip = '无效';
                 $statusColor = 'cyan';
             }
             $roleTag = $v['role_id'] % 5;
@@ -115,8 +116,8 @@ class Xadmins extends BaseModel
                 'password' => md5(base64_encode($input['password'])),
                 're_password' => md5(base64_encode($input['re_password'])),
                 'created_at' => date("Y-m-d H:i:s", time()),
-                'role_id' => intval($input['role_id']),
-                'status' => intval($input['status']),
+                'role_id' => isset($input['role_id'])?intval($input['role_id']):0,
+                'status' => isset($input['status'])?intval($input['status']):0,
                 'content' => $input['content'],
             ];
             $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
@@ -141,9 +142,9 @@ class Xadmins extends BaseModel
     public function editCurrAdmin($id, $input, $cmsAID)
     {
         $saveData = [
-            'user_name' => $input['user_name'],
-            'picture' => $input['picture'],
-            'content' => $input['content'],
+            'user_name' => isset($input['user_name'])?$input['user_name']:null,
+            'picture' => isset($input['picture'])?$input['picture']:'',
+            'content' => isset($input['content'])?$input['content']:'',
         ];
         $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
         $validateRes = $this->validate($this->validate, $saveData, $tokenData, 'cms_admin');
@@ -188,10 +189,10 @@ class Xadmins extends BaseModel
                 $validateRes['message'] = '此昵称已被占用，请换一个！';
             } else {
                 $saveData = [
-                    'user_name' => $input['user_name'],
-                    'picture' => $input['picture'],
-                    'role_id' => $input['role_id'],
-                    'status' => $input['status'],
+                    'user_name' => isset($input['user_name'])?$input['user_name']:'',
+                    'picture' => isset($input['picture']) ? $input['picture'] : '',
+                    'role_id' => isset($input['role_id'])?intval($input['role_id']):0,
+                    'status' => isset($input['status'])?intval($input['status']):0,
                     'content' => $input['content'],
                 ];
                 $tokenData = ['__token__' => isset($input['__token__']) ? $input['__token__'] : '',];
