@@ -15,9 +15,9 @@
             </select>
         </div>
 
-        <div class="layui-input-inline" style="width: 100px">
-            <select name="CatType">
-                <option value="0">全部分类</option>
+        <div class="layui-input-inline" style="width: 145px">
+            <select name="CatType" lay-search="">
+                <option value="">搜索或直接选择</option>
                 {volist name="categoryList" id="cl"}
                 <option value="{$cl.cat_id}" {$CatType==$cl.cat_id?"selected":""}>{$cl.cat_name}</option>
                 {/volist}
