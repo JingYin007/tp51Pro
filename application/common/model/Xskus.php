@@ -39,6 +39,7 @@ class Xskus extends BaseModel
                         ->update([
                             'status' => 0,
                             'sku_img' => $sku_img,
+                            'spec_name' => $spec_name,
                             'selling_price' => $selling_price,
                             'stock' => $stock,
                             'sold_num' => $sold_num,
