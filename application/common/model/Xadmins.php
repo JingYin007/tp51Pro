@@ -75,10 +75,15 @@ class Xadmins extends BaseModel
      */
     public function getAdminsCount($search = null)
     {
+
+        $where[] = ["a.status",'<>',-1];
         $res = $this
-            ->field('*')
-            ->where([["status",'<>',-1]])
-            ->whereLike('user_name|content', '%' . $search . '%')
+            ->alias('a')
+            ->field('a.*,ar.user_name role_name')
+            ->join('xadmin_roles ar', 'a.role_id = ar.id')
+            ->order('a.id', 'desc')
+            ->where($where)
+            ->whereLike('a.user_name|a.content', '%' . $search . '%')
             ->count();
         return $res;
     }
