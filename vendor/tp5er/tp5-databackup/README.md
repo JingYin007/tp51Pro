@@ -1,7 +1,21 @@
 
+### Packagist 镜像使用方法
+方法一： 修改 composer 的全局配置文件（推荐方式）
+~~~
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+~~~
+方法二： 修改当前项目的 composer.json 配置文件：
+
+~~~
+composer config repo.packagist composer https://packagist.phpcomposer.com
+~~~
+
+
 ### 使用composer进行安装
 ~~~
-     composer require tp5er/tp5-databackup dev-master
+    composer require tp5er/tp5-databackup
+	//或
+    composer require tp5er/tp5-databackup dev-master
 ~~~
 
 ### 使用composer update进行安装
@@ -9,11 +23,21 @@
     "require": {
         "tp5er/tp5-databackup": "dev-master"
     },
+    //或
+    "require": {
+        "tp5er/tp5-databackup": "1.0.0"
+    },
 ~~~
 
 ### 引入类文件
 ~~~
 use \tp5er\Backup;
+~~~
+
+### 参数说明
+~~~
+$start：无论是备份还是还原只要一张表备份完成$start就是返回的0
+$file ：sql文件的名字，下面有名字命名规范，如果名字命令不规范，在展示列表中就会出现错误
 ~~~
 
 ### 配置文件
@@ -50,7 +74,7 @@ return $this->fetch('index',['list'=>$db->dataList()]);
 ~~~
  $tables="数据库表1";
  $start= $db->setFile($file)->backup($tables[$id], 0);
- 当$start返回0的时候就表示备份成功
+
 ~~~
 
 ### 导入表
