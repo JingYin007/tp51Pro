@@ -12,7 +12,13 @@
             "type": "zip",
             "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/1441011fb7ecdd8cc689878f54f8b58a6805f870",
             "reference": "1441011fb7ecdd8cc689878f54f8b58a6805f870",
-            "shasum": ""
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
             "ext-mbstring": "*",
@@ -66,18 +72,24 @@
     },
     {
         "name": "topthink/framework",
-        "version": "v5.1.29",
-        "version_normalized": "5.1.29.0",
+        "version": "v5.1.41",
+        "version_normalized": "5.1.41.0",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/framework.git",
-            "reference": "f1d8ee3a91e8f504507edb5dcc49c50c47b4500f"
+            "reference": "7137741a323a4a60cfca334507cd1812fac91bb2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/top-think/framework/zipball/f1d8ee3a91e8f504507edb5dcc49c50c47b4500f",
-            "reference": "f1d8ee3a91e8f504507edb5dcc49c50c47b4500f",
-            "shasum": ""
+            "url": "https://api.github.com/repos/top-think/framework/zipball/7137741a323a4a60cfca334507cd1812fac91bb2",
+            "reference": "7137741a323a4a60cfca334507cd1812fac91bb2",
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
             "php": ">=5.6.0",
@@ -92,7 +104,7 @@
             "sebastian/phpcpd": "2.*",
             "squizlabs/php_codesniffer": "2.*"
         },
-        "time": "2018-11-11T01:17:33+00:00",
+        "time": "2021-01-11T02:51:29+00:00",
         "type": "think-framework",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -130,7 +142,13 @@
             "type": "zip",
             "url": "https://api.github.com/repos/top-think/think-captcha/zipball/54c8a51552f99ff9ea89ea9c272383a8f738ceee",
             "reference": "54c8a51552f99ff9ea89ea9c272383a8f738ceee",
-            "shasum": ""
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
             "topthink/framework": "5.1.*"
@@ -160,26 +178,32 @@
     },
     {
         "name": "topthink/think-installer",
-        "version": "v2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "v2.0.5",
+        "version_normalized": "2.0.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/top-think/think-installer.git",
-            "reference": "f5400a12c60e513911aef41fe443fa6920952675"
+            "reference": "38ba647706e35d6704b5d370c06f8a160b635f88"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/top-think/think-installer/zipball/f5400a12c60e513911aef41fe443fa6920952675",
-            "reference": "f5400a12c60e513911aef41fe443fa6920952675",
-            "shasum": ""
+            "url": "https://api.github.com/repos/top-think/think-installer/zipball/38ba647706e35d6704b5d370c06f8a160b635f88",
+            "reference": "38ba647706e35d6704b5d370c06f8a160b635f88",
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
-            "composer-plugin-api": "^1.0"
+            "composer-plugin-api": "^1.0||^2.0"
         },
         "require-dev": {
-            "composer/composer": "1.0.*@dev"
+            "composer/composer": "^1.0||^2.0"
         },
-        "time": "2018-05-11T06:45:42+00:00",
+        "time": "2021-01-14T12:12:14+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "think\\composer\\Plugin"
@@ -214,7 +238,13 @@
             "type": "zip",
             "url": "https://api.github.com/repos/top-think/think-migration/zipball/70c89850ca29c2eab988c7c3475d1d5331901bb8",
             "reference": "70c89850ca29c2eab988c7c3475d1d5331901bb8",
-            "shasum": ""
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
             "topthink/framework": "5.1.*"
@@ -249,20 +279,26 @@
         "source": {
             "type": "git",
             "url": "https://github.com/tp5er/tp5-databackup.git",
-            "reference": "2a5832c4e75bf17164c277023c63d6cafab46812"
+            "reference": "e481142a6ff4916e94127cf533fe0bb5aba5d4e8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tp5er/tp5-databackup/zipball/2a5832c4e75bf17164c277023c63d6cafab46812",
-            "reference": "2a5832c4e75bf17164c277023c63d6cafab46812",
-            "shasum": ""
+            "url": "https://api.github.com/repos/tp5er/tp5-databackup/zipball/e481142a6ff4916e94127cf533fe0bb5aba5d4e8",
+            "reference": "e481142a6ff4916e94127cf533fe0bb5aba5d4e8",
+            "shasum": "",
+            "mirrors": [
+                {
+                    "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                    "preferred": true
+                }
+            ]
         },
         "require": {
             "php": ">=5.4.0"
         },
-        "time": "2018-10-05T02:50:18+00:00",
+        "time": "2020-12-10T12:24:49+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "tp5er\\": "src/"

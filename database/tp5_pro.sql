@@ -29,7 +29,7 @@ CREATE TABLE `tp5_xactivitys` (
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序，数字越大越靠前',
   `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否在 app 首页显示  0：不显示  1：显示',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT 'app前端显示状态 0：正常，-1已删除',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '文章更新时间',
+  `updated_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '文章更新时间',
   PRIMARY KEY (`id`,`act_tag`),
   UNIQUE KEY `act_tag` (`act_tag`) USING BTREE COMMENT '唯一标识索引',
   KEY `select` (`id`,`title`,`act_url`) USING BTREE COMMENT '便于查询'
@@ -161,7 +161,7 @@ CREATE TABLE `tp5_xarticles` (
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '作者ID',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00',
   `list_order` int(11) NOT NULL DEFAULT '0' COMMENT '排序标识 越大越靠前',
   `content` text NOT NULL COMMENT '文章内容',
   PRIMARY KEY (`id`)
@@ -274,8 +274,8 @@ CREATE TABLE `tp5_xgoods` (
   `selling_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品售价',
   `attr_info` text NOT NULL COMMENT 'json形式保存的属性数据',
   `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存，注意退货未支付订单时的数目变化',
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '商品创建时间',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '商品更新时间',
+  `created_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' COMMENT '商品创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '商品更新时间',
   `act_type` varchar(2) NOT NULL DEFAULT '0' COMMENT '商品参加活动类型 0：默认',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态 -1：删除 0：待上架 1：已上架 2：预售 ',
   PRIMARY KEY (`goods_id`)
@@ -284,7 +284,7 @@ CREATE TABLE `tp5_xgoods` (
 -- ----------------------------
 -- Records of tp5_xgoods
 -- ----------------------------
-INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '9', '/cms/images/goods/teaImg.png', 'shijiezhenda', '1', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"><br/></p>', '11.55', '8.90', '[{\"spec_id\":\"28\",\"spec_info\":[{\"spec_name\":\"小小小\",\"spec_id\":\"30\",\"specFstID\":\"28\"},{\"spec_name\":\"大大大\",\"spec_id\":\"29\",\"specFstID\":\"28\"}],\"spec_name\":\"大小\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"},{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '391', '0000-00-00 00:00:00', '2019-07-12 16:07:18', '0', '1');
+INSERT INTO `tp5_xgoods` VALUES ('1', '一杯香茗', '9', '/cms/images/goods/teaImg.png', 'shijiezhenda', '1', '<p style=\"text-align: center;\">我也不想打酱油啊啊&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0022.gif\"/></p><p style=\"text-align: center;\"><br/></p>', '11.55', '8.90', '[{\"spec_id\":\"28\",\"spec_info\":[{\"spec_name\":\"小小小\",\"spec_id\":\"30\",\"specFstID\":\"28\"},{\"spec_name\":\"大大大\",\"spec_id\":\"29\",\"specFstID\":\"28\"}],\"spec_name\":\"大小\"},{\"spec_id\":\"11\",\"spec_info\":[{\"spec_name\":\"M(建议90-100斤)\",\"spec_id\":\"12\",\"specFstID\":\"11\"},{\"spec_name\":\"XL(建议110-120斤)\",\"spec_id\":\"14\",\"specFstID\":\"11\"},{\"spec_name\":\"S(建议80-90斤左右)\",\"spec_id\":\"16\",\"specFstID\":\"11\"}],\"spec_name\":\"尺码【连衣裙专用】\"}]', '391', '1970-01-01 10:00:00', '2019-07-12 16:07:18', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('2', '风中仙子连衣裙', '9', '/cms/images/goods/dress.png', '只是一件裙子嘛', '2', '<p>dsss&nbsp;<img src=\"http://img.baidu.com/hi/jx2/j_0012.gif\"/></p>', '56.99', '55.99', '', '12', '2019-03-11 18:03:26', '2019-07-12 17:04:19', '0', '0');
 INSERT INTO `tp5_xgoods` VALUES ('3', '夏栀子连衣裙', '9', '/cms/images/goods/dress2.png', '别激动 ，你穿不下的', '0', '<p>似懂非懂</p>', '89.00', '68.98', '', '23', '2019-03-12 17:03:39', '2019-07-12 17:04:34', '0', '1');
 INSERT INTO `tp5_xgoods` VALUES ('4', '热浪Caffee', '8', '/cms/images/goods/hotCoff.png', '好咖啡，有精神头', '2', '<p>不苦，有点甜...&nbsp;</p>', '5.60', '4.22', '[{\"spec_id\":\"59\",\"spec_info\":[{\"spec_name\":\"小杯\",\"spec_id\":\"60\",\"specFstID\":\"59\"},{\"spec_name\":\"中杯\",\"spec_id\":\"61\",\"specFstID\":\"59\"},{\"spec_name\":\"大杯\",\"spec_id\":\"62\",\"specFstID\":\"59\"}],\"spec_name\":\"容量【咖啡专用】\"}]', '72', '2019-03-14 11:03:58', '2019-08-14 17:08:17', '0', '1');
@@ -411,7 +411,7 @@ CREATE TABLE `tp5_xskus` (
   `selling_price` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '商品售价',
   `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `sold_num` int(11) NOT NULL DEFAULT '0' COMMENT '销量',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态  0:显示（正常） -1：删除（失效）',
   PRIMARY KEY (`sku_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COMMENT='商品 SKU 库存表\r\n\r\n用于存储商品不同属性搭配的数目、价格等';
@@ -526,7 +526,7 @@ CREATE TABLE `tp5_xtoday_words` (
   `from` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '出处',
   `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '插图',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，1：正常，-1：删除',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `updated_at` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='今日赠言表';
 
@@ -551,7 +551,7 @@ CREATE TABLE `tp5_xupload_imgs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_id` int(11) NOT NULL DEFAULT '0' COMMENT '当type=0 时，对应商品ID；当type=1时，对应评论订单ID',
   `picture` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '存储的图片路径',
-  `add_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` timestamp NOT NULL DEFAULT '1970-01-01 10:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '类型 0：商品轮播图（app界面） 1: 评论订单中的图片',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态  1：正常  -1：删除',
   PRIMARY KEY (`id`)

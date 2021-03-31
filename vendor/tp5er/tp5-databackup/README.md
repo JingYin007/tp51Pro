@@ -1,21 +1,34 @@
 
-### Packagist 镜像使用方法
-方法一： 修改 composer 的全局配置文件（推荐方式）
+## 最佳数据备份还原- shell脚本方式
 ~~~
-composer config -g repo.packagist composer https://packagist.phpcomposer.com
-~~~
-方法二： 修改当前项目的 composer.json 配置文件：
+
+//备份整个数据库
+mysqldump -uroot -hhost -ppassword dbname > backdb.sql
+//备份数据库中的某个表
+mysqldump -uroot -hhost -ppassword dbname tbname1, tbname2 > backdb.sql
+//备份多个数据库
+mysqldump -uroot -hhost -ppassword --databases dbname1, dbname2 > backdb.sql
+//备份系统中所有数据库
+mysqldump -uroot -hhost -ppassword --all-databases > backdb.sql
+
+
+//恢复
+mysql -uroot -p'123456' dbname < backdb.sql 
 
 ~~~
-composer config repo.packagist composer https://packagist.phpcomposer.com
-~~~
+
+
+## 使用本类进行数据库备份
+
+> 本库目前只支持thinkphp5.0.* 版本，如果需要使用其他，请自行修改版本中的方法
+
+> demo 下载地址
+> https://github.com/tp5er/tp5-databackup/tree/master/test
 
 
 ### 使用composer进行安装
 ~~~
-    composer require tp5er/tp5-databackup
-	//或
-    composer require tp5er/tp5-databackup dev-master
+composer require tp5er/tp5-databackup dev-master
 ~~~
 
 ### 使用composer update进行安装
@@ -23,10 +36,7 @@ composer config repo.packagist composer https://packagist.phpcomposer.com
     "require": {
         "tp5er/tp5-databackup": "dev-master"
     },
-    //或
-    "require": {
-        "tp5er/tp5-databackup": "1.0.0"
-    },
+
 ~~~
 
 ### 引入类文件
@@ -126,5 +136,7 @@ max_execution_time =1000
 ~~~
 
 
-无论您是大神，还是小白都希望您们加群进行交流，共同学习共同进步。
-# 技术交流与bug提交QQ群：368683534!!!!
+## 注意
+由于本来采用的是thinkphp db链接方式，存在很多问题，并且只兼容thinkphp5.0.*版本，因此本类将被不在进行维护，计划在某个时间段进行重构。
+
+
